@@ -10,6 +10,8 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@fontsource-variable/grandstander": "^5.0.21",
+    "@fontsource/luckiest-guy": "^5.0.19",
     "@fortawesome/fontawesome-svg-core": "^6.5.2",
     "@fortawesome/free-brands-svg-icons": "^6.5.2",
     "@fortawesome/pro-duotone-svg-icons": "^6.5.2",
