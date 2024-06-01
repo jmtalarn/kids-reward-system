@@ -14,9 +14,18 @@ export class ConfigService {
 
   addParticipant(participant: Participant): void {
     if (!participant.id) {
+      console.log('NEW ONE', participant);
       participant.id = window.crypto.randomUUID();
+      this.config.participants.push(participant);
+    } else {
+      this.config.participants = this.config.participants.map(item => {
+        if (item.id === participant.id) {
+          console.log('EDIT IT', participant);
+          return participant;
+        }
+        return item;
+      });
     }
-    this.config.participants.push(participant);
   }
   removeParticipant(participantId: string): void {
     this.config.participants = this.config.participants.filter(participant => participant.id !== participantId);

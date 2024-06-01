@@ -1,7 +1,7 @@
 import React, { createContext, useContext, useReducer } from 'react';
-import { Config } from '../../core/domain/Config';
-import { ConfigService } from '../../core/services/ConfigService';
-import { Participant } from '../../core/domain/Participant';
+import { Config } from '../../../core/domain/Config';
+import { ConfigService } from '../../../core/services/ConfigService';
+import { Participant } from '../../../core/domain/Participant';
 
 const configService = new ConfigService();
 
