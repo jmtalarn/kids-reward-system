@@ -1,4 +1,3 @@
-'use client';
 import { ComponentProps, ReactNode, CSSProperties } from 'react';
 import styles from './TextArea.module.css';
 

@@ -1,7 +1,6 @@
-'use client';
-import { useEffect, useState, ComponentProps, ReactNode, CSSProperties } from 'react';
+import { ComponentProps, ReactNode, CSSProperties } from 'react';
 import styles from './Select.module.css';
-import ReactSelect, { Props, StylesConfig } from 'react-select';
+import ReactSelect, { Props } from 'react-select';
 
 type AdditionalProperties = {
   label?: string;

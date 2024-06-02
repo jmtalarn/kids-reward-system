@@ -1,12 +1,13 @@
 :root {
   --text-color: white;
   /** CSS DARK THEME PRIMARY COLORS */
-  --color-primary-100: #f07d2b;
-  --color-primary-200: #f58c44;
-  --color-primary-300: #f99a5b;
-  --color-primary-400: #fda972;
-  --color-primary-500: #ffb789;
-  --color-primary-600: #ffc5a0;
+  --color-primary-100: #1ea7fd;
+  --color-primary-200: #46b7fd;
+  --color-primary-300: #6fc7fe;
+  --color-primary-400: #97d6fe;
+  --color-primary-500: #c0e6fe;
+  --color-primary-600: #d4eeff;
+
   /** CSS DARK THEME SURFACE COLORS */
   --color-surface-100: #09133b;
   --color-surface-200: #25284f;

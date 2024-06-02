@@ -1,4 +1,3 @@
-'use client';
 import { useEffect, useState, ComponentProps } from 'react';
 import styles from './Button.module.css';
 

@@ -5,7 +5,6 @@
 import { ConfigProvider } from './adapters/ui/context/ConfigContext';
 import PWABadge from './PWABadge.tsx';
 import { Router } from './adapters/ui/routing/router';
-import { Navigation } from './adapters/ui/components/Navigation';
 import './App.css';
 
 function App() {

@@ -1,0 +1,27 @@
+.close-button {
+  background: none;
+  font-size: 2rem;
+  padding: 0;
+  outline: none;
+  right: 0;
+  overflow: hidden;
+  border: none;
+  right: 10px;
+  position: absolute;
+}
+.close-button:focus,
+.close-button:focus-visible {
+  outline: none;
+}
+.close-button:hover {
+  border: none;
+  color: salmon;
+}
+.dialog {
+  width: 50%;
+}
+
+.header {
+  position: relative;
+  height: 3rem;
+}
