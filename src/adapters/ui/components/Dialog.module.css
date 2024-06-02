@@ -17,12 +17,18 @@
   border: none;
   color: salmon;
 }
+
+.option-button {
+  background: none;
+  font-size: 4rem;
+}
 .dialog {
   width: max(20rem, 80%);
   top: 20%;
   margin: 0 auto;
   border-radius: 1rem;
   border: none;
+  padding: 1rem;
 
   box-shadow: var(--box-shadow-2xl);
 }

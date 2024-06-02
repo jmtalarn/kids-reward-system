@@ -10,11 +10,11 @@ type AdditionalProperties = {
 };
 
 const CustomStyle = {
-  control: (base: any, state: any) => ({
+  control: (base: object) => ({
     ...base,
     boxShadow: 'var(--box-shadow-inner)',
   }),
-  option: (base: any, state: any) => ({
+  option: (base: object) => ({
     ...base,
     color: 'black',
     //   backgroundColor: state.isSelected ? 'var(--color-primary-200)' : state.isFocused ? 'var(--color-primary-600)' : 'transparent',

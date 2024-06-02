@@ -4,14 +4,21 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 // import Button from './Button';
 import style from './Dialog.module.css';
 // Define the props type
+
+interface DialogOption {
+  option: ReactNode;
+  action: () => void;
+}
+
 interface ModalProps {
   openModal: boolean;
   closeModal: () => void;
   children: ReactNode;
+  options: DialogOption[];
 }
 
 // Modal as a separate component
-const Modal: React.FC<ModalProps> = ({ openModal, closeModal, children }) => {
+const Modal: React.FC<ModalProps> = ({ openModal, closeModal, children, options }) => {
   const ref = useRef<HTMLDialogElement>(null);
 
   useEffect(() => {
@@ -29,9 +36,19 @@ const Modal: React.FC<ModalProps> = ({ openModal, closeModal, children }) => {
           <FontAwesomeIcon icon={faCircleXmark} />
         </button>
       </header>
+      <div className={style.options}>
+        {options.map(option => (
+          <Option {...option} />
+        ))}
+      </div>
       <div className={style.content}>{children}</div>
     </dialog>
   );
 };
 
+const Option = ({ option, action }: DialogOption) => (
+  <button className={style['option-button']} onClick={action}>
+    {option}
+  </button>
+);
 export default Modal;
