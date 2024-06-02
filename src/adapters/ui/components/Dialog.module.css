@@ -18,7 +18,13 @@
   color: salmon;
 }
 .dialog {
-  width: 50%;
+  width: max(20rem, 80%);
+  top: 20%;
+  margin: 0 auto;
+  border-radius: 1rem;
+  border: none;
+
+  box-shadow: var(--box-shadow-2xl);
 }
 
 .header {
