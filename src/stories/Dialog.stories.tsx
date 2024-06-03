@@ -3,12 +3,14 @@ import { fn } from '@storybook/test';
 import Dialog from '../adapters/ui/components/Dialog';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFaceAwesome, faFaceVomit, faFaceThinking } from '@fortawesome/pro-duotone-svg-icons';
-
+import { Participant } from '../core/domain/Participant';
 const options = [
   { option: <FontAwesomeIcon icon={faFaceAwesome} style={{ color: 'lime' }} />, action: fn() },
   { option: <FontAwesomeIcon icon={faFaceThinking} style={{ color: 'gold' }} />, action: fn() },
   { option: <FontAwesomeIcon icon={faFaceVomit} style={{ color: 'salmon' }} />, action: fn() },
 ];
+
+const participants: Participant[] = [{ name: "Older kid", id: "1" }, { name: "Younger kid", id: "2" }];
 // More on how to set up stories at: https://storybook.js.org/docs/writing-stories#default-export
 const meta = {
   title: 'Components/Dialog',
@@ -22,7 +24,7 @@ const meta = {
   // More on argTypes: https://storybook.js.org/docs/api/argtypes
   argTypes: {},
   // Use `fn` to spy on the onClick arg, which will appear in the actions panel once invoked: https://storybook.js.org/docs/essentials/actions#action-args
-  args: { openModal: true, closeModal: fn(), children: <p>Modal content</p>, options },
+  args: { openModal: true, closeModal: fn(), children: <p>Modal content</p>, options, participants },
 } satisfies Meta<typeof Dialog>;
 
 export default meta;

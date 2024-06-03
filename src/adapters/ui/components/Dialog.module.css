@@ -3,16 +3,17 @@
   font-size: 2rem;
   padding: 0;
   outline: none;
-  right: 0;
   overflow: hidden;
   border: none;
   right: 10px;
   position: absolute;
 }
+
 .close-button:focus,
 .close-button:focus-visible {
   outline: none;
 }
+
 .close-button:hover {
   border: none;
   color: salmon;
@@ -21,10 +22,12 @@
 .option-button {
   background: none;
   font-size: 4rem;
+  padding: 1rem 2rem;
 }
+
 .dialog {
   width: max(20rem, 80%);
-  top: 20%;
+  top: 1rem;
   margin: 0 auto;
   border-radius: 1rem;
   border: none;
@@ -36,4 +39,10 @@
 .header {
   position: relative;
   height: 3rem;
+}
+
+.options {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
 }
