@@ -1,6 +1,69 @@
-.navigation ul {
-  list-style-type: none;
+.calendar-grid-month {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+}
+
+.day {
+  border: 1px solid grey;
+  cursor: pointer;
+}
+
+.header {
   display: flex;
   align-items: center;
-  justify-content: space-evenly;
+  justify-content: space-between;
+}
+
+
+.calendar-grid-flow {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  grid-auto-flow: row dense;
+}
+
+.flow-day {}
+
+.arrow {
+  transform-origin: center;
+}
+
+.arrow:nth-child(6n) {
+  transform: rotate(45deg);
+
+}
+
+.arrow:nth-child(6n+7) {
+  border: 2px dashed red;
+}
+
+
+
+.arrow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.calendar-grid-flow> :nth-child(12n + 7) {
+  grid-column-end: -1;
+}
+
+.calendar-grid-flow> :nth-child(12n + 8) {
+  grid-column-end: -2;
+}
+
+.calendar-grid-flow> :nth-child(12n + 9) {
+  grid-column-end: -3;
+}
+
+.calendar-grid-flow> :nth-child(12n + 10) {
+  grid-column-end: -4;
+}
+
+.calendar-grid-flow> :nth-child(12n + 11) {
+  grid-column-end: -5;
+}
+
+.calendar-grid-flow> :nth-child(12n + 12) {
+  grid-column-end: -6;
 }
