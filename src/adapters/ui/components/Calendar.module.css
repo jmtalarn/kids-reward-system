@@ -23,7 +23,7 @@
 
 .flow-day {}
 
-.arrow {
+/* .arrow {
   transform-origin: center;
 }
 
@@ -34,9 +34,26 @@
 
 .arrow:nth-child(6n+7) {
   border: 2px dashed red;
+} */
+
+.button {
+  background: none;
+
+  padding: 0;
+  outline: none;
+  overflow: hidden;
+  border: none;
 }
 
+.button:focus,
+.button:focus-visible {
+  outline: none;
+}
 
+.button:hover {
+  border: none;
+  color: salmon;
+}
 
 .arrow {
   display: flex;

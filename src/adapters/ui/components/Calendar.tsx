@@ -66,31 +66,48 @@ const MonthlyView = ({ dateSelected, onDayClick }: { dateSelected: Date, onDayCl
   const days = getDaysInMonth(dateSelected.getMonth(), dateSelected.getFullYear(), true);
   return <div className={style['calendar-grid-month']}>
     {
-      days.map((day, idx) => (<span
-        className={style.day}
+      days.map((day, idx) => (<button
+        className={`${style.day} ${style.button}`}
         key={`${idx}_${day?.getDay() || "Empty"}`}
         onClick={() => day && onDayClick(day)}
       >
         {day?.getDate() || ""}
-      </span>
+      </button>
       )
       )
     }
-  </div>
+  </div >
+}
+
+const arrow = (idx) => {
+  console.log(idx, idx % 3, idx % 6)
+  if (idx % 6 === 5) {
+    return <FontAwesomeIcon icon={faTurnLeftDown} />
+  }
+  if (idx % 3 === 2) {
+    return <FontAwesomeIcon icon={faTurnDown} />
+  }
+  if (idx % 6 === 3 || idx % 6 === 4) {
+    return <FontAwesomeIcon icon={faArrowLeft} />
+  }
+
+  return <FontAwesomeIcon icon={faArrowRight} />
 }
 
 const FlowView = ({ dateSelected, onDayClick }: { dateSelected: Date, onDayClick: () => void }) => {
   const days = getDaysInMonth(dateSelected.getMonth(), dateSelected.getFullYear(), false);
   return <div className={style['calendar-grid-flow']}>
     {
-      days.map((day, idx) => (<><span
-        className={`${style['flow-day']} ${style.day}`}
+      days.map((day, idx) => (<><button
+        className={`${style['flow-day']} ${style.day} ${style.button}`}
         key={`${idx}_${day?.getDay() || "Empty"}`}
         onClick={() => day && onDayClick(day)}
       >
         {day?.getDate() || ""}
-      </span>
-        {idx !== days.length - 1 && <span className={style.arrow}><FontAwesomeIcon icon={faArrowRight} /></span>}
+      </button>
+        {idx !== days.length - 1 && <span className={style.arrow}>
+          {arrow(idx)}
+        </span>}
       </>
       )
       )
