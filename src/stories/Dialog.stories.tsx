@@ -5,9 +5,9 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFaceAwesome, faFaceVomit, faFaceThinking } from '@fortawesome/pro-duotone-svg-icons';
 import { Participant } from '../core/domain/Participant';
 const options = [
-  { option: <FontAwesomeIcon icon={faFaceAwesome} style={{ color: 'lime' }} />, action: fn() },
-  { option: <FontAwesomeIcon icon={faFaceThinking} style={{ color: 'gold' }} />, action: fn() },
-  { option: <FontAwesomeIcon icon={faFaceVomit} style={{ color: 'salmon' }} />, action: fn() },
+  { option: <FontAwesomeIcon icon={faFaceAwesome} style={{ color: 'lime' }} />, value: 1 },
+  { option: <FontAwesomeIcon icon={faFaceThinking} style={{ color: 'gold' }} />, value: 2 },
+  { option: <FontAwesomeIcon icon={faFaceVomit} style={{ color: 'salmon' }} />, value: 3 },
 ];
 
 const participants: Participant[] = [{ name: "Older kid", id: "1" }, { name: "Younger kid", id: "2" }];

@@ -8,7 +8,8 @@ import style from './Dialog.module.css';
 
 interface DialogOption {
   option: ReactNode;
-  action: () => void;
+  value: string;
+  //  action: () => void;
 }
 
 interface ModalProps {
@@ -23,6 +24,9 @@ interface ModalProps {
 const Modal: React.FC<ModalProps> = ({ openModal, closeModal, children, options, participants }) => {
   console.log({ participants })
   const [participantSelected, selectParticipant] = useState<Participant | undefined>();
+
+  const [participantsVote, setParticipantsVote] = useState<Map<Participant, Vote | null>>(new Map(participants.map(participant => [participant, null])));
+
   const ref = useRef<HTMLDialogElement>(null);
 
   useEffect(() => {
@@ -32,7 +36,7 @@ const Modal: React.FC<ModalProps> = ({ openModal, closeModal, children, options,
       ref.current?.close();
     }
   }, [openModal]);
-
+  console.log({ participantsVote: participantsVote.entries() })
   return (
     <dialog ref={ref} className={style.dialog} onCancel={closeModal}>
       <header className={style.header}>
@@ -41,15 +45,25 @@ const Modal: React.FC<ModalProps> = ({ openModal, closeModal, children, options,
         </button>
       </header>
       <div className={style.options}>
-        {console.log(participantSelected)}
         {participantSelected ?
           (options.map((option, idx) => (
-            <Option key={"key_" + idx} {...option} />
-          )))
-          :
-          (participants.map(participant => (<ParticipantSwitch key={participant.id} participant={participant} selectParticipant={selectParticipant} />)))
-        }
+            <Option
+              key={"key_" + idx}
+              dialogOption={option}
+              onClick={
+                () => {
+                  setParticipantsVote(new Map([...participantsVote.entries(), [participantSelected, option]]));
+                  selectParticipant();
+                }
+              }
+            />
+          ))) :
 
+          [...participantsVote.entries()].map(([participant, dialogOption]) => <div key={participant.id}>
+            <ParticipantSwitch participant={participant} selectParticipant={selectParticipant} />
+            {dialogOption?.option}
+          </div>)
+        }
 
       </div>
       <div className={style.content}>{children}</div>
@@ -57,9 +71,9 @@ const Modal: React.FC<ModalProps> = ({ openModal, closeModal, children, options,
   );
 };
 
-const Option = ({ option, action }: DialogOption) => (
-  <button className={style['option-button']} onClick={action}>
-    {option}
+const Option = ({ dialogOption, onClick }: { dialogOption: DialogOption, onClick: () => void }) => (
+  <button className={style['option-button']} onClick={onClick}>
+    {dialogOption.option}
   </button>
 );
 
