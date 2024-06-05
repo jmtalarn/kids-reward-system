@@ -82,16 +82,36 @@ const MonthlyView = ({ dateSelected, onDayClick }: { dateSelected: Date, onDayCl
 const arrow = (idx) => {
   console.log(idx, idx % 3, idx % 6)
   if (idx % 6 === 5) {
-    return <FontAwesomeIcon icon={faTurnLeftDown} />
+    return (
+      <span className={`${style.arrow} ${style['turn-down']}`
+      }>
+        <FontAwesomeIcon icon={faTurnLeftDown} />
+      </span>
+    )
   }
   if (idx % 3 === 2) {
-    return <FontAwesomeIcon icon={faTurnDown} />
+    return (
+      <span className={`${style.arrow} ${style['turn-down']}`
+      }>
+        <FontAwesomeIcon icon={faTurnDown} />
+      </span>
+    )
   }
   if (idx % 6 === 3 || idx % 6 === 4) {
-    return <FontAwesomeIcon icon={faArrowLeft} />
+    return (
+      <span className={`${style.arrow}`
+      }>
+        <FontAwesomeIcon className={`${style.arrow}`} icon={faArrowLeft} />
+      </span>
+    )
   }
 
-  return <FontAwesomeIcon icon={faArrowRight} />
+  return (
+    <span className={`${style.arrow}`
+    }>
+      <FontAwesomeIcon className={`${style.arrow}`} icon={faArrowRight} />
+    </span>
+  )
 }
 
 const FlowView = ({ dateSelected, onDayClick }: { dateSelected: Date, onDayClick: () => void }) => {
@@ -99,18 +119,16 @@ const FlowView = ({ dateSelected, onDayClick }: { dateSelected: Date, onDayClick
   return <div className={style['calendar-grid-flow']}>
     {
       days.map((day, idx) => (<><button
-        className={`${style['flow-day']} ${style.day} ${style.button}`}
+        className={`${style.button} ${style['flow-day']} `}
         key={`${idx}_${day?.getDay() || "Empty"}`}
         onClick={() => day && onDayClick(day)}
       >
-        {day?.getDate() || ""}
+        <span className={style['flow-day-label']}>{day?.getDate() || ""}</span >
       </button>
-        {idx !== days.length - 1 && <span className={style.arrow}>
-          {arrow(idx)}
-        </span>}
+        {idx !== days.length - 1 && arrow(idx)}
       </>
       )
       )
     }
-  </div>
+  </div >
 }
