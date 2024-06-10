@@ -25,23 +25,20 @@ function getDaysInMonth(month: number, year: number, fullGrid): Date[] {
   }
 }
 
+
+const viewMap: ViewComponent =
+{
+  "daily": ({ dateSelected, onDayClick, tasks }) => <DailyView dateSelected={dateSelected} onDayClick={onDayClick} tasks={tasks} />,
+  "weekly": ({ dateSelected, onDayClick, tasks }) => <WeeklyView dateSelected={dateSelected} onDayClick={onDayClick} tasks={tasks} />,
+  "monthly": ({ dateSelected, onDayClick }) => (<MonthlyView dateSelected={dateSelected} onDayClick={onDayClick} />),
+  "flow": ({ dateSelected, onDayClick }) => <FlowView dateSelected={dateSelected} onDayClick={onDayClick} />
+};
+
 export const Calendar = ({ date }: { date: Date }) => {
   const [view, setView] = useState<CalendarView>("daily");
   const [dateSelected, setDateSelected] = useState<Date>(date || new Date());
 
-
-
-
-  const viewMap: ViewComponent =
-  {
-    "daily": () => <h3>Daily</h3>,
-    "weekly": () => <h3>Weekly</h3>,
-    "monthly": ({ dateSelected, onDayClick }) => (<>
-      <h3>Monthly</h3>
-      <MonthlyView dateSelected={dateSelected} onDayClick={onDayClick} />
-    </>),
-    "flow": ({ dateSelected, onDayClick }) => <><h3>Flow</h3><FlowView dateSelected={dateSelected} onDayClick={onDayClick} /></>
-  };
+  const tasks = ["Make the bed", "Dress on time", "Shoes on time", "Brush your teeth", "Pack backpack", "Ready to go"];
   return <div>
     <header className={style.header}>
       <h2>{dateSelected.toDateString()}</h2>
@@ -54,36 +51,100 @@ export const Calendar = ({ date }: { date: Date }) => {
       </select>
     </header>
     <div className={style.calendar}>
-      {viewMap[view]({ dateSelected, onDayClick: (date) => { setDateSelected(date); setView("daily"); } })}
+      {viewMap[view]({ dateSelected, onDayClick: (date) => { setDateSelected(date); setView("daily"); }, tasks })}
 
     </div>
   </div>
 
 };
 
+
+const DailyView = ({ dateSelected, onDayClick, tasks }: { dateSelected: Date, onDayClick: () => void, tasks: string[] }) => {
+
+  return (
+    <div className={style['calendar-day']}>
+      <h3>Daily {dateSelected.toLocaleString('default', { weekday: 'long', day: "numeric", month: 'long' })}</h3>
+
+      {tasks.map(task => <div key={task} className={style['calendar-grid-day']}><span className={style.tasks}>{task}</span>
+        <button
+          className={`${style['daily-day']} ${style.button}`}
+          onClick={() => dateSelected && onDayClick(dateSelected)}
+        />
+      </div>)}
+    </div>
+  )
+}
+
+const WeeklyView = ({ dateSelected, onDayClick, tasks }: { dateSelected: Date, onDayClick: () => void, tasks: string[] }) => {
+
+  const weekDays = Array.from(Array(7).keys())
+    .map(i => { const localDate = new Date(dateSelected.toISOString()); localDate.setDate(localDate.getDate() + i); return localDate; })
+    .toSorted((dateA, dateB) => (dateA.getDay() - dateB.getDay()));
+
+  return (
+    <div className={style['calendar-week']}>
+      <h3>Weekly {weekDays[0].toLocaleString('default', { day: "numeric", month: 'long' })} ~ {weekDays[6].toLocaleString('default', { day: "numeric", month: 'long' })}</h3>
+      <div className={style['calendar-grid-week-header']}>
+        <div className={style.tasks} />
+        {weekDays.map(weekDay => <span className={style['calendar-week-weekday-label']} key={weekDay}>{weekDay.toLocaleDateString('default', { weekday: 'long', day: 'numeric' })}</span>)}
+      </div>
+      {tasks.map(task => <div key={task} className={style['calendar-grid-week']}><span className={style.tasks}>{task}</span>
+        {
+          weekDays.map((day, idx) => (<button
+            className={`${style['weekly-day']} ${style.button}`}
+            key={`${idx}_${day?.getDay() || "Empty"}`}
+            onClick={() => day && onDayClick(day)}
+          >
+
+          </button>
+          )
+          )
+        }
+      </div>)}
+    </div>
+  )
+}
+
+
 const MonthlyView = ({ dateSelected, onDayClick }: { dateSelected: Date, onDayClick: () => void }) => {
 
   const days = getDaysInMonth(dateSelected.getMonth(), dateSelected.getFullYear(), true);
-  return <div className={style['calendar-grid-month']}>
-    {
-      days.map((day, idx) => (<button
-        className={`${style.day} ${style.button}`}
-        key={`${idx}_${day?.getDay() || "Empty"}`}
-        onClick={() => day && onDayClick(day)}
-      >
-        {day?.getDate() || ""}
-      </button>
-      )
-      )
-    }
-  </div >
+
+  const weekDays = Array.from(Array(7).keys())
+    .map(i => { const localDate = new Date(dateSelected.toISOString()); localDate.setDate(localDate.getDate() + i); return localDate; })
+    .toSorted((dateA, dateB) => (dateA.getDay() - dateB.getDay()))
+    .map(date => date.toLocaleDateString('default', { weekday: 'long' }));
+
+
+
+  return (
+    <div className={style['calendar-month']}>
+      <h3>Monthly {dateSelected.toLocaleString('default', { month: 'long' })}</h3>
+      <div className={style['calendar-grid-month-header']}>
+        {weekDays.map(weekDay => <span className={style['calendar-month-weekday-label']} key={weekDay}>{weekDay}</span>)}
+      </div>
+      <div className={style['calendar-grid-month']}>
+        {
+          days.map((day, idx) => (<button
+            className={`${style['monthly-day']} ${style.button}`}
+            key={`${idx}_${day?.getDay() || "Empty"}`}
+            onClick={() => day && onDayClick(day)}
+          >
+            <span className={style['monthly-day-label']}>{day?.getDate() || ""}</span>
+          </button>
+          )
+          )
+        }
+      </div >
+    </div>
+  )
 }
 
 const arrow = (idx) => {
-  console.log(idx, idx % 3, idx % 6)
+
   if (idx % 6 === 5) {
     return (
-      <span className={`${style.arrow} ${style['turn-down']}`
+      <span key={`arrow_${idx}`} className={`${style.arrow} ${style['turn-down']}`
       }>
         <FontAwesomeIcon icon={faTurnLeftDown} />
       </span>
@@ -91,7 +152,7 @@ const arrow = (idx) => {
   }
   if (idx % 3 === 2) {
     return (
-      <span className={`${style.arrow} ${style['turn-down']}`
+      <span key={`arrow_${idx}`} className={`${style.arrow} ${style['turn-down']}`
       }>
         <FontAwesomeIcon icon={faTurnDown} />
       </span>
@@ -99,7 +160,7 @@ const arrow = (idx) => {
   }
   if (idx % 6 === 3 || idx % 6 === 4) {
     return (
-      <span className={`${style.arrow}`
+      <span key={`arrow_${idx}`} className={`${style.arrow}`
       }>
         <FontAwesomeIcon className={`${style.arrow}`} icon={faArrowLeft} />
       </span>
@@ -107,7 +168,7 @@ const arrow = (idx) => {
   }
 
   return (
-    <span className={`${style.arrow}`
+    <span key={`arrow_${idx}`} className={`${style.arrow}`
     }>
       <FontAwesomeIcon className={`${style.arrow}`} icon={faArrowRight} />
     </span>
@@ -116,19 +177,27 @@ const arrow = (idx) => {
 
 const FlowView = ({ dateSelected, onDayClick }: { dateSelected: Date, onDayClick: () => void }) => {
   const days = getDaysInMonth(dateSelected.getMonth(), dateSelected.getFullYear(), false);
-  return <div className={style['calendar-grid-flow']}>
-    {
-      days.map((day, idx) => (<><button
-        className={`${style.button} ${style['flow-day']} `}
-        key={`${idx}_${day?.getDay() || "Empty"}`}
-        onClick={() => day && onDayClick(day)}
-      >
-        <span className={style['flow-day-label']}>{day?.getDate() || ""}</span >
-      </button>
-        {idx !== days.length - 1 && arrow(idx)}
-      </>
-      )
-      )
-    }
-  </div >
+  return (
+    <>
+      <h3>Flow</h3>
+      <div className={style['calendar-grid-flow']}>
+        {
+          days.map((day, idx) => {
+            const button = <button
+              className={`${style.button} ${style['flow-day']} `}
+              key={`${idx}_${day?.getDay() || "Empty"}`}
+              onClick={() => day && onDayClick(day)}
+            >
+              <span className={style['flow-day-label']}>{day?.getDate() || ""}</span >
+            </button>;
+
+            const arrowSign = idx !== days.length - 1 ? arrow(idx) : null;
+
+            return [button, arrowSign];
+
+          }).flat()
+        }
+      </div>
+    </>
+  )
 }

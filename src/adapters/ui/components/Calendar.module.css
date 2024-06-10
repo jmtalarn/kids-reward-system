@@ -1,11 +1,69 @@
+.calendar-grid-day {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+  margin-bottom: 1rem;
+  align-items: center;
+}
+
+.calendar-grid-week-header,
+.calendar-grid-week {
+  display: grid;
+  grid-template-columns: repeat(8, 1fr);
+  gap: 1rem;
+  margin-bottom: 1rem;
+  align-items: center;
+}
+
+.calendar-grid-week button {
+  justify-self: center;
+}
+
+.tasks {}
+
+.calendar-grid-month-header,
 .calendar-grid-month {
   display: grid;
   grid-template-columns: repeat(7, 1fr);
+  gap: 1rem;
 }
 
-.day {
+.calendar-grid-week-header,
+.calendar-grid-month-header {
+  margin: 1rem 0;
+}
+
+.calendar-week-weekday-label,
+.calendar-month-weekday-label {
+  font-size: .6rem;
+  text-transform: uppercase;
+  text-align: center;
+}
+
+
+.weekly-day,
+.monthly-day {
   border: 1px solid grey;
   cursor: pointer;
+  position: relative;
+  width: 5rem;
+  height: 5rem;
+}
+
+.daily-day {
+  border: 1px solid grey;
+  cursor: pointer;
+  position: relative;
+  width: 10rem;
+  height: 10rem;
+}
+
+.weekly-day-label,
+.monthly-day-label {
+  font-size: 0.8rem;
+  position: absolute;
+  top: 5px;
+  left: 1rem;
 }
 
 .header {
@@ -13,6 +71,7 @@
   align-items: center;
   justify-content: space-between;
 }
+
 
 
 .calendar-grid-flow {
