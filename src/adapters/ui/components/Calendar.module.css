@@ -1,3 +1,29 @@
+.view-selected {
+  text-transform: capitalize;
+}
+
+.no-day {}
+
+.move-date-button {
+  font-size: 12px;
+  padding: 10px 12px !important;
+}
+
+.move-date-buttons {
+  white-space: nowrap;
+}
+
+
+.calendar-flow-header,
+.calendar-month-header,
+.calendar-week-header,
+.calendar-day-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+
 .calendar-grid-day {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -126,10 +152,10 @@
   outline: none;
 }
 
-.button:hover {
+.button:not(.no-day):hover {
   border: 1px solid var(--color-primary-100);
-  /* color: salmon; */
 }
+
 
 .arrow {
   display: flex;

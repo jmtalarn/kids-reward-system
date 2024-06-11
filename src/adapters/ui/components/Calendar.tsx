@@ -1,16 +1,26 @@
 import { ReactNode, useState } from 'react';
 import style from './Calendar.module.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faArrowRight, faArrowLeft, faTurnDown, faTurnLeftDown } from '@fortawesome/pro-duotone-svg-icons';
+import { faArrowRight, faArrowLeft, faTurnDown, faTurnLeftDown, faBackward, faForward, faCalendarDay } from '@fortawesome/pro-duotone-svg-icons';
 const CalendarViewTypes = ["daily", "weekly", "monthly", "flow"];
 type CalendarViewType = typeof CalendarViewTypes[number];
+import { Participant } from '../../../core/domain/Participant';
 
-// reuse this https://l-u-k-e.medium.com/lets-build-a-full-page-calendar-with-react-fb6f99412e6a 
+import Button from '../components/Button'
+import { useDateContext } from '../context/DateContext';
 
 interface ViewComponent { [key: CalendarViewType]: ReactNode }
 
-
-function getDaysInMonth(month: number, year: number, fullGrid): Date[] {
+function getDaysInFlow(startDate, length): Date[] {
+  const dates = [startDate];
+  for (let i = 1; i < length; i++) {
+    const localDate = new Date(dates[i - 1].toISOString());
+    localDate.setDate(localDate.getDate() + 1);
+    dates.push(localDate);
+  }
+  return dates;
+}
+function getDaysInMonth(month: number, year: number, fullGrid: boolean): Date[] {
   const date = new Date(year, month, 1);
   const days = [];
   while (date.getMonth() === month) {
@@ -28,20 +38,21 @@ function getDaysInMonth(month: number, year: number, fullGrid): Date[] {
 
 const viewMap: ViewComponent =
 {
-  "daily": ({ dateSelected, onDayClick, tasks }) => <DailyView dateSelected={dateSelected} onDayClick={onDayClick} tasks={tasks} />,
-  "weekly": ({ dateSelected, onDayClick, tasks }) => <WeeklyView dateSelected={dateSelected} onDayClick={onDayClick} tasks={tasks} />,
-  "monthly": ({ dateSelected, onDayClick }) => (<MonthlyView dateSelected={dateSelected} onDayClick={onDayClick} />),
-  "flow": ({ dateSelected, onDayClick }) => <FlowView dateSelected={dateSelected} onDayClick={onDayClick} />
+  "daily": ({ dateSelected, setDateSelected, onDayClick, tasks }) => <DailyView dateSelected={dateSelected} setDateSelected={setDateSelected} onDayClick={onDayClick} tasks={tasks} />,
+  "weekly": ({ dateSelected, setDateSelected, onDayClick, tasks }) => <WeeklyView dateSelected={dateSelected} setDateSelected={setDateSelected} onDayClick={onDayClick} tasks={tasks} />,
+  "monthly": ({ dateSelected, setDateSelected, onDayClick }) => (<MonthlyView dateSelected={dateSelected} setDateSelected={setDateSelected} onDayClick={onDayClick} />),
+  "flow": ({ dateSelected, setDateSelected, onDayClick }) => <FlowView dateSelected={dateSelected} setDateSelected={setDateSelected} onDayClick={onDayClick} />
 };
 
-export const Calendar = ({ date }: { date: Date }) => {
-  const [view, setView] = useState<CalendarView>("daily");
-  const [dateSelected, setDateSelected] = useState<Date>(date || new Date());
+export const Calendar = ({ tasks, participants }: { tasks: string[], participants: Participant[] }) => {
 
-  const tasks = ["Make the bed", "Dress on time", "Shoes on time", "Brush your teeth", "Pack backpack", "Ready to go"];
+  const { setNewDate } = useDateContext();
+
+  const [view, setView] = useState<CalendarView>("daily");
+
   return <div>
     <header className={style.header}>
-      <h2>{dateSelected.toDateString()}</h2>
+      <h2 className={style['view-selected']}>{view}</h2>
       <select
         value={view}
         onChange={(evt) => setView(evt.target.value)}
@@ -51,39 +62,106 @@ export const Calendar = ({ date }: { date: Date }) => {
       </select>
     </header>
     <div className={style.calendar}>
-      {viewMap[view]({ dateSelected, onDayClick: (date) => { setDateSelected(date); setView("daily"); }, tasks })}
+      {viewMap[view]({ onDayClick: (date) => { setNewDate(date); setView("daily"); }, tasks })}
 
     </div>
   </div>
 
 };
 
+const MoveDateButtons = ({ offset }: { offset: 1 | 7 | "month" }) => {
+  const { setToday, forwardMonth, forwardDays, backwardDays, backwardMonth } = useDateContext();
 
-const DailyView = ({ dateSelected, onDayClick, tasks }: { dateSelected: Date, onDayClick: () => void, tasks: string[] }) => {
+  return <div className={style['move-date-buttons']}>
+    <Button
+      className={style['move-date-button']}
+      onClick={
+        () => {
+          if (offset === "month") {
+            backwardMonth();
+          } else {
+            backwardDays(offset);
+          }
+        }
+      }
+    >
+      <FontAwesomeIcon icon={faBackward} />
+    </Button>
+    <Button
+      className={style['move-date-button']}
+      onClick={() => setToday()}
+    >
+      <>
+        <FontAwesomeIcon icon={faCalendarDay} /> Today
+      </>
+    </Button>
+    <Button
+      className={style['move-date-button']}
+      onClick={
+        () => {
+          if (offset === "month") {
+            forwardMonth();
+          } else {
+            forwardDays(offset);
+          }
+        }
+      }
+    >
+      <FontAwesomeIcon icon={faForward} />
+    </Button>
+  </div >
+}
 
+const DailyView = ({ onDayClick, tasks }: { onDayClick: () => void, tasks: string[] }) => {
+  const { date: dateSelected } = useDateContext();
   return (
     <div className={style['calendar-day']}>
-      <h3>Daily {dateSelected.toLocaleString('default', { weekday: 'long', day: "numeric", month: 'long' })}</h3>
+      <header className={style['calendar-day-header']} >
+        <h3>
+          {dateSelected.toLocaleString('default', { weekday: 'long', day: "numeric", month: 'long' })}
+        </h3>
+        <MoveDateButtons offset={1} />
+      </header >
 
-      {tasks.map(task => <div key={task} className={style['calendar-grid-day']}><span className={style.tasks}>{task}</span>
-        <button
-          className={`${style['daily-day']} ${style.button}`}
-          onClick={() => dateSelected && onDayClick(dateSelected)}
-        />
-      </div>)}
-    </div>
+      {
+        tasks.map(task => <div key={task} className={style['calendar-grid-day']}><span className={style.tasks}>{task}</span>
+          <button
+            className={`${style['daily-day']} ${style.button}`}
+            onClick={() => dateSelected && onDayClick(dateSelected)}
+          />
+        </div>)
+      }
+    </div >
   )
 }
 
-const WeeklyView = ({ dateSelected, onDayClick, tasks }: { dateSelected: Date, onDayClick: () => void, tasks: string[] }) => {
+const WeeklyView = ({ onDayClick, tasks }: { onDayClick: () => void, tasks: string[] }) => {
+  const { date: dateSelected } = useDateContext();
 
-  const weekDays = Array.from(Array(7).keys())
-    .map(i => { const localDate = new Date(dateSelected.toISOString()); localDate.setDate(localDate.getDate() + i); return localDate; })
-    .toSorted((dateA, dateB) => (dateA.getDay() - dateB.getDay()));
+  const weekDays = Array(7);
+  weekDays[dateSelected.getDay()] = dateSelected;
+  let j = 0;
+  for (let i = dateSelected.getDay(); i > 0; i--) {
+    j = j + 1;
+    const localDate = new Date(dateSelected.toISOString());
+    localDate.setDate(localDate.getDate() - j);
+    weekDays[localDate.getDay()] = localDate;
+  }
+  j = 0;
+  for (let i = dateSelected.getDay() + 1; i <= 7; i++) {
+    const localDate = new Date(dateSelected.toISOString());
+    localDate.setDate(localDate.getDate() + j);
+    j = j + 1;
+    weekDays[localDate.getDay()] = localDate;
+  }
+
 
   return (
     <div className={style['calendar-week']}>
-      <h3>Weekly {weekDays[0].toLocaleString('default', { day: "numeric", month: 'long' })} ~ {weekDays[6].toLocaleString('default', { day: "numeric", month: 'long' })}</h3>
+      <header className={style['calendar-week-header']}>
+        <h3>{weekDays[0].toLocaleString('default', { day: "numeric", month: 'long', year: 'numeric' })} ~ {weekDays[6].toLocaleString('default', { day: "numeric", month: 'long', year: 'numeric' })} </h3>
+        <MoveDateButtons offset={7} />
+      </header>
       <div className={style['calendar-grid-week-header']}>
         <div className={style.tasks} />
         {weekDays.map(weekDay => <span className={style['calendar-week-weekday-label']} key={weekDay}>{weekDay.toLocaleDateString('default', { weekday: 'long', day: 'numeric' })}</span>)}
@@ -95,7 +173,6 @@ const WeeklyView = ({ dateSelected, onDayClick, tasks }: { dateSelected: Date, o
             key={`${idx}_${day?.getDay() || "Empty"}`}
             onClick={() => day && onDayClick(day)}
           >
-
           </button>
           )
           )
@@ -106,7 +183,8 @@ const WeeklyView = ({ dateSelected, onDayClick, tasks }: { dateSelected: Date, o
 }
 
 
-const MonthlyView = ({ dateSelected, onDayClick }: { dateSelected: Date, onDayClick: () => void }) => {
+const MonthlyView = ({ onDayClick }: { onDayClick: () => void }) => {
+  const { date: dateSelected } = useDateContext();
 
   const days = getDaysInMonth(dateSelected.getMonth(), dateSelected.getFullYear(), true);
 
@@ -119,20 +197,27 @@ const MonthlyView = ({ dateSelected, onDayClick }: { dateSelected: Date, onDayCl
 
   return (
     <div className={style['calendar-month']}>
-      <h3>Monthly {dateSelected.toLocaleString('default', { month: 'long' })}</h3>
+      <header className={style['calendar-month-header']}>
+        <h3>{dateSelected.toLocaleString('default', { month: 'long', year: 'numeric' })}</h3>
+        <MoveDateButtons offset={'month'} />
+      </header>
       <div className={style['calendar-grid-month-header']}>
         {weekDays.map(weekDay => <span className={style['calendar-month-weekday-label']} key={weekDay}>{weekDay}</span>)}
       </div>
       <div className={style['calendar-grid-month']}>
         {
-          days.map((day, idx) => (<button
-            className={`${style['monthly-day']} ${style.button}`}
-            key={`${idx}_${day?.getDay() || "Empty"}`}
-            onClick={() => day && onDayClick(day)}
-          >
-            <span className={style['monthly-day-label']}>{day?.getDate() || ""}</span>
-          </button>
-          )
+          days.map((day, idx) => {
+            const classNames = [style['monthly-day'], style.button].join(' ');
+
+            return (day ? <button
+              className={classNames}
+              key={`${idx}_${day?.getDay() || "Empty"}`}
+              onClick={() => day && onDayClick(day)}
+            >
+              <span className={style['monthly-day-label']}>{day?.getDate() || ""}</span>
+            </button> : <span className={style['no-day']} />
+            )
+          }
           )
         }
       </div >
@@ -175,11 +260,15 @@ const arrow = (idx) => {
   )
 }
 
-const FlowView = ({ dateSelected, onDayClick }: { dateSelected: Date, onDayClick: () => void }) => {
-  const days = getDaysInMonth(dateSelected.getMonth(), dateSelected.getFullYear(), false);
+const FlowView = ({ onDayClick }: { onDayClick: () => void }) => {
+  const { date: dateSelected } = useDateContext();
+
+  const days = getDaysInFlow(dateSelected, 25);
   return (
     <>
-      <h3>Flow</h3>
+      <header className={style['calendar-flow-header']}>
+        <h3>Starts on {dateSelected.toLocaleString('default', { weekday: 'long', day: "numeric", month: 'long' })}</h3><MoveDateButtons offset={1} />
+      </header>
       <div className={style['calendar-grid-flow']}>
         {
           days.map((day, idx) => {
