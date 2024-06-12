@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useReducer } from 'react';
+import React, { createContext, useContext, useReducer, useEffect } from 'react';
 import { Config } from '../../../core/domain/Config';
 import { ConfigService } from '../../../core/services/ConfigService';
 import { Participant } from '../../../core/domain/Participant';
@@ -7,6 +7,7 @@ import { Task } from '../../../core/domain/Task';
 const configService = new ConfigService();
 
 type ConfigAction =
+  | { type: 'INIT_CONFIG'; payload: Config }
   | { type: 'SET_REWARD'; payload: string }
   | { type: 'ADD_PARTICIPANT'; payload: Participant }
   | { type: 'REMOVE_PARTICIPANT'; payload: string }
@@ -29,6 +30,10 @@ const ConfigContext = createContext<ConfigContextProps | undefined>(undefined);
 
 const configReducer = (state: Config, action: ConfigAction): Config => {
   switch (action.type) {
+    case 'INIT_CONFIG':
+      configService.init(action.payload);
+      return { ...configService.getConfig() };
+
     case 'SET_REWARD':
       configService.setReward(action.payload);
       return { ...configService.getConfig() };
@@ -54,8 +59,14 @@ const configReducer = (state: Config, action: ConfigAction): Config => {
   }
 };
 
-export const ConfigProvider = ({ children }: { children: React.ReactNode }) => {
+export const ConfigProvider = ({ children, initialConfig }: { children: React.ReactNode, initialConfig?: Config }) => {
+
   const [config, dispatch] = useReducer(configReducer, configService.getConfig());
+
+  useEffect(() => {
+    configService.init(initialConfig);
+    dispatch({ type: "INIT_CONFIG", payload: configService.getConfig() });
+  }, [initialConfig])
 
   const setReward = (reward: string) => dispatch({ type: 'SET_REWARD', payload: reward });
   const addParticipant = (participant: Participant) => dispatch({ type: 'ADD_PARTICIPANT', payload: participant });

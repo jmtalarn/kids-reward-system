@@ -9,6 +9,7 @@ import { Participant } from '../../../core/domain/Participant';
 import Button from '../components/Button'
 import { useDateContext } from '../context/DateContext';
 import { useConfigContext } from '../context/ConfigContext';
+import { Task } from '../../../core/domain/Task';
 
 interface ViewComponent { [key: CalendarViewType]: ReactNode }
 
@@ -45,8 +46,8 @@ const viewMap: ViewComponent =
   "flow": ({ onDayClick }) => <FlowView onDayClick={onDayClick} />
 };
 
-export const Calendar = ({ tasks }: { tasks: string[] }) => {
-  const { config: { participants } } = useConfigContext();
+export const Calendar = () => {
+  const { config: { participants, dailyTasks: tasks } } = useConfigContext();
   const { setNewDate } = useDateContext();
 
   const [view, setView] = useState<CalendarView>("daily");
@@ -113,7 +114,7 @@ const MoveDateButtons = ({ offset }: { offset: 1 | 7 | "month" }) => {
   </div >
 }
 
-const DailyView = ({ onDayClick, tasks }: { onDayClick: () => void, tasks: string[] }) => {
+const DailyView = ({ onDayClick, tasks }: { onDayClick: () => void, tasks: Task[] }) => {
   const { date: dateSelected } = useDateContext();
   return (
     <div className={style['calendar-day']}>
@@ -125,7 +126,7 @@ const DailyView = ({ onDayClick, tasks }: { onDayClick: () => void, tasks: strin
       </header >
 
       {
-        tasks.map(task => <div key={task} className={style['calendar-grid-day']}><span className={style.tasks}>{task}</span>
+        tasks.map(task => <div key={`${task.id}_${task.order}`} className={style['calendar-grid-day']}><span className={style.tasks}>{task.description}</span>
           <button
             className={`${style['daily-day']} ${style.button}`}
             onClick={() => dateSelected && onDayClick(dateSelected)}
@@ -167,7 +168,7 @@ const WeeklyView = ({ onDayClick, tasks }: { onDayClick: () => void, tasks: stri
         <div className={style.tasks} />
         {weekDays.map(weekDay => <span className={style['calendar-week-weekday-label']} key={weekDay}>{weekDay.toLocaleDateString('default', { weekday: 'long', day: 'numeric' })}</span>)}
       </div>
-      {tasks.map(task => <div key={task} className={style['calendar-grid-week']}><span className={style.tasks}>{task}</span>
+      {tasks.map(task => <div key={`${task.id}_${task.order}`} className={style['calendar-grid-week']}><span className={style.tasks}>{task.description}</span>
         {
           weekDays.map((day, idx) => (<button
             className={`${style['weekly-day']} ${style.button}`}

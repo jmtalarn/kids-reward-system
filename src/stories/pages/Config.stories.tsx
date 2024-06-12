@@ -25,9 +25,12 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
+const dailyTasks = ["Make the bed", "Dress on time", "Shoes on time", "Brush your teeth", "Pack backpack", "Ready to go"].map((description, idx) => ({ id: idx + 10000, description, order: idx }));
+const participants = [{ name: "Older kid", id: "1" }, { name: "Younger kid", id: "2" }];
+
 // More on writing stories with args: https://storybook.js.org/docs/writing-stories/args
 export const Default: Story = {
 	decorators: [
-		(Story) => (<ConfigProvider><Story /></ConfigProvider>)
+		(Story) => (<ConfigProvider initialConfig={{ dailyTasks, participants }}><Story /></ConfigProvider>)
 	]
 };
