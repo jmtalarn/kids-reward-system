@@ -2,19 +2,27 @@ import React, { createContext, useContext, useReducer } from 'react';
 import { Config } from '../../../core/domain/Config';
 import { ConfigService } from '../../../core/services/ConfigService';
 import { Participant } from '../../../core/domain/Participant';
+import { Task } from '../../../core/domain/Task';
 
 const configService = new ConfigService();
 
 type ConfigAction =
   | { type: 'SET_REWARD'; payload: string }
   | { type: 'ADD_PARTICIPANT'; payload: Participant }
-  | { type: 'REMOVE_PARTICIPANT'; payload: string };
+  | { type: 'REMOVE_PARTICIPANT'; payload: string }
+  | { type: 'ADD_TASK'; payload: Task }
+  | { type: 'REMOVE_TASK'; payload: string }
+  | { type: 'REORDER_TASK'; payload: { id: string, order: number } };
 
 interface ConfigContextProps {
   config: Config;
   setReward: (reward: string) => void;
   addParticipant: (participant: Participant) => void;
   removeParticipant: (participantId: string) => void;
+
+  addTask: (task: Task) => void;
+  removeTask: (taskId: string) => void;
+  reorderTask: (taskId: string, order: number) => void;
 }
 
 const ConfigContext = createContext<ConfigContextProps | undefined>(undefined);
@@ -30,6 +38,17 @@ const configReducer = (state: Config, action: ConfigAction): Config => {
     case 'REMOVE_PARTICIPANT':
       configService.removeParticipant(action.payload);
       return { ...configService.getConfig() };
+
+    case 'ADD_TASK':
+      configService.addTask(action.payload);
+      return { ...configService.getConfig() };
+    case 'REMOVE_TASK':
+      configService.removeTask(action.payload);
+      return { ...configService.getConfig() };
+    case 'REORDER_TASK':
+      configService.reorderTask(action.payload);
+      return { ...configService.getConfig() };
+
     default:
       return state;
   }
@@ -42,7 +61,14 @@ export const ConfigProvider = ({ children }: { children: React.ReactNode }) => {
   const addParticipant = (participant: Participant) => dispatch({ type: 'ADD_PARTICIPANT', payload: participant });
   const removeParticipant = (participantId: string) => dispatch({ type: 'REMOVE_PARTICIPANT', payload: participantId });
 
-  return <ConfigContext.Provider value={{ config, setReward, addParticipant, removeParticipant }}>{children}</ConfigContext.Provider>;
+
+  const addTask = (task: Task) => dispatch({ type: 'ADD_TASK', payload: task });
+  const removeTask = (taskId: string) => dispatch({ type: 'REMOVE_TASK', payload: taskId });
+  const reorderTask = (taskId: string, order: number) => dispatch({ type: 'REORDER_TASK', payload: { id: taskId, order } });
+
+
+
+  return <ConfigContext.Provider value={{ config, setReward, addParticipant, removeParticipant, addTask, removeTask, reorderTask }}>{children}</ConfigContext.Provider>;
 };
 
 export const useConfigContext = (): ConfigContextProps => {

@@ -1,3 +1,7 @@
+.calendar-container {
+  min-width: 40rem;
+}
+
 .view-selected {
   text-transform: capitalize;
 }
@@ -21,6 +25,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
+  margin-bottom: 2rem;
 }
 
 

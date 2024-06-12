@@ -8,6 +8,7 @@ import { Participant } from '../../../core/domain/Participant';
 
 import Button from '../components/Button'
 import { useDateContext } from '../context/DateContext';
+import { useConfigContext } from '../context/ConfigContext';
 
 interface ViewComponent { [key: CalendarViewType]: ReactNode }
 
@@ -38,19 +39,19 @@ function getDaysInMonth(month: number, year: number, fullGrid: boolean): Date[] 
 
 const viewMap: ViewComponent =
 {
-  "daily": ({ dateSelected, setDateSelected, onDayClick, tasks }) => <DailyView dateSelected={dateSelected} setDateSelected={setDateSelected} onDayClick={onDayClick} tasks={tasks} />,
-  "weekly": ({ dateSelected, setDateSelected, onDayClick, tasks }) => <WeeklyView dateSelected={dateSelected} setDateSelected={setDateSelected} onDayClick={onDayClick} tasks={tasks} />,
-  "monthly": ({ dateSelected, setDateSelected, onDayClick }) => (<MonthlyView dateSelected={dateSelected} setDateSelected={setDateSelected} onDayClick={onDayClick} />),
-  "flow": ({ dateSelected, setDateSelected, onDayClick }) => <FlowView dateSelected={dateSelected} setDateSelected={setDateSelected} onDayClick={onDayClick} />
+  "daily": ({ onDayClick, tasks }) => <DailyView onDayClick={onDayClick} tasks={tasks} />,
+  "weekly": ({ onDayClick, tasks }) => <WeeklyView onDayClick={onDayClick} tasks={tasks} />,
+  "monthly": ({ onDayClick }) => (<MonthlyView onDayClick={onDayClick} />),
+  "flow": ({ onDayClick }) => <FlowView onDayClick={onDayClick} />
 };
 
-export const Calendar = ({ tasks, participants }: { tasks: string[], participants: Participant[] }) => {
-
+export const Calendar = ({ tasks }: { tasks: string[] }) => {
+  const { config: { participants } } = useConfigContext();
   const { setNewDate } = useDateContext();
 
   const [view, setView] = useState<CalendarView>("daily");
 
-  return <div>
+  return <div className={style['calendar-container']}>
     <header className={style.header}>
       <h2 className={style['view-selected']}>{view}</h2>
       <select
@@ -215,7 +216,7 @@ const MonthlyView = ({ onDayClick }: { onDayClick: () => void }) => {
               onClick={() => day && onDayClick(day)}
             >
               <span className={style['monthly-day-label']}>{day?.getDate() || ""}</span>
-            </button> : <span className={style['no-day']} />
+            </button> : <span key={`${idx}_noday`} className={style['no-day']} />
             )
           }
           )

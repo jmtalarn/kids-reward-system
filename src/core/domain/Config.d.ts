@@ -1,4 +1,5 @@
 import { Participant } from './Participant';
+import { Task } from './Task';
 // export const systemTypes = {
 //   Flow: "Flow",
 //   Daily: "Daily",
@@ -15,4 +16,5 @@ import { Participant } from './Participant';
 export interface Config {
   reward: string;
   participants: Participant[];
+  dailyTasks: Task[];
 }

@@ -1,9 +1,9 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { fn } from '@storybook/test';
-import Dialog from '../adapters/ui/components/Dialog';
+import Dialog from '../../adapters/ui/components/Dialog';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFaceAwesome, faFaceVomit, faFaceThinking } from '@fortawesome/pro-duotone-svg-icons';
-import { Participant } from '../core/domain/Participant';
+import { Participant } from '../../core/domain/Participant';
 const options = [
   { option: <FontAwesomeIcon icon={faFaceAwesome} style={{ color: 'lime' }} />, value: 1 },
   { option: <FontAwesomeIcon icon={faFaceThinking} style={{ color: 'gold' }} />, value: 2 },
