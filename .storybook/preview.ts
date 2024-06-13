@@ -1,5 +1,7 @@
 import type { Preview } from '@storybook/react';
 
+import '@fontsource/luckiest-guy';
+import '@fontsource-variable/grandstander';
 import '../src/index.css';
 
 const preview: Preview = {

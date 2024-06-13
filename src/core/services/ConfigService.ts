@@ -11,8 +11,6 @@ export class ConfigService {
     };
 
   init(config) {
-    console.log("REBUILDING CONFIG SERVICE", { config })
-
     this.config = config;
   }
 

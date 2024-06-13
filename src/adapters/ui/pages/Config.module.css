@@ -31,6 +31,10 @@
   color: var(--color-primary-300);
 }
 
+:global .field_task_input * {
+  pointer-events: none;
+}
+
 :global .dragged-over {
   color: salmon;
 }

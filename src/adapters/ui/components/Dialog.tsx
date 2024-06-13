@@ -1,5 +1,5 @@
 import { useEffect, useRef, ReactNode, useState } from 'react';
-import { faCircleXmark, faUser } from '@fortawesome/pro-duotone-svg-icons';
+import { faCircleXmark, faUser, faCircleQuestion } from '@fortawesome/pro-duotone-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Participant } from '../../../core/domain/Participant';
 
@@ -22,7 +22,6 @@ interface ModalProps {
 
 // Modal as a separate component
 const Modal: React.FC<ModalProps> = ({ openModal, closeModal, children, options, participants }) => {
-  console.log({ participants })
   const [participantSelected, selectParticipant] = useState<Participant | undefined>();
 
   const [participantsVote, setParticipantsVote] = useState<Map<Participant, Vote | null>>(new Map(participants.map(participant => [participant, null])));
@@ -36,7 +35,7 @@ const Modal: React.FC<ModalProps> = ({ openModal, closeModal, children, options,
       ref.current?.close();
     }
   }, [openModal]);
-  console.log({ participantsVote: participantsVote.entries() })
+
   return (
     <dialog ref={ref} className={style.dialog} onCancel={closeModal}>
       <header className={style.header}>
@@ -59,9 +58,11 @@ const Modal: React.FC<ModalProps> = ({ openModal, closeModal, children, options,
             />
           ))) :
 
-          [...participantsVote.entries()].map(([participant, dialogOption]) => <div key={participant.id}>
+          [...participantsVote.entries()].map(([participant, dialogOption]) => <div className={style['participant-vote']}>
             <ParticipantSwitch participant={participant} selectParticipant={selectParticipant} />
-            {dialogOption?.option}
+            <div className={style['option-button']}>
+              {dialogOption ? dialogOption?.option : <FontAwesomeIcon icon={faCircleQuestion} />}
+            </div>
           </div>)
         }
 
@@ -78,7 +79,7 @@ const Option = ({ dialogOption, onClick }: { dialogOption: DialogOption, onClick
 );
 
 const ParticipantSwitch = ({ participant, selectParticipant }: { participant: Participant, selectParticipant: () => void }) =>
-(<button style={{ width: "100%" }} className={style['option-button']} onClick={() => { selectParticipant(participant) }} >
+(<button className={style['option-button']} onClick={() => { selectParticipant(participant) }} >
   <FontAwesomeIcon icon={faUser} /> {participant.name}
 </button>)
 

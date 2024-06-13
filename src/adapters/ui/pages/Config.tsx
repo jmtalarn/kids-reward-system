@@ -13,7 +13,7 @@ import style from './Config.module.css';
 
 export const Config = () => {
   const { config, setReward, addParticipant, addTask, reorderTask } = useConfigContext();
-  console.log("Config", { config })
+
   const [rewardInput, setRewardInput] = useState(config.reward);
 
   const [draggingItem, setDraggingItem] = useState(null);
@@ -31,20 +31,16 @@ export const Config = () => {
     e.preventDefault();
   };
 
-  // const handleDragEnter = (e, item) => {
-  //   e.target.classList.add('dragged-over');
-  //   // console.log("handleDragEnter", { e, item })
-  // }
-  // const handleDragLeave = (e, item) => {
-  //   console.log({ target: e.target });
-  //   e.target.classList.remove('dragged-over');
-  //   // console.log("handleDragLeave", { e, item })
-  // }
+  const handleDragEnter = (e) => {
+    e.target.closest('.field_task_input').classList.add('dragged-over');
+  }
+  const handleDragLeave = (e) => {
+    e.target.closest('.field_task_input').classList.remove('dragged-over');
+  }
 
   const handleDrop = (e, targetItem) => {
     if (!draggingItem) return;
-    // e.target.classList.remove('dragged-over');
-    console.log({ e, draggingItem, targetItem })
+    e.target.classList.remove('dragged-over');
     reorderTask(draggingItem.id, targetItem.order);
   };
 
@@ -91,8 +87,8 @@ export const Config = () => {
             onDragStart={(e) => handleDragStart(e, task)}
             onDragEnd={handleDragEnd}
             onDragOver={handleDragOver}
-            // onDragEnter={(e) => handleDragEnter(e, task)}
-            // onDragLeave={(e) => handleDragLeave(e, task)}
+            onDragEnter={handleDragEnter}
+            onDragLeave={handleDragLeave}
             onDrop={(e) => handleDrop(e, task)}
           >
             <TaskInput key={task.id || 'empty-key'} dragged={draggingItem && draggingItem.id === task.id} task={task} />
@@ -123,7 +119,7 @@ const ParticipantInput = ({ participant }: { participant: Participant }) => {
 const TaskInput = ({ task, dragged }: { task: Task, dragged: boolean }) => {
   const [inputValue, setInputValue] = useState(task.description);
   const { addTask, removeTask } = useConfigContext();
-  const classNames = [style.field,
+  const classNames = [style.field, "field_task_input",
   dragged && style.dragged
   ].filter(item => !!item).join(" ");
   return (
