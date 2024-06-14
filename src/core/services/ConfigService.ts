@@ -1,6 +1,8 @@
 import { Config } from '../domain/Config';
 import { Participant } from '../domain/Participant';
 import { Task } from '../domain/Task';
+import { getRandomColor } from '../domain/utils/colors'
+
 
 export class ConfigService {
   private config: Config =
@@ -23,6 +25,7 @@ export class ConfigService {
   }
 
   addParticipant(participant: Participant): void {
+    if (!participant.color) { participant.color = getRandomColor() }
     if (!participant.id) {
       participant.id = window.crypto.randomUUID();
       this.config.participants.push(participant);

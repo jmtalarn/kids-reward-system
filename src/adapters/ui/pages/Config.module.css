@@ -31,6 +31,10 @@
   color: var(--color-primary-300);
 }
 
+.color-input {
+  padding: 0 !important;
+}
+
 :global .field_task_input * {
   pointer-events: none;
 }

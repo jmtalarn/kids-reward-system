@@ -60,7 +60,7 @@ const Modal: React.FC<ModalProps> = ({ openModal, closeModal, children, options,
 
           [...participantsVote.entries()].map(([participant, dialogOption]) => <div className={style['participant-vote']}>
             <ParticipantSwitch participant={participant} selectParticipant={selectParticipant} />
-            <div className={style['option-button']}>
+            <div className={style['vote']}>
               {dialogOption ? dialogOption?.option : <FontAwesomeIcon icon={faCircleQuestion} />}
             </div>
           </div>)
@@ -80,7 +80,7 @@ const Option = ({ dialogOption, onClick }: { dialogOption: DialogOption, onClick
 
 const ParticipantSwitch = ({ participant, selectParticipant }: { participant: Participant, selectParticipant: () => void }) =>
 (<button className={style['option-button']} onClick={() => { selectParticipant(participant) }} >
-  <FontAwesomeIcon icon={faUser} /> {participant.name}
+  <FontAwesomeIcon style={{ color: participant.color }} icon={faUser} /> {participant.name}
 </button>)
 
 export default Modal;

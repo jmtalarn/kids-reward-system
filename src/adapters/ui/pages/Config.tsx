@@ -1,7 +1,7 @@
 // import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUserPlus, faCommentPlus, faCheck, faTrashXmark, faBars, faBarsStaggered } from '@fortawesome/pro-duotone-svg-icons';
-
+import { getRandomColor } from '../../../core/domain/utils/colors'
 
 import TextArea from '../components/TextArea';
 import Button from '../components/Button';
@@ -64,7 +64,7 @@ export const Config = () => {
       <section className={style.section}>
         <header className={style['section-header']}>
           <h3>Participants</h3>
-          <Button onClick={() => addParticipant({ name: '' })}>
+          <Button onClick={() => addParticipant({ name: '', color: getRandomColor() })}>
             <FontAwesomeIcon icon={faUserPlus} />
           </Button>
         </header>
@@ -100,13 +100,14 @@ export const Config = () => {
 };
 
 const ParticipantInput = ({ participant }: { participant: Participant }) => {
-  const [inputValue, setInputValue] = useState(participant.name);
+  const [inputParticipant, setInputParticipant] = useState(participant);
   const { addParticipant, removeParticipant } = useConfigContext();
 
   return (
     <div className={style.field}>
-      <Input label="Participant" value={inputValue} onChange={e => setInputValue(e.target.value)} placeholder="New participant" />
-      <Button className={style.button} onClick={() => addParticipant({ ...participant, name: inputValue })}>
+      <Input label="Participant" value={inputParticipant.name} onChange={e => setInputParticipant({ ...inputParticipant, name: e.target.value })} placeholder="New participant" />
+      <Input className={style['color-input']} value={inputParticipant.color} type="color" onChange={e => setInputParticipant({ ...inputParticipant, color: e.target.value })} />
+      <Button className={style.button} onClick={() => addParticipant(inputParticipant)}>
         <FontAwesomeIcon icon={faCheck} />
       </Button>
       <Button className={style.button} onClick={() => removeParticipant(participant.id || '')}>

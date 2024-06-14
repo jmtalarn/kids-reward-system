@@ -10,7 +10,7 @@ const options = [
   { option: <FontAwesomeIcon icon={faFaceVomit} style={{ color: 'salmon' }} />, value: 3 },
 ];
 
-const participants: Participant[] = [{ name: "Older kid", id: "1" }, { name: "Younger kid", id: "2" }];
+const participants: Participant[] = [{ name: "Older kid", id: "1", color: "#f05d5e" }, { name: "Younger kid", id: "2", color: "#F8C630" }];
 // More on how to set up stories at: https://storybook.js.org/docs/writing-stories#default-export
 const meta = {
   title: 'Components/Dialog',
