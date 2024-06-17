@@ -47,7 +47,7 @@ const viewMap: ViewComponent =
 };
 
 export const Calendar = () => {
-  const { config: { participants, dailyTasks: tasks } } = useConfigContext();
+  const { config: { dailyTasks: tasks } } = useConfigContext();
   const { setNewDate } = useDateContext();
 
   const [view, setView] = useState<CalendarView>("daily");

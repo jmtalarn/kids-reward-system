@@ -13,6 +13,7 @@ export class ConfigService {
     };
 
   init(config) {
+    console.log("init config", { config })
     this.config = config;
   }
 
