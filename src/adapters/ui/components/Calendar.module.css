@@ -35,6 +35,13 @@
   gap: 1rem;
   margin-bottom: 1rem;
   align-items: center;
+  transition: background-color 100ms ease-in;
+  padding: 1rem;
+  border-radius: 4px;
+}
+
+.calendar-grid-day:hover {
+  background-color: var(--color-primary-700);
 }
 
 .calendar-grid-week-header,
@@ -82,11 +89,11 @@
 }
 
 .daily-day {
-  border: 1px solid grey;
+
   cursor: pointer;
   position: relative;
-  width: 10rem;
-  height: 10rem;
+  padding: 1rem;
+
 }
 
 .weekly-day-label,

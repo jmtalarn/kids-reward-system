@@ -1,21 +1,23 @@
 :root {
   --text-color: white;
-  /** CSS DARK THEME PRIMARY COLORS */
+  /** CSS THEME PRIMARY COLORS */
   --color-primary-100: #1ea7fd;
   --color-primary-200: #46b7fd;
   --color-primary-300: #6fc7fe;
   --color-primary-400: #97d6fe;
   --color-primary-500: #c0e6fe;
   --color-primary-600: #d4eeff;
+  --color-primary-700: #e8faff;
+  --color-primary-800: #f5fdff;
 
-  /** CSS DARK THEME SURFACE COLORS */
+  /** CSS THEME SURFACE COLORS */
   --color-surface-100: #09133b;
   --color-surface-200: #25284f;
   --color-surface-300: #3e3f63;
   --color-surface-400: #575778;
   --color-surface-500: #72718d;
   --color-surface-600: #8c8ba3;
-  /** CSS DARK THEME MIXED SURFACE COLORS */
+  /** CSS THEME MIXED SURFACE COLORS */
   --color-surface-mixed-100: #281c3c;
   --color-surface-mixed-200: #3d314f;
   --color-surface-mixed-300: #534863;

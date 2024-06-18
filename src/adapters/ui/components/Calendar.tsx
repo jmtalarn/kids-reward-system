@@ -2,14 +2,16 @@ import { ReactNode, useState } from 'react';
 import style from './Calendar.module.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowRight, faArrowLeft, faTurnDown, faTurnLeftDown, faBackward, faForward, faCalendarDay } from '@fortawesome/pro-duotone-svg-icons';
-const CalendarViewTypes = ["daily", "weekly", "monthly", "flow"];
-type CalendarViewType = typeof CalendarViewTypes[number];
-import { Participant } from '../../../core/domain/Participant';
-
+import { ParticipantsAssessment } from '../components/ParticipantsAssessment'
 import Button from '../components/Button'
 import { useDateContext } from '../context/DateContext';
 import { useConfigContext } from '../context/ConfigContext';
 import { Task } from '../../../core/domain/Task';
+import { options } from '../../../core/domain/Options';
+
+const CalendarViewTypes = ["daily", "weekly", "monthly", "flow"];
+type CalendarViewType = typeof CalendarViewTypes[number];
+
 
 interface ViewComponent { [key: CalendarViewType]: ReactNode }
 
@@ -65,7 +67,6 @@ export const Calendar = () => {
     </header>
     <div className={style.calendar}>
       {viewMap[view]({ onDayClick: (date) => { setNewDate(date); setView("daily"); }, tasks })}
-
     </div>
   </div>
 
@@ -93,9 +94,7 @@ const MoveDateButtons = ({ offset }: { offset: 1 | 7 | "month" }) => {
       className={style['move-date-button']}
       onClick={() => setToday()}
     >
-      <>
-        <FontAwesomeIcon icon={faCalendarDay} /> Today
-      </>
+      <FontAwesomeIcon icon={faCalendarDay} /> Today
     </Button>
     <Button
       className={style['move-date-button']}
@@ -114,7 +113,7 @@ const MoveDateButtons = ({ offset }: { offset: 1 | 7 | "month" }) => {
   </div >
 }
 
-const DailyView = ({ onDayClick, tasks }: { onDayClick: () => void, tasks: Task[] }) => {
+const DailyView = ({ tasks }: { tasks: Task[] }) => {
   const { date: dateSelected } = useDateContext();
   return (
     <div className={style['calendar-day']}>
@@ -127,10 +126,13 @@ const DailyView = ({ onDayClick, tasks }: { onDayClick: () => void, tasks: Task[
 
       {
         tasks.map(task => <div key={`${task.id}_${task.order}`} className={style['calendar-grid-day']}><span className={style.tasks}>{task.description}</span>
-          <button
+          {/* <button
             className={`${style['daily-day']} ${style.button}`}
             onClick={() => dateSelected && onDayClick(dateSelected)}
-          />
+          /> */}
+          <div className={`${style['daily-day']} `}>
+            <ParticipantsAssessment selectedTask={task} options={options} />
+          </div>
         </div>)
       }
     </div >

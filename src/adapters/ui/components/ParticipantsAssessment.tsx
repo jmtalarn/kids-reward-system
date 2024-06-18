@@ -22,7 +22,7 @@ interface ModalProps {
 }
 
 
-const ParticipantsAssessment = ({ selectedTask, options }: { selectedTask: Task, options: DialogOption[] }) => {
+export const ParticipantsAssessment = ({ selectedTask, options }: { selectedTask: Task, options: DialogOption[] }) => {
 
   const { config: { participants } } = useConfigContext();
 
@@ -118,8 +118,7 @@ const Option = ({ dialogOption, onClick }: { dialogOption: DialogOption, onClick
 );
 
 const ParticipantSwitch = ({ participant, handleClick }: { participant: Participant, handleClick: () => void }) =>
-(<button className={style['option-button']} onClick={handleClick} >
+(<button className={style['participant-switch']} onClick={handleClick} >
   <FontAwesomeIcon style={{ color: participant.color }} icon={faUser} /> {participant.name}
 </button>)
 
-export default ParticipantsAssessment;

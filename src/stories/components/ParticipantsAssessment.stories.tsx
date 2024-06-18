@@ -1,18 +1,13 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { fn } from '@storybook/test';
-import ParticipantsAssessment from '../../adapters/ui/components/ParticipantsAssessment';
+import { ParticipantsAssessment } from '../../adapters/ui/components/ParticipantsAssessment';
 import { DateProvider } from '../../adapters/ui/context/DateContext';
 import { ConfigProvider } from '../../adapters/ui/context/ConfigContext';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faFaceAwesome, faFaceVomit, faFaceThinking } from '@fortawesome/pro-duotone-svg-icons';
+import { options } from '../../core/domain/Options'
 import { Participant } from '../../core/domain/Participant';
 import { Task } from '../../core/domain/Task';
 
-const options = [
-  { option: <FontAwesomeIcon icon={faFaceAwesome} style={{ color: 'lime' }} />, value: 1 },
-  { option: <FontAwesomeIcon icon={faFaceThinking} style={{ color: 'gold' }} />, value: 2 },
-  { option: <FontAwesomeIcon icon={faFaceVomit} style={{ color: 'salmon' }} />, value: 3 },
-];
+
 const dailyTasks: Task[] = ["Make the bed", "Dress on time", "Shoes on time", "Brush your teeth", "Pack backpack", "Ready to go"].map((description, idx) => ({ id: idx + 10000, description, order: idx }));
 const participants: Participant[] = [{ name: "Older kid", id: "1", color: "#f05d5e" }, { name: "Younger kid", id: "2", color: "#FE6847" }];
 
