@@ -2,16 +2,14 @@ import { useEffect, useRef, ReactNode, useState } from 'react';
 import { faCircleXmark, faUser, faCircleQuestion } from '@fortawesome/pro-duotone-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Participant } from '../../../core/domain/Participant';
+import { DialogOption } from '../../../core/domain/DialogOption';
+
 import { useConfigContext } from '../context/ConfigContext';
 
 import style from './ParticipantsAssessment.module.css';
 // Define the props type
 
-interface DialogOption {
-  option: ReactNode;
-  value: string;
-  //  action: () => void;
-}
+
 
 interface ModalProps {
   openModal: boolean;
