@@ -1,6 +1,6 @@
-import { Task } from './Task';
-import { DialogOption } from './DialogOption';
-import { Participant } from './Participant';
+import { Task } from '../Task';
+import { DialogOption } from '../DialogOption';
+import { Participant } from '../Participant';
 }
 
 type TaskId = string;

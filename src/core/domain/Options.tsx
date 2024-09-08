@@ -3,7 +3,7 @@ import { faFaceAwesome, faFaceVomit, faFaceThinking } from '@fortawesome/pro-duo
 
 
 export const options = [
-	{ option: <FontAwesomeIcon icon={faFaceAwesome} style={{ color: 'lime' }} />, value: 1 },
-	{ option: <FontAwesomeIcon icon={faFaceThinking} style={{ color: 'gold' }} />, value: 2 },
-	{ option: <FontAwesomeIcon icon={faFaceVomit} style={{ color: 'salmon' }} />, value: 3 },
+	{ option: <FontAwesomeIcon icon={faFaceAwesome} style={{ color: 'lime' }} />, value: 3 },
+	{ option: <FontAwesomeIcon icon={faFaceThinking} style={{ color: 'gold' }} />, value: 1 },
+	{ option: <FontAwesomeIcon icon={faFaceVomit} style={{ color: 'salmon' }} />, value: 0 },
 ];

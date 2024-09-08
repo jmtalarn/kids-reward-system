@@ -1,21 +1,18 @@
-//import { useState } from 'react'
-// import reactLogo from './assets/react.svg'
-// import appLogo from '/favicon.svg'
 
-import { ConfigProvider } from './adapters/ui/context/ConfigContext';
 import PWABadge from './PWABadge.tsx';
 import { Router } from './adapters/ui/routing/router';
+import store from "./adapters/state/store.ts";
+import { Provider } from "react-redux";
+
 import './App.css';
 
 function App() {
-  //const [count, setCount] = useState(0)
-
   return (
-    <ConfigProvider>
+    <Provider store={store}>
       <h1>kids-reward-system</h1>
       <Router />
       <PWABadge />
-    </ConfigProvider>
+    </Provider>
   );
 }
 

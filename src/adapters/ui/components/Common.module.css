@@ -1,0 +1,45 @@
+.config {
+  min-width: 20rem;
+}
+
+.field {
+  display: flex;
+  align-items: center;
+}
+
+.button {
+  flex: 0 0 3.5rem;
+}
+
+.section {
+  border-bottom: 1px solid grey;
+  margin-bottom: 1rem;
+  padding-bottom: 2rem;
+  width: 100%;
+}
+
+.section-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.drag-icon {
+  margin-right: 1rem;
+}
+
+.dragged {
+  color: var(--color-primary-300);
+}
+
+.color-input {
+  padding: 0 !important;
+}
+
+/* :global .field_task_input * {
+  pointer-events: none;
+} */
+
+:global .dragged-over {
+  color: salmon;
+}

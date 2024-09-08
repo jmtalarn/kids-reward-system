@@ -1,14 +1,14 @@
-// import { Link } from 'react-router-dom';
+
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUserPlus, faCommentPlus, faCheck, faTrashXmark, faBars, faBarsStaggered } from '@fortawesome/pro-duotone-svg-icons';
 import { getRandomColor } from '../../../core/domain/utils/colors'
 
-import TextArea from '../components/TextArea';
-import Button from '../components/Button';
+import TextArea from './TextArea';
+import Button from './Button';
 import { useConfigContext } from '../context/ConfigContext';
 import { useState } from 'react';
 import { Participant } from '../../../core/domain/Participant';
-import Input from '../components/Input';
+import Input from './Input';
 import style from './Config.module.css';
 
 export const Config = () => {

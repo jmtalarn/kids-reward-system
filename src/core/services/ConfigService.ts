@@ -1,4 +1,4 @@
-import { Config } from '../domain/Config';
+import { Config } from '../domain/_TOEVALUATE_/Config';
 import { Participant } from '../domain/Participant';
 import { Task } from '../domain/Task';
 import { getRandomColor } from '../domain/utils/colors'
