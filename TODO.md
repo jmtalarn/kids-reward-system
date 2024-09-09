@@ -1,1 +1,5 @@
-[X] Manage state to have all the tasks for all rewards. TAsks slice has all tasks, tasksList need a property for the specific reward Id
+-   [x] Manage state to have all the tasks for all rewards. TAsks slice has all tasks, tasksList need a property for the specific reward Id
+-   [ ] Normalize tasks state
+    -   [ ] Tasks byId
+    -   [ ] Tasks byRewardId: TaskId[]
+    -   [ ] Tasks TaskId[]

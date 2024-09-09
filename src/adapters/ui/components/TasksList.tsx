@@ -69,7 +69,7 @@ const TasksList = ({ rewardId }: { rewardId: string }) => {
 	};
 
 
-
+	{ console.log({ tasks }) }
 	return <section className={style.section}>
 		<header className={style['section-header']}>
 			<h3>Tasks for {rewardId}</h3>
@@ -78,21 +78,23 @@ const TasksList = ({ rewardId }: { rewardId: string }) => {
 			</Button>
 		</header>
 		{tasks
-			.filter(task => task.rewardId === rewardId)
-			.map(task => (
-				<div
-					key={`container_${task.id || 'empty-key'}`}
-					draggable={true}
-					onDragStart={(e) => handleDragStart(e, task)}
-					onDragEnd={handleDragEnd}
-					onDragOver={handleDragOver}
-					onDragEnter={handleDragEnter}
-					onDragLeave={handleDragLeave}
-					onDrop={(e) => handleDrop(e, task)}
-				>
-					<TaskInput key={task.id || 'empty-key'} dragged={draggingItem && draggingItem.id === task.id} task={task} />
-				</div>
-			))}
+			.byRewardId[rewardId]?.map(taskId => {
+				const task = tasks.byId[taskId];
+				return (
+					<div
+						key={`container_${task.id || 'empty-key'}`}
+						draggable={true}
+						onDragStart={(e) => handleDragStart(e, task)}
+						onDragEnd={handleDragEnd}
+						onDragOver={handleDragOver}
+						onDragEnter={handleDragEnter}
+						onDragLeave={handleDragLeave}
+						onDrop={(e) => handleDrop(e, task)}
+					>
+						<TaskInput key={task.id || 'empty-key'} dragged={draggingItem && draggingItem.id === task.id} task={task} />
+					</div>
+				)
+			})}
 	</section>
 }
 

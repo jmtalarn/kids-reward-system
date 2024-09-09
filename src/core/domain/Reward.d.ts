@@ -1,7 +1,7 @@
-import { Task } from './Task';
+import { TaskId } from './Task';
 
 export interface Reward {
-	id?: string;
+	id?: TaskId;
 	description: string;
 	tasks: Task[];
 	dueDate: Date;

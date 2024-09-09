@@ -25,10 +25,17 @@ export const reorderTask = createAsyncThunk('tasks/reorder', async ({ rewardId, 
 });
 
 const initialState = {
-	tasks: [],
+	tasks: { byId: {}, allIds: [], byRewardId: {} },
 	loading: false,
 	error: null
 };
+
+const normalizeTasks = (tasks: Task[]) => (tasks.reduce((acc, curr) => {
+	acc.byId[curr.id] = curr;
+	acc.allIds.push(curr.id);
+	acc.byRewardId[curr.rewardId] = [...(acc.byRewardId[curr.rewardId] || []), curr.id];
+	return acc;
+}, { byId: {}, allIds: [], byRewardId: {} }));
 
 const tasksSlice = createSlice({
 	name: "tasks",
@@ -40,7 +47,7 @@ const tasksSlice = createSlice({
 				state.loading = true;
 			})
 			.addCase(fetchTasks.fulfilled, (state, action) => {
-				state.tasks = action.payload;
+				state.tasks = normalizeTasks(action.payload);
 				state.loading = false;
 			})
 			.addCase(fetchTasks.rejected, (state, action) => {
@@ -48,13 +55,13 @@ const tasksSlice = createSlice({
 				state.error = action.error.message ?? 'Failed to load tasks';
 			})
 			.addCase(addTask.fulfilled, (state, action) => {
-				state.tasks = action.payload;
+				state.tasks = normalizeTasks(action.payload);
 			})
 			.addCase(removeTask.fulfilled, (state, action) => {
-				state.tasks = action.payload;
+				state.tasks = normalizeTasks(action.payload);
 			})
 			.addCase(reorderTask.fulfilled, (state, action) => {
-				state.tasks = action.payload;
+				state.tasks = normalizeTasks(action.payload);
 			});
 	},
 });
