@@ -5,7 +5,7 @@ import { addParticipant, removeParticipant } from "../../state/participantsSlice
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUserPlus, faCheck, faTrashXmark } from '@fortawesome/pro-duotone-svg-icons';
 import { getRandomColor } from '../../../core/domain/utils/colors'
-
+import TasksList from './TasksList';
 import Button from './Button';
 import { useState } from 'react';
 import { Reward } from '../../../core/domain/Reward';
@@ -35,7 +35,7 @@ const RewardForm = ({ reward }: { reward: Reward }) => {
 	// const { participants } = useSelector((state) => state.participants);
 	// const dispatch = useDispatch();
 	const [rewardData, setRewardData] = useState(reward);
-
+	console.log({ rewardData })
 	return <section className={style.section}>
 		<header className={style['section-header']}>
 			<h3>Reward</h3>
@@ -43,13 +43,13 @@ const RewardForm = ({ reward }: { reward: Reward }) => {
 		<div>
 			<Input
 				label="Description"
-				value={rewardData.description}
+				value={rewardData?.description}
 				onChange={e => setRewardData({ ...rewardData, description: e.target.value })} placeholder="Reward description"
 			/>
-			<TasksList rewardId={rewardData.id} />
+			<TasksList rewardId={rewardData?.id} />
 			<Input
 				label="Due Date"
-				value={rewardData.dueDate}
+				value={rewardData?.dueDate}
 				onChange={e => setRewardData({ ...rewardData, dueDate: e.target.value })} placeholder="Due Date"
 			/>
 		</div>

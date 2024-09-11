@@ -1,9 +1,8 @@
 import { ReactNode, useState } from 'react';
 import style from './Calendar.module.css';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faArrowRight, faArrowLeft, faTurnDown, faTurnLeftDown, faBackward, faForward, faCalendarDay } from '@fortawesome/pro-duotone-svg-icons';
 import { ParticipantsAssessment } from '../components/ParticipantsAssessment'
 import Button from '../components/Button'
+import Icon from '../components/Icon'
 import { useDateContext } from '../context/DateContext';
 import { useConfigContext } from '../context/ConfigContext';
 import { Task } from '../../../core/domain/Task';
@@ -88,13 +87,14 @@ const MoveDateButtons = ({ offset }: { offset: 1 | 7 | "month" }) => {
         }
       }
     >
-      <FontAwesomeIcon icon={faBackward} />
+      <Icon icon="skip-back" className={style['move-date-button-icon']} />
     </Button>
     <Button
       className={style['move-date-button']}
       onClick={() => setToday()}
     >
-      <FontAwesomeIcon icon={faCalendarDay} /> Today
+      <Icon icon="calendar" className={style['move-date-button-icon']} />&nbsp;
+      Today
     </Button>
     <Button
       className={style['move-date-button']}
@@ -108,7 +108,7 @@ const MoveDateButtons = ({ offset }: { offset: 1 | 7 | "month" }) => {
         }
       }
     >
-      <FontAwesomeIcon icon={faForward} />
+      <Icon icon="skip-forward" className={style['move-date-button-icon']} />
     </Button>
   </div >
 }
@@ -235,7 +235,7 @@ const arrow = (idx) => {
     return (
       <span key={`arrow_${idx}`} className={`${style.arrow} ${style['turn-down']}`
       }>
-        <FontAwesomeIcon icon={faTurnLeftDown} />
+        <Icon icon="corner-left-down" />
       </span>
     )
   }
@@ -243,7 +243,7 @@ const arrow = (idx) => {
     return (
       <span key={`arrow_${idx}`} className={`${style.arrow} ${style['turn-down']}`
       }>
-        <FontAwesomeIcon icon={faTurnDown} />
+        <Icon icon="corner-right-down" />
       </span>
     )
   }
@@ -251,7 +251,7 @@ const arrow = (idx) => {
     return (
       <span key={`arrow_${idx}`} className={`${style.arrow}`
       }>
-        <FontAwesomeIcon className={`${style.arrow}`} icon={faArrowLeft} />
+        <Icon className={`${style.arrow}`} icon="arrow-left" />
       </span>
     )
   }
@@ -259,7 +259,7 @@ const arrow = (idx) => {
   return (
     <span key={`arrow_${idx}`} className={`${style.arrow}`
     }>
-      <FontAwesomeIcon className={`${style.arrow}`} icon={faArrowRight} />
+      <Icon className={`${style.arrow}`} icon="arrow-right" />
     </span>
   )
 }

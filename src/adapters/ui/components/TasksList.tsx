@@ -68,8 +68,6 @@ const TasksList = ({ rewardId }: { rewardId: string }) => {
 		dispatch(reorderTask({ rewardId: draggingItem.rewardId, taskId: draggingItem.id, order: targetItem.order }));
 	};
 
-
-	{ console.log({ tasks }) }
 	return <section className={style.section}>
 		<header className={style['section-header']}>
 			<h3>Tasks for {rewardId}</h3>

@@ -8,6 +8,10 @@
 
 .no-day {}
 
+.move-date-button-icon {
+  width: 12px;
+}
+
 .move-date-button {
   font-size: 12px;
   padding: 10px 12px !important;
