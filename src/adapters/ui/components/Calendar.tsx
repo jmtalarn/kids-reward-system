@@ -3,6 +3,7 @@ import style from './Calendar.module.css';
 import { ParticipantsAssessment } from '../components/ParticipantsAssessment'
 import Button from '../components/Button'
 import Icon from '../components/Icon'
+import Select from '../components/Select'
 import { useDateContext } from '../context/DateContext';
 import { useConfigContext } from '../context/ConfigContext';
 import { Task } from '../../../core/domain/Task';
@@ -56,13 +57,13 @@ export const Calendar = () => {
   return <div className={style['calendar-container']}>
     <header className={style.header}>
       <h2 className={style['view-selected']}>{view}</h2>
-      <select
-        value={view}
-        onChange={(evt) => setView(evt.target.value)}
-      >
-        {CalendarViewTypes
-          .map(viewtype => <option key={viewtype} value={viewtype}>{viewtype}</option>)}
-      </select>
+      <Select
+        value={{ value: view, label: view }}
+        onChange={({ value }) => setView(value)}
+        options={CalendarViewTypes
+          .map(viewtype => ({ value: viewtype, label: viewtype }))
+        }
+      />
     </header>
     <div className={style.calendar}>
       {viewMap[view]({ onDayClick: (date) => { setNewDate(date); setView("daily"); }, tasks })}

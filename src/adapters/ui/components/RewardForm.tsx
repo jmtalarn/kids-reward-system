@@ -2,11 +2,10 @@
 import { useDispatch, useSelector } from "react-redux";
 import { addParticipant, removeParticipant } from "../../state/participantsSlice";
 
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faUserPlus, faCheck, faTrashXmark } from '@fortawesome/pro-duotone-svg-icons';
 import { getRandomColor } from '../../../core/domain/utils/colors'
 import TasksList from './TasksList';
 import Button from './Button';
+import Icon from './Icon';
 import { useState } from 'react';
 import { Reward } from '../../../core/domain/Reward';
 import Input from './Input';

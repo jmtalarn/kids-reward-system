@@ -1,8 +1,7 @@
-import { useEffect, useRef, ReactNode, useState } from 'react';
-import { faCircleXmark, faUser, faCircleQuestion } from '@fortawesome/pro-duotone-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { useEffect, useRef, ReactNode, useState, cloneElement } from 'react';
 import { Participant } from '../../../core/domain/Participant';
 import { DialogOption } from '../../../core/domain/DialogOption';
+import Icon from './Icon';
 
 import { useConfigContext } from '../context/ConfigContext';
 
@@ -34,7 +33,7 @@ export const ParticipantsAssessment = ({ selectedTask, options }: { selectedTask
   useEffect(() => {
     setParticipantsVote(new Map(participants.map(participant => [participant, null])))
   }, [participants]);
-  console.log({ modalOpen })
+
   return <div className={style.participants}>
     {[...participantsVote.entries()].map(
       ([participant, dialogOption]) => (
@@ -49,7 +48,7 @@ export const ParticipantsAssessment = ({ selectedTask, options }: { selectedTask
             }
           />
           <div className={style['vote']}>
-            {dialogOption ? dialogOption?.option : <FontAwesomeIcon icon={faCircleQuestion} />}
+            {dialogOption ? dialogOption?.option : <Icon icon="help-circle" />}
           </div>
         </div>
       )
@@ -86,7 +85,7 @@ const Modal: React.FC<ModalProps> = ({ openModal, closeModal, children, options,
     <dialog ref={ref} className={style.dialog} onCancel={closeModal}>
       <header className={style.header}>
         <button className={style['close-button']} onClick={closeModal}>
-          <FontAwesomeIcon icon={faCircleXmark} />
+          <Icon icon="x-circle" />
         </button>
       </header>
       <div className={style.options}>
@@ -111,12 +110,12 @@ const Modal: React.FC<ModalProps> = ({ openModal, closeModal, children, options,
 
 const Option = ({ dialogOption, onClick }: { dialogOption: DialogOption, onClick: () => void }) => (
   <button className={style['option-button']} onClick={onClick}>
-    {dialogOption.option}
+    {cloneElement(dialogOption.option, { style: { ...dialogOption.option.props.style, width: "4rem" } })}
   </button>
 );
 
 const ParticipantSwitch = ({ participant, handleClick }: { participant: Participant, handleClick: () => void }) =>
 (<button className={style['participant-switch']} onClick={handleClick} >
-  <FontAwesomeIcon style={{ color: participant.color }} icon={faUser} /> {participant.name}
+  <Icon style={{ color: participant.color }} icon="user" /> {participant.name}
 </button>)
 

@@ -2,10 +2,8 @@
 import { useDispatch, useSelector } from "react-redux";
 import { addTask, removeTask, reorderTask } from "../../state/tasksSlice";
 
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCommentPlus, faCheck, faTrashXmark, faBars, faBarsStaggered } from '@fortawesome/pro-duotone-svg-icons';
-
 import Button from './Button';
+import Icon from './Icon';
 import { useState } from 'react';
 import { Task } from '../../../core/domain/Participant';
 import Input from './Input';
@@ -22,13 +20,13 @@ const TaskInput = ({ task, dragged }: { task: Task, dragged: boolean }) => {
 	].filter(item => !!item).join(" ");
 	return (
 		<div className={classNames}>
-			<FontAwesomeIcon className={style['drag-icon']} icon={dragged ? faBarsStaggered : faBars} title="Drag around to reorder it" />
+			<Icon className={style['drag-icon']} icon={dragged ? "move" : "align-justify"} title="Drag around to reorder it" />
 			<Input label="Task" value={inputValue} onChange={e => setInputValue(e.target.value)} placeholder="New task" />
 			<Button className={style.button} onClick={() => dispatch(addTask({ rewardId: task.rewardId, task: { ...task, description: inputValue } }))}>
-				<FontAwesomeIcon icon={faCheck} />
+				<Icon icon="check" />
 			</Button>
 			<Button className={style.button} onClick={() => dispatch(removeTask({ rewardId: task.rewardId, taskId: task.id }))}>
-				<FontAwesomeIcon icon={faTrashXmark} />
+				<Icon icon="trash-2" />∫
 			</Button>
 
 		</div>
@@ -72,7 +70,7 @@ const TasksList = ({ rewardId }: { rewardId: string }) => {
 		<header className={style['section-header']}>
 			<h3>Tasks for {rewardId}</h3>
 			<Button onClick={() => dispatch(addTask({ rewardId: rewardId, task: { description: '' } }))}>
-				<FontAwesomeIcon icon={faCommentPlus} />
+				<Icon icon="plus-circle" />
 			</Button>
 		</header>
 		{tasks

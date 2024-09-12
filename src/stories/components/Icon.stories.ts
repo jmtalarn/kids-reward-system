@@ -54,6 +54,9 @@ export const Default: Story = {
 				"user-x",
 				"user",
 				"users",
+				"x-circle",
+				"x-square",
+				"x"
 			],
 			control: { type: 'select' },
 		},

@@ -14,6 +14,7 @@
   cursor: pointer;
   box-shadow: var(--box-shadow-md);
   transition: box-shadow 50ms ease-in;
+  z-index: 0;
 }
 
 .ripple-button:active {

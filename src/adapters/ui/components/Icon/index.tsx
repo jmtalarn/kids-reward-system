@@ -1,6 +1,6 @@
 import { Suspense, lazy } from 'react';
 
-const Icon = ({ icon, style, className }) => {
+const Icon = ({ icon, style, className, ...props }) => {
 	const LazyIcon = lazy(() => {
 
 		return icon ? import(`./icons/${icon}.svg?react`).catch(() => ({ default: () => null })) : null;
@@ -14,6 +14,7 @@ const Icon = ({ icon, style, className }) => {
 				<LazyIcon
 					style={style}
 					className={className}
+					{...props}
 				/>
 			}
 		</Suspense>

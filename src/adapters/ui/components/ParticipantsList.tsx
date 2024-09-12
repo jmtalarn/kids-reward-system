@@ -2,14 +2,13 @@
 import { useDispatch, useSelector } from "react-redux";
 import { addParticipant, removeParticipant } from "../../state/participantsSlice";
 
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faUserPlus, faCheck, faTrashXmark } from '@fortawesome/pro-duotone-svg-icons';
 import { getRandomColor } from '../../../core/domain/utils/colors'
 
 import Button from './Button';
 import { useState } from 'react';
 import { Participant } from '../../../core/domain/Participant';
 import Input from './Input';
+import Icon from './Icon';
 import style from './Common.module.css';
 
 const ParticipantInput = ({ participant }: { participant: Participant }) => {
@@ -21,10 +20,10 @@ const ParticipantInput = ({ participant }: { participant: Participant }) => {
 			<Input label="Participant" value={inputParticipant.name} onChange={e => setInputParticipant({ ...inputParticipant, name: e.target.value })} placeholder="New participant" />
 			<Input className={style['color-input']} value={inputParticipant.color} type="color" onChange={e => setInputParticipant({ ...inputParticipant, color: e.target.value })} />
 			<Button className={style.button} onClick={() => dispatch(addParticipant(inputParticipant))}>
-				<FontAwesomeIcon icon={faCheck} />
+				<Icon icon="check" />
 			</Button>
 			<Button className={style.button} onClick={() => dispatch(removeParticipant(participant.id || ''))}>
-				<FontAwesomeIcon icon={faTrashXmark} />
+				<Icon icon="trash-2" />
 			</Button>
 		</div>
 	);
@@ -39,7 +38,7 @@ const ParticipantsList = () => {
 		<header className={style['section-header']}>
 			<h3>Participants</h3>
 			<Button onClick={() => dispatch(addParticipant({ name: '', color: getRandomColor() }))}>
-				<FontAwesomeIcon icon={faUserPlus} />
+				<Icon icon="user-plus" />
 			</Button>
 		</header>
 		{participants.map(participant => (
