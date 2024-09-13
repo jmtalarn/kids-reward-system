@@ -1,13 +1,12 @@
 import { useEffect, useRef, ReactNode, useState, cloneElement } from 'react';
+import { useDispatch, useSelector } from "react-redux";
+import { addAssessment } from "../../state/assessmentsSlice";
+import { fetchParticipants } from "../../state/participantsSlice";
 import { Participant } from '../../../core/domain/Participant';
 import { DialogOption } from '../../../core/domain/DialogOption';
 import Icon from './Icon';
 
-import { useConfigContext } from '../context/ConfigContext';
-
 import style from './ParticipantsAssessment.module.css';
-// Define the props type
-
 
 
 interface ModalProps {
@@ -19,9 +18,15 @@ interface ModalProps {
 }
 
 
-export const ParticipantsAssessment = ({ selectedTask, options }: { selectedTask: Task, options: DialogOption[] }) => {
+export const ParticipantsAssessment = ({ selectedDate, selectedTask, options }: { selectedDate: Date, selectedTask: Task, options: DialogOption[] }) => {
 
-  const { config: { participants } } = useConfigContext();
+  const { participants } = useSelector((state) => state.participants);
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(fetchParticipants());
+  }, []);
 
   const [modalOpen, setModalOpen] = useState<boolean>(false);
 
@@ -58,6 +63,18 @@ export const ParticipantsAssessment = ({ selectedTask, options }: { selectedTask
       closeModal={() => { setModalOpen(false); }}
       handleSelectOption={(dialogOption: DialogOption) => {
         setParticipantsVote(new Map([...participantsVote.entries(), [participantSelected, dialogOption]]));
+
+        dispatch(
+          addAssessment(
+            {
+              date: selectedDate,
+              participantId: participantSelected.id,
+              taskId: selectedTask.id,
+              option: dialogOption
+            }
+          )
+        );
+
         selectParticipant();
         setModalOpen(false);
       }}

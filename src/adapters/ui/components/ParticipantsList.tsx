@@ -1,6 +1,6 @@
-
+import { useEffect } from 'react';
 import { useDispatch, useSelector } from "react-redux";
-import { addParticipant, removeParticipant } from "../../state/participantsSlice";
+import { addParticipant, removeParticipant, fetchParticipants } from "../../state/participantsSlice";
 
 import { getRandomColor } from '../../../core/domain/utils/colors'
 
@@ -33,7 +33,9 @@ const ParticipantInput = ({ participant }: { participant: Participant }) => {
 const ParticipantsList = () => {
 	const { participants } = useSelector((state) => state.participants);
 	const dispatch = useDispatch();
-
+	useEffect(() => {
+		dispatch(fetchParticipants());
+	}, []);
 	return <section className={style.section}>
 		<header className={style['section-header']}>
 			<h3>Participants</h3>

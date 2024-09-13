@@ -1,4 +1,5 @@
 
+import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from "react-redux";
 import { addParticipant, removeParticipant } from "../../state/participantsSlice";
 
@@ -6,35 +7,44 @@ import { getRandomColor } from '../../../core/domain/utils/colors'
 import TasksList from './TasksList';
 import Button from './Button';
 import Icon from './Icon';
-import { useState } from 'react';
+
 import { Reward } from '../../../core/domain/Reward';
 import Input from './Input';
 import style from './Common.module.css';
-
-// const ParticipantInput = ({ participant }: { participant: Participant }) => {
-// 	const [inputParticipant, setInputParticipant] = useState(participant);
-// 	const dispatch = useDispatch();
-
-// 	return (
-// 		<div className={style.field}>
-// 			<Input label="Participant" value={inputParticipant.name} onChange={e => setInputParticipant({ ...inputParticipant, name: e.target.value })} placeholder="New participant" />
-// 			<Input className={style['color-input']} value={inputParticipant.color} type="color" onChange={e => setInputParticipant({ ...inputParticipant, color: e.target.value })} />
-// 			<Button className={style.button} onClick={() => dispatch(addParticipant(inputParticipant))}>
-// 				<FontAwesomeIcon icon={faCheck} />
-// 			</Button>
-// 			<Button className={style.button} onClick={() => dispatch(removeParticipant(participant.id || ''))}>
-// 				<FontAwesomeIcon icon={faTrashXmark} />
-// 			</Button>
-// 		</div>
-// 	);
-// };
+import rewardFormStyle from './RewardForm.module.css';
 
 
 const RewardForm = ({ reward }: { reward: Reward }) => {
 	// const { participants } = useSelector((state) => state.participants);
 	// const dispatch = useDispatch();
 	const [rewardData, setRewardData] = useState(reward);
-	console.log({ rewardData })
+	const [dueDate, setDueDate] = useState(rewardData?.dueDate || new Date().toISOString().substring(0, 10));
+	const [startingDate, setStartingDate] = useState(new Date().toISOString().substring(0, 10));
+	const [message, setMessage] = useState({ type: '', text: '' });
+	useEffect(() => {
+		if (!reward?.id) {
+
+			setRewardData({ ...rewardData, id: window.crypto.randomUUID() });
+		}
+	}, []);
+
+
+	useEffect(() => {
+		const oneDay = 24 * 60 * 60 * 1000; // hours*minutes*seconds*milliseconds
+
+		const startingDateDate = new Date(startingDate);
+		const dueDateDate = new Date(dueDate);
+
+		const diffDays = Math.round((dueDateDate - startingDateDate) / oneDay) + 1;
+		if (diffDays >= 0) {
+
+			setMessage({ text: `The tasks described on the reward will last ${diffDays} day${diffDays > 1 ? 's' : ''}.` });
+			setRewardData(rewardData => ({ ...rewardData, daysToCount: diffDays }));
+		} else {
+			setMessage({ type: 'ERROR', text: `The starting date needs to be before or same as due date.` })
+		}
+
+	}, [startingDate, dueDate]);
 	return <section className={style.section}>
 		<header className={style['section-header']}>
 			<h3>Reward</h3>
@@ -47,12 +57,25 @@ const RewardForm = ({ reward }: { reward: Reward }) => {
 			/>
 			<TasksList rewardId={rewardData?.id} />
 			<Input
-				label="Due Date"
-				value={rewardData?.dueDate}
-				onChange={e => setRewardData({ ...rewardData, dueDate: e.target.value })} placeholder="Due Date"
+				label="Starting Date"
+				type="date"
+				value={startingDate}
+				onChange={e => setStartingDate(e.target.value)}
+				placeholder="Starting Date"
 			/>
+			<Input
+				label="Due Date"
+				type="date"
+				value={dueDate}
+				onChange={e => setDueDate(e.target.value)}
+				placeholder="Due Date"
+			/>
+			<p className={`${rewardFormStyle.message}${message.type === "ERROR" ? ` ${rewardFormStyle.error}` : ''}`}>
+				{message.text}
+			</p>
+
 		</div>
-	</section>
+	</section >
 }
 
 export default RewardForm;

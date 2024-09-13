@@ -1,0 +1,7 @@
+.message {
+	color: grey;
+}
+
+.message.error {
+	color: salmon;
+}

@@ -1,11 +1,11 @@
-import { Task } from './Task';
-import { Participant } from './Participant';
 import { DialogOption } from './DialogOption';
 
+// export type AssessmentId = typeof string;
+
 export interface Assessment {
-	id?: string;
+	// id?: AssessmentId;
 	date: Date;
-	participant: Participant
-	task: Task;
+	participant: ParticipantId
+	task: TaskId;
 	score: DialogOption;
 }

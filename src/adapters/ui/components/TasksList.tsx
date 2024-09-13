@@ -1,10 +1,10 @@
 
+import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from "react-redux";
-import { addTask, removeTask, reorderTask } from "../../state/tasksSlice";
+import { addTask, removeTask, reorderTask, fetchTasks } from "../../state/tasksSlice";
 
 import Button from './Button';
 import Icon from './Icon';
-import { useState } from 'react';
 import { Task } from '../../../core/domain/Participant';
 import Input from './Input';
 import style from './Common.module.css';
@@ -26,7 +26,7 @@ const TaskInput = ({ task, dragged }: { task: Task, dragged: boolean }) => {
 				<Icon icon="check" />
 			</Button>
 			<Button className={style.button} onClick={() => dispatch(removeTask({ rewardId: task.rewardId, taskId: task.id }))}>
-				<Icon icon="trash-2" />∫
+				<Icon icon="trash-2" />
 			</Button>
 
 		</div>
@@ -37,9 +37,10 @@ const TaskInput = ({ task, dragged }: { task: Task, dragged: boolean }) => {
 const TasksList = ({ rewardId }: { rewardId: string }) => {
 	const { tasks } = useSelector((state) => state.tasks);
 	const dispatch = useDispatch();
-
 	const [draggingItem, setDraggingItem] = useState(null);
-
+	useEffect(() => {
+		dispatch(fetchTasks(rewardId));
+	}, []);
 	const handleDragStart = (e, item) => {
 		setDraggingItem(item);
 		e.dataTransfer.setData('text/plain', '');
