@@ -2,7 +2,8 @@ import { ReactNode, useState } from 'react';
 import style from './Calendar.module.css';
 import { ParticipantsAssessment } from '../components/ParticipantsAssessment'
 import Button from '../components/Button'
-import Icon from '../components/Icon'
+
+import { Calendar, SkipBack, SkipForward, CornerLeftDown, CornerRightDown, ArrowLeft, ArrowRight } from 'react-feather';
 import Select from '../components/Select'
 import { setNewDate, setToday, forwardMonth, forwardDays, backwardDays, backwardMonth } from '../../state/dateSlice';
 
@@ -89,13 +90,13 @@ const MoveDateButtons = ({ offset }: { offset: 1 | 7 | "month" }) => {
         }
       }
     >
-      <Icon icon="skip-back" className={style['move-date-button-icon']} />
+      <SkipBack className={style['move-date-button-icon']} />
     </Button>
     <Button
       className={style['move-date-button']}
       onClick={() => dispatch(setToday())}
     >
-      <Icon icon="calendar" className={style['move-date-button-icon']} />&nbsp;
+      <Calendar className={style['move-date-button-icon']} />&nbsp;
       Today
     </Button>
     <Button
@@ -110,7 +111,7 @@ const MoveDateButtons = ({ offset }: { offset: 1 | 7 | "month" }) => {
         }
       }
     >
-      <Icon icon="skip-forward" className={style['move-date-button-icon']} />
+      <SkipForward className={style['move-date-button-icon']} />
     </Button>
   </div >
 }
@@ -235,7 +236,7 @@ const arrow = (idx) => {
     return (
       <span key={`arrow_${idx}`} className={`${style.arrow} ${style['turn-down']}`
       }>
-        <Icon icon="corner-left-down" />
+        <CornerLeftDown />
       </span>
     )
   }
@@ -243,7 +244,7 @@ const arrow = (idx) => {
     return (
       <span key={`arrow_${idx}`} className={`${style.arrow} ${style['turn-down']}`
       }>
-        <Icon icon="corner-right-down" />
+        <CornerRightDown />
       </span>
     )
   }
@@ -251,7 +252,7 @@ const arrow = (idx) => {
     return (
       <span key={`arrow_${idx}`} className={`${style.arrow}`
       }>
-        <Icon className={`${style.arrow}`} icon="arrow-left" />
+        <ArrowLeft className={`${style.arrow}`} />
       </span>
     )
   }
@@ -259,7 +260,7 @@ const arrow = (idx) => {
   return (
     <span key={`arrow_${idx}`} className={`${style.arrow}`
     }>
-      <Icon className={`${style.arrow}`} icon="arrow-right" />
+      <ArrowRight className={`${style.arrow}`} />
     </span>
   )
 }

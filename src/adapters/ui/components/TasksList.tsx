@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { addTask, removeTask, reorderTask, fetchTasks } from "../../state/tasksSlice";
 
 import Button from './Button';
-import Icon from './Icon';
+import { Move, AlignJustify, Check, Trash2, PlusCircle } from 'react-feather'
 import { Task } from '../../../core/domain/Participant';
 import Input from './Input';
 import style from './Common.module.css';
@@ -14,19 +14,24 @@ import style from './Common.module.css';
 const TaskInput = ({ task, dragged }: { task: Task, dragged: boolean }) => {
 	const [inputValue, setInputValue] = useState(task.description);
 	const dispatch = useDispatch();
-
 	const classNames = [style.field, "field_task_input",
 	dragged && style.dragged
 	].filter(item => !!item).join(" ");
+
 	return (
 		<div className={classNames}>
-			<Icon className={style['drag-icon']} icon={dragged ? "move" : "align-justify"} title="Drag around to reorder it" />
+
+			{dragged ?
+				<Move className={style['drag-icon']} />
+				:
+				<AlignJustify className={style['drag-icon']} />
+			}
 			<Input label="Task" value={inputValue} onChange={e => setInputValue(e.target.value)} placeholder="New task" />
 			<Button className={style.button} onClick={() => dispatch(addTask({ rewardId: task.rewardId, task: { ...task, description: inputValue } }))}>
-				<Icon icon="check" />
+				<Check />
 			</Button>
 			<Button className={style.button} onClick={() => dispatch(removeTask({ rewardId: task.rewardId, taskId: task.id }))}>
-				<Icon icon="trash-2" />
+				<Trash2 style={{ minWidth: "1rem" }} />
 			</Button>
 
 		</div>
@@ -38,10 +43,13 @@ const TasksList = ({ rewardId }: { rewardId: string }) => {
 	const { tasks } = useSelector((state) => state.tasks);
 	const dispatch = useDispatch();
 	const [draggingItem, setDraggingItem] = useState(null);
+
 	useEffect(() => {
-		dispatch(fetchTasks(rewardId));
+		dispatch(fetchTasks({}));
 	}, []);
+
 	const handleDragStart = (e, item) => {
+
 		setDraggingItem(item);
 		e.dataTransfer.setData('text/plain', '');
 	};
@@ -71,7 +79,7 @@ const TasksList = ({ rewardId }: { rewardId: string }) => {
 		<header className={style['section-header']}>
 			<h3>Tasks for {rewardId}</h3>
 			<Button onClick={() => dispatch(addTask({ rewardId: rewardId, task: { description: '' } }))}>
-				<Icon icon="plus-circle" />
+				<PlusCircle />
 			</Button>
 		</header>
 		{tasks

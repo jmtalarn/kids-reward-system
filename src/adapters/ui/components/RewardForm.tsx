@@ -1,12 +1,5 @@
-
 import { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from "react-redux";
-import { addParticipant, removeParticipant } from "../../state/participantsSlice";
-
-import { getRandomColor } from '../../../core/domain/utils/colors'
 import TasksList from './TasksList';
-import Button from './Button';
-import Icon from './Icon';
 
 import { Reward } from '../../../core/domain/Reward';
 import Input from './Input';
@@ -21,13 +14,6 @@ const RewardForm = ({ reward }: { reward: Reward }) => {
 	const [dueDate, setDueDate] = useState(rewardData?.dueDate || new Date().toISOString().substring(0, 10));
 	const [startingDate, setStartingDate] = useState(new Date().toISOString().substring(0, 10));
 	const [message, setMessage] = useState({ type: '', text: '' });
-	useEffect(() => {
-		if (!reward?.id) {
-
-			setRewardData({ ...rewardData, id: window.crypto.randomUUID() });
-		}
-	}, []);
-
 
 	useEffect(() => {
 		const oneDay = 24 * 60 * 60 * 1000; // hours*minutes*seconds*milliseconds

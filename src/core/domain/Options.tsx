@@ -1,7 +1,7 @@
 import Icon from '../../adapters/ui/components/Icon'
-
+import { Smile, Meh, Frown } from 'react-feather';
 export const options = [
-	{ option: <Icon icon="smile" style={{ color: 'lime' }} />, value: 3 },
-	{ option: <Icon icon="meh" style={{ color: 'gold' }} />, value: 1 },
-	{ option: <Icon icon="frown" style={{ color: 'salmon' }} />, value: 0 },
+	{ option: <Smile style={{ color: 'lime' }} />, value: 3 },
+	{ option: <Meh style={{ color: 'gold' }} />, value: 1 },
+	{ option: <Frown style={{ color: 'salmon' }} />, value: 0 },
 ];

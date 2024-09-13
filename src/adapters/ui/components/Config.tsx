@@ -4,7 +4,7 @@ import { getRandomColor } from '../../../core/domain/utils/colors'
 
 import TextArea from './TextArea';
 import Button from './Button';
-import Icon from './Icon';
+import { Check, UserPlus, PlusCircle, Check, Trash2 } from 'react-feather';
 import { useConfigContext } from '../context/ConfigContext';
 import { useState } from 'react';
 import { Participant } from '../../../core/domain/Participant';
@@ -56,7 +56,7 @@ export const Config = () => {
         <div className={style.field}>
           <TextArea label="Set the reward description" value={rewardInput} onChange={e => setRewardInput(e.target.value)} />
           <Button onClick={() => setReward(rewardInput)}>
-            <Icon icon="check" />
+            <Check />
           </Button>
         </div>
       </section>
@@ -65,7 +65,7 @@ export const Config = () => {
         <header className={style['section-header']}>
           <h3>Participants</h3>
           <Button onClick={() => addParticipant({ name: '', color: getRandomColor() })}>
-            <Icon icon="user-plus" />
+            <UserPlus />
           </Button>
         </header>
         {config.participants.map(participant => (
@@ -77,7 +77,7 @@ export const Config = () => {
         <header className={style['section-header']}>
           <h3>Daily tasks</h3>
           <Button onClick={() => addTask({ description: '' })}>
-            <Icon icon="plus-circle" />
+            <PlusCircle />
           </Button>
         </header>
         {config.dailyTasks.map(task => (
@@ -108,10 +108,10 @@ const ParticipantInput = ({ participant }: { participant: Participant }) => {
       <Input label="Participant" value={inputParticipant.name} onChange={e => setInputParticipant({ ...inputParticipant, name: e.target.value })} placeholder="New participant" />
       <Input className={style['color-input']} value={inputParticipant.color} type="color" onChange={e => setInputParticipant({ ...inputParticipant, color: e.target.value })} />
       <Button className={style.button} onClick={() => addParticipant(inputParticipant)}>
-        <Icon icon="check" />
+        <Check />
       </Button>
       <Button className={style.button} onClick={() => removeParticipant(participant.id || '')}>
-        <Icon icon="trash-2" />
+        <Trash2 />
       </Button>
     </div>
   );

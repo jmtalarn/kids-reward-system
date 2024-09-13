@@ -36,9 +36,9 @@
   padding: 0 !important;
 }
 
-/* :global .field_task_input * {
+:global .dragged-over * {
   pointer-events: none;
-} */
+}
 
 :global .dragged-over {
   color: salmon;

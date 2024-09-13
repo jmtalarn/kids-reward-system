@@ -1,11 +1,9 @@
 import { useEffect, useRef, ReactNode, useState, cloneElement } from 'react';
 import { useDispatch, useSelector } from "react-redux";
 import { addAssessment } from "../../state/assessmentsSlice";
-import { fetchParticipants } from "../../state/participantsSlice";
 import { Participant } from '../../../core/domain/Participant';
 import { DialogOption } from '../../../core/domain/DialogOption';
-import Icon from './Icon';
-
+import { HelpCircle, XCircle, User } from 'react-feather';
 import style from './ParticipantsAssessment.module.css';
 
 
@@ -53,7 +51,7 @@ export const ParticipantsAssessment = ({ selectedDate, selectedTask, options }: 
             }
           />
           <div className={style['vote']}>
-            {dialogOption ? dialogOption?.option : <Icon icon="help-circle" />}
+            {dialogOption ? dialogOption?.option : <HelpCircle />}
           </div>
         </div>
       )
@@ -102,7 +100,7 @@ const Modal: React.FC<ModalProps> = ({ openModal, closeModal, children, options,
     <dialog ref={ref} className={style.dialog} onCancel={closeModal}>
       <header className={style.header}>
         <button className={style['close-button']} onClick={closeModal}>
-          <Icon icon="x-circle" />
+          <XCircle />
         </button>
       </header>
       <div className={style.options}>
@@ -133,6 +131,6 @@ const Option = ({ dialogOption, onClick }: { dialogOption: DialogOption, onClick
 
 const ParticipantSwitch = ({ participant, handleClick }: { participant: Participant, handleClick: () => void }) =>
 (<button className={style['participant-switch']} onClick={handleClick} >
-  <Icon style={{ color: participant.color }} icon="user" /> {participant.name}
+  <User style={{ color: participant.color }} /> {participant.name}
 </button>)
 
