@@ -5,3 +5,7 @@
 .message.error {
 	color: salmon;
 }
+
+.buttons {
+	text-align: right;
+}

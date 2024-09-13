@@ -1,3 +1,4 @@
+import { generateUuid } from '../../../core/domain/utils/generate-uuid';
 import { Participant } from '../domain/Participant';
 const LOCAL_STORAGE_KEY = 'KRS_PARTICIPANTS';
 
@@ -11,7 +12,7 @@ const addParticipant = async (participant: Participant): Promise<Participant[]> 
 	let updatedParticipants;
 	if (!participant.color) { participant.color = getRandomColor() }
 	if (!participant.id) {
-		participant.id = window.crypto.randomUUID();
+		participant.id = generateUuid();
 		updatedParticipants = [...participants, participant];
 	} else {
 		updatedParticipants = participants.map(item => {

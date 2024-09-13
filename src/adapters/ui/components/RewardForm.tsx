@@ -1,15 +1,18 @@
 import { useEffect, useState } from 'react';
 import TasksList from './TasksList';
-
+import { useDispatch } from "react-redux";
+import { addReward, removeReward } from "../../state/rewardsSlice";
 import { Reward } from '../../../core/domain/Reward';
 import Input from './Input';
-import style from './Common.module.css';
+import Button from './Button';
+import { Check, Trash2 } from 'react-feather';
+import commonStyle from './Common.module.css';
 import rewardFormStyle from './RewardForm.module.css';
 
 
 const RewardForm = ({ reward }: { reward: Reward }) => {
 	// const { participants } = useSelector((state) => state.participants);
-	// const dispatch = useDispatch();
+	const dispatch = useDispatch();
 	const [rewardData, setRewardData] = useState(reward);
 	const [dueDate, setDueDate] = useState(rewardData?.dueDate || new Date().toISOString().substring(0, 10));
 	const [startingDate, setStartingDate] = useState(new Date().toISOString().substring(0, 10));
@@ -31,8 +34,8 @@ const RewardForm = ({ reward }: { reward: Reward }) => {
 		}
 
 	}, [startingDate, dueDate]);
-	return <section className={style.section}>
-		<header className={style['section-header']}>
+	return <section className={commonStyle.section}>
+		<header className={commonStyle['section-header']}>
 			<h3>Reward</h3>
 		</header>
 		<div>
@@ -41,7 +44,6 @@ const RewardForm = ({ reward }: { reward: Reward }) => {
 				value={rewardData?.description}
 				onChange={e => setRewardData({ ...rewardData, description: e.target.value })} placeholder="Reward description"
 			/>
-			<TasksList rewardId={rewardData?.id} />
 			<Input
 				label="Starting Date"
 				type="date"
@@ -61,7 +63,21 @@ const RewardForm = ({ reward }: { reward: Reward }) => {
 			</p>
 
 		</div>
+		{Boolean(rewardData?.id) && <TasksList rewardId={rewardData?.id} />}
+		<div className={rewardFormStyle.buttons}>
+			<Button className={commonStyle.button} onClick={() => dispatch(addReward(rewardData))}>
+				<Check />
+			</Button>
+			<Button
+				disabled={!rewardData?.id}
+				className={commonStyle.button}
+				onClick={() => dispatch(removeReward(rewardData?.id))}
+			>
+				<Trash2 />
+			</Button>
+		</div>
 	</section >
+
 }
 
 export default RewardForm;

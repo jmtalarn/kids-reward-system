@@ -1,3 +1,4 @@
+import { generateUuid } from '../../../core/domain/utils/generate-uuid';
 import { Task } from '../domain/Task';
 const LOCAL_STORAGE_KEY = 'KRS_TASKS';
 
@@ -12,7 +13,7 @@ const addTask = async (rewardId: string, task: Task): Promise<Task[]> => {
 	const rewardTasks = tasks.filter(task => task.rewardId === rewardId);
 	let updatedTasks;
 	if (!task.id) {
-		task.id = window.crypto.randomUUID();
+		task.id = generateUuid();
 		task.order = rewardTasks.length ? rewardTasks[rewardTasks.length - 1].order + 1 : 0;
 		task.rewardId = rewardId;
 		updatedTasks = [...tasks, task];

@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useReducer, useEffect } from 'react';
 import { Config } from '../../../core/domain/_TOEVALUATE_/Config';
-import { ConfigService } from '../../../core/services/ConfigService';
+import { ConfigService } from '../../../core/services/_TO_EVALUATE_/ConfigService';
 import { Participant } from '../../../core/domain/Participant';
 import { Task } from '../../../core/domain/Task';
 

@@ -3,7 +3,7 @@ import style from './Calendar.module.css';
 import { ParticipantsAssessment } from '../components/ParticipantsAssessment'
 import Button from '../components/Button'
 
-import { Calendar, SkipBack, SkipForward, CornerLeftDown, CornerRightDown, ArrowLeft, ArrowRight } from 'react-feather';
+import { Calendar as CalendarIcon, SkipBack, SkipForward, CornerLeftDown, CornerRightDown, ArrowLeft, ArrowRight } from 'react-feather';
 import Select from '../components/Select'
 import { setNewDate, setToday, forwardMonth, forwardDays, backwardDays, backwardMonth } from '../../state/dateSlice';
 
@@ -96,7 +96,7 @@ const MoveDateButtons = ({ offset }: { offset: 1 | 7 | "month" }) => {
       className={style['move-date-button']}
       onClick={() => dispatch(setToday())}
     >
-      <Calendar className={style['move-date-button-icon']} />&nbsp;
+      <CalendarIcon className={style['move-date-button-icon']} />&nbsp;
       Today
     </Button>
     <Button

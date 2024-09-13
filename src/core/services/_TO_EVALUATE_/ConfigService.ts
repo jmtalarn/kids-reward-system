@@ -1,8 +1,8 @@
-import { Config } from '../domain/_TOEVALUATE_/Config';
-import { Participant } from '../domain/Participant';
-import { Task } from '../domain/Task';
-import { getRandomColor } from '../domain/utils/colors'
-
+import { Config } from '../../domain/_TOEVALUATE_/Config';
+import { Participant } from '../../domain/Participant';
+import { Task } from '../../domain/Task';
+import { getRandomColor } from '../../domain/utils/colors'
+import { generateUuid } from '../../domain/utils/generate-uuid';
 
 export class ConfigService {
   private config: Config =
@@ -28,7 +28,7 @@ export class ConfigService {
   addParticipant(participant: Participant): void {
     if (!participant.color) { participant.color = getRandomColor() }
     if (!participant.id) {
-      participant.id = window.crypto.randomUUID();
+      participant.id = generateUuid();
       this.config.participants.push(participant);
     } else {
       this.config.participants = this.config.participants.map(item => {
@@ -46,7 +46,7 @@ export class ConfigService {
   addTask(task: Task): void {
     const orderLastItem = this.config.dailyTasks.length ? this.config.dailyTasks[this.config.dailyTasks.length - 1].order + 1 : 0;
     if (!task.id) {
-      task.id = window.crypto.randomUUID();
+      task.id = generateUuid();
       task.order = orderLastItem;
       this.config.dailyTasks.push(task);
     } else {

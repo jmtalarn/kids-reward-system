@@ -8,9 +8,21 @@ const getAllRewards = async (): Promise<Reward[]> => {
 	return rewards ? JSON.parse(rewards) : [];
 };
 
-const addReward = async (newReward: Reward): Promise<Reward[]> => {
+const addReward = async (reward: Reward): Promise<Reward[]> => {
 	const rewards = await getAllRewards();
-	const updatedRewards = [...rewards, newReward];
+	let updatedRewards;
+
+	if (!reward.id) {
+		reward.id = generateUuid();
+		updatedRewards = [...rewards, reward];
+	} else {
+		updatedRewards = rewards.map(item => {
+			if (item.id === reward.id) {
+				return reward;
+			}
+			return item;
+		});
+	}
 	localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(updatedRewards));
 	return updatedRewards;
 };

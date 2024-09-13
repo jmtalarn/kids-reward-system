@@ -1,6 +1,6 @@
-import { Data } from '../domain/_TOEVALUATE_/Data';
-import { Participant } from '../domain/Participant';
-import { Task } from '../domain/Task';
+import { Data } from '../../domain/_TOEVALUATE_/Data';
+import { Participant } from '../../domain/Participant';
+import { Task } from '../../domain/Task';
 
 
 

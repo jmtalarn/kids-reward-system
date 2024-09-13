@@ -1,6 +1,7 @@
 import { useEffect, useRef, ReactNode, useState, cloneElement } from 'react';
 import { useDispatch, useSelector } from "react-redux";
 import { addAssessment } from "../../state/assessmentsSlice";
+import { fetchParticipants } from "../../state/participantsSlice";
 import { Participant } from '../../../core/domain/Participant';
 import { DialogOption } from '../../../core/domain/DialogOption';
 import { HelpCircle, XCircle, User } from 'react-feather';

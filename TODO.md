@@ -3,4 +3,5 @@
     -   [x] Tasks byId
     -   [x] Tasks byRewardId: TaskId[]
     -   [x] Tasks TaskId[]
--   [ ] Replace FA icons
+-   [x] Replace FA icons
+-   [ ] Get tasks by Date
