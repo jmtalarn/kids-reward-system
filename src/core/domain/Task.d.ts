@@ -1,5 +1,8 @@
+export type TaskId = typeof string;
+
 export interface Task {
-  id?: string;
+  id?: TaskId;
+  rewardId: string;
   description: string;
   order: number;
 }

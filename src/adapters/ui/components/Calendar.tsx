@@ -1,15 +1,18 @@
 import { ReactNode, useState } from 'react';
 import style from './Calendar.module.css';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faArrowRight, faArrowLeft, faTurnDown, faTurnLeftDown, faBackward, faForward, faCalendarDay } from '@fortawesome/pro-duotone-svg-icons';
+import { ParticipantsAssessment } from '../components/ParticipantsAssessment'
+import Button from '../components/Button'
+
+import { Calendar as CalendarIcon, SkipBack, SkipForward, CornerLeftDown, CornerRightDown, ArrowLeft, ArrowRight } from 'react-feather';
+import Select from '../components/Select'
+import { setNewDate, setToday, forwardMonth, forwardDays, backwardDays, backwardMonth } from '../../state/dateSlice';
+
+import { Task } from '../../../core/domain/Task';
+import { options } from '../../../core/domain/Options';
+
 const CalendarViewTypes = ["daily", "weekly", "monthly", "flow"];
 type CalendarViewType = typeof CalendarViewTypes[number];
-import { Participant } from '../../../core/domain/Participant';
 
-import Button from '../components/Button'
-import { useDateContext } from '../context/DateContext';
-import { useConfigContext } from '../context/ConfigContext';
-import { Task } from '../../../core/domain/Task';
 
 interface ViewComponent { [key: CalendarViewType]: ReactNode }
 
@@ -48,31 +51,31 @@ const viewMap: ViewComponent =
 
 export const Calendar = () => {
   const { config: { dailyTasks: tasks } } = useConfigContext();
-  const { setNewDate } = useDateContext();
+
+  const dispatch = useDispatch();
 
   const [view, setView] = useState<CalendarView>("daily");
 
   return <div className={style['calendar-container']}>
     <header className={style.header}>
       <h2 className={style['view-selected']}>{view}</h2>
-      <select
-        value={view}
-        onChange={(evt) => setView(evt.target.value)}
-      >
-        {CalendarViewTypes
-          .map(viewtype => <option key={viewtype} value={viewtype}>{viewtype}</option>)}
-      </select>
+      <Select
+        value={{ value: view, label: view }}
+        onChange={({ value }) => setView(value)}
+        options={CalendarViewTypes
+          .map(viewtype => ({ value: viewtype, label: viewtype }))
+        }
+      />
     </header>
     <div className={style.calendar}>
-      {viewMap[view]({ onDayClick: (date) => { setNewDate(date); setView("daily"); }, tasks })}
-
+      {viewMap[view]({ onDayClick: (date) => { dispatch(setNewDate(date)); setView("daily"); }, tasks })}
     </div>
   </div>
 
 };
 
 const MoveDateButtons = ({ offset }: { offset: 1 | 7 | "month" }) => {
-  const { setToday, forwardMonth, forwardDays, backwardDays, backwardMonth } = useDateContext();
+  const dispatch = useDispatch();
 
   return <div className={style['move-date-buttons']}>
     <Button
@@ -80,42 +83,41 @@ const MoveDateButtons = ({ offset }: { offset: 1 | 7 | "month" }) => {
       onClick={
         () => {
           if (offset === "month") {
-            backwardMonth();
+            dispatch(backwardMonth());
           } else {
-            backwardDays(offset);
+            dispatch(backwardDays(offset));
           }
         }
       }
     >
-      <FontAwesomeIcon icon={faBackward} />
+      <SkipBack className={style['move-date-button-icon']} />
     </Button>
     <Button
       className={style['move-date-button']}
-      onClick={() => setToday()}
+      onClick={() => dispatch(setToday())}
     >
-      <>
-        <FontAwesomeIcon icon={faCalendarDay} /> Today
-      </>
+      <CalendarIcon className={style['move-date-button-icon']} />&nbsp;
+      Today
     </Button>
     <Button
       className={style['move-date-button']}
       onClick={
         () => {
           if (offset === "month") {
-            forwardMonth();
+            dispatch(forwardMonth());
           } else {
-            forwardDays(offset);
+            dispatch(forwardDays(offset));
           }
         }
       }
     >
-      <FontAwesomeIcon icon={faForward} />
+      <SkipForward className={style['move-date-button-icon']} />
     </Button>
   </div >
 }
 
-const DailyView = ({ onDayClick, tasks }: { onDayClick: () => void, tasks: Task[] }) => {
-  const { date: dateSelected } = useDateContext();
+const DailyView = ({ tasks }: { tasks: Task[] }) => {
+  const { date: dateSelected } = useSelector((state) => state.date);
   return (
     <div className={style['calendar-day']}>
       <header className={style['calendar-day-header']} >
@@ -127,10 +129,9 @@ const DailyView = ({ onDayClick, tasks }: { onDayClick: () => void, tasks: Task[
 
       {
         tasks.map(task => <div key={`${task.id}_${task.order}`} className={style['calendar-grid-day']}><span className={style.tasks}>{task.description}</span>
-          <button
-            className={`${style['daily-day']} ${style.button}`}
-            onClick={() => dateSelected && onDayClick(dateSelected)}
-          />
+          <div className={`${style['daily-day']} `}>
+            <ParticipantsAssessment selectedTask={task} options={options} />
+          </div>
         </div>)
       }
     </div >
@@ -138,7 +139,7 @@ const DailyView = ({ onDayClick, tasks }: { onDayClick: () => void, tasks: Task[
 }
 
 const WeeklyView = ({ onDayClick, tasks }: { onDayClick: () => void, tasks: string[] }) => {
-  const { date: dateSelected } = useDateContext();
+  const { date: dateSelected } = useSelector((state) => state.date);
 
   const weekDays = Array(7);
   weekDays[dateSelected.getDay()] = dateSelected;
@@ -170,13 +171,15 @@ const WeeklyView = ({ onDayClick, tasks }: { onDayClick: () => void, tasks: stri
       </div>
       {tasks.map(task => <div key={`${task.id}_${task.order}`} className={style['calendar-grid-week']}><span className={style.tasks}>{task.description}</span>
         {
-          weekDays.map((day, idx) => (<button
-            className={`${style['weekly-day']} ${style.button}`}
-            key={`${idx}_${day?.getDay() || "Empty"}`}
-            onClick={() => day && onDayClick(day)}
-          >
-          </button>
-          )
+          weekDays.map(
+            (day, idx) => (
+              <button
+                className={`${style['weekly-day']} ${style.button}`}
+                key={`${idx}_${day?.getDay() || "Empty"}`}
+                onClick={() => day && onDayClick(day)}
+              >
+              </button>
+            )
           )
         }
       </div>)}
@@ -186,7 +189,7 @@ const WeeklyView = ({ onDayClick, tasks }: { onDayClick: () => void, tasks: stri
 
 
 const MonthlyView = ({ onDayClick }: { onDayClick: () => void }) => {
-  const { date: dateSelected } = useDateContext();
+  const { date: dateSelected } = useSelector((state) => state.date);
 
   const days = getDaysInMonth(dateSelected.getMonth(), dateSelected.getFullYear(), true);
 
@@ -217,7 +220,7 @@ const MonthlyView = ({ onDayClick }: { onDayClick: () => void }) => {
               onClick={() => day && onDayClick(day)}
             >
               <span className={style['monthly-day-label']}>{day?.getDate() || ""}</span>
-            </button> : <span key={`${idx}_noday`} className={style['no-day']} />
+            </button> : <span key={`${day}_noday`} className={style['no-day']} />
             )
           }
           )
@@ -233,7 +236,7 @@ const arrow = (idx) => {
     return (
       <span key={`arrow_${idx}`} className={`${style.arrow} ${style['turn-down']}`
       }>
-        <FontAwesomeIcon icon={faTurnLeftDown} />
+        <CornerLeftDown />
       </span>
     )
   }
@@ -241,7 +244,7 @@ const arrow = (idx) => {
     return (
       <span key={`arrow_${idx}`} className={`${style.arrow} ${style['turn-down']}`
       }>
-        <FontAwesomeIcon icon={faTurnDown} />
+        <CornerRightDown />
       </span>
     )
   }
@@ -249,7 +252,7 @@ const arrow = (idx) => {
     return (
       <span key={`arrow_${idx}`} className={`${style.arrow}`
       }>
-        <FontAwesomeIcon className={`${style.arrow}`} icon={faArrowLeft} />
+        <ArrowLeft className={`${style.arrow}`} />
       </span>
     )
   }
@@ -257,13 +260,13 @@ const arrow = (idx) => {
   return (
     <span key={`arrow_${idx}`} className={`${style.arrow}`
     }>
-      <FontAwesomeIcon className={`${style.arrow}`} icon={faArrowRight} />
+      <ArrowRight className={`${style.arrow}`} />
     </span>
   )
 }
 
 const FlowView = ({ onDayClick }: { onDayClick: () => void }) => {
-  const { date: dateSelected } = useDateContext();
+  const { date: dateSelected } = useSelector((state) => state.date);
 
   const days = getDaysInFlow(dateSelected, 25);
   return (

@@ -1,17 +1,12 @@
-import { useEffect, useRef, ReactNode, useState } from 'react';
-import { faCircleXmark, faUser, faCircleQuestion } from '@fortawesome/pro-duotone-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { useEffect, useRef, ReactNode, useState, cloneElement } from 'react';
+import { useDispatch, useSelector } from "react-redux";
+import { addAssessment } from "../../state/assessmentsSlice";
+import { fetchParticipants } from "../../state/participantsSlice";
 import { Participant } from '../../../core/domain/Participant';
-import { useConfigContext } from '../context/ConfigContext';
-
+import { DialogOption } from '../../../core/domain/DialogOption';
+import { HelpCircle, XCircle, User } from 'react-feather';
 import style from './ParticipantsAssessment.module.css';
-// Define the props type
 
-interface DialogOption {
-  option: ReactNode;
-  value: string;
-  //  action: () => void;
-}
 
 interface ModalProps {
   openModal: boolean;
@@ -22,9 +17,15 @@ interface ModalProps {
 }
 
 
-const ParticipantsAssessment = ({ selectedTask, options }: { selectedTask: Task, options: DialogOption[] }) => {
+export const ParticipantsAssessment = ({ selectedDate, selectedTask, options }: { selectedDate: Date, selectedTask: Task, options: DialogOption[] }) => {
 
-  const { config: { participants } } = useConfigContext();
+  const { participants } = useSelector((state) => state.participants);
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(fetchParticipants());
+  }, []);
 
   const [modalOpen, setModalOpen] = useState<boolean>(false);
 
@@ -36,7 +37,7 @@ const ParticipantsAssessment = ({ selectedTask, options }: { selectedTask: Task,
   useEffect(() => {
     setParticipantsVote(new Map(participants.map(participant => [participant, null])))
   }, [participants]);
-  console.log({ modalOpen })
+
   return <div className={style.participants}>
     {[...participantsVote.entries()].map(
       ([participant, dialogOption]) => (
@@ -51,7 +52,7 @@ const ParticipantsAssessment = ({ selectedTask, options }: { selectedTask: Task,
             }
           />
           <div className={style['vote']}>
-            {dialogOption ? dialogOption?.option : <FontAwesomeIcon icon={faCircleQuestion} />}
+            {dialogOption ? dialogOption?.option : <HelpCircle />}
           </div>
         </div>
       )
@@ -61,6 +62,18 @@ const ParticipantsAssessment = ({ selectedTask, options }: { selectedTask: Task,
       closeModal={() => { setModalOpen(false); }}
       handleSelectOption={(dialogOption: DialogOption) => {
         setParticipantsVote(new Map([...participantsVote.entries(), [participantSelected, dialogOption]]));
+
+        dispatch(
+          addAssessment(
+            {
+              date: selectedDate,
+              participantId: participantSelected.id,
+              taskId: selectedTask.id,
+              option: dialogOption
+            }
+          )
+        );
+
         selectParticipant();
         setModalOpen(false);
       }}
@@ -88,7 +101,7 @@ const Modal: React.FC<ModalProps> = ({ openModal, closeModal, children, options,
     <dialog ref={ref} className={style.dialog} onCancel={closeModal}>
       <header className={style.header}>
         <button className={style['close-button']} onClick={closeModal}>
-          <FontAwesomeIcon icon={faCircleXmark} />
+          <XCircle />
         </button>
       </header>
       <div className={style.options}>
@@ -113,13 +126,12 @@ const Modal: React.FC<ModalProps> = ({ openModal, closeModal, children, options,
 
 const Option = ({ dialogOption, onClick }: { dialogOption: DialogOption, onClick: () => void }) => (
   <button className={style['option-button']} onClick={onClick}>
-    {dialogOption.option}
+    {cloneElement(dialogOption.option, { style: { ...dialogOption.option.props.style, width: "4rem" } })}
   </button>
 );
 
 const ParticipantSwitch = ({ participant, handleClick }: { participant: Participant, handleClick: () => void }) =>
-(<button className={style['option-button']} onClick={handleClick} >
-  <FontAwesomeIcon style={{ color: participant.color }} icon={faUser} /> {participant.name}
+(<button className={style['participant-switch']} onClick={handleClick} >
+  <User style={{ color: participant.color }} /> {participant.name}
 </button>)
 
-export default ParticipantsAssessment;

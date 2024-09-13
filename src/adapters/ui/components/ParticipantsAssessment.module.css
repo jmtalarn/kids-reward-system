@@ -22,7 +22,11 @@
 .option-button {
   background: none;
   font-size: 3rem;
-  padding: 1rem 2rem;
+  /*padding: 1rem 2rem; */
+}
+
+.participant-switch {
+  background: none;
 }
 
 .vote {
@@ -51,6 +55,12 @@
 .options {
   display: flex;
   align-items: center;
+  flex-direction: row;
+}
+
+.participants {
+  gap: 1rem;
+  display: flex;
   flex-direction: column;
 }
 
@@ -58,6 +68,7 @@
   display: grid;
   grid-template-columns: 3fr 1fr;
   width: 100%;
+  gap: 2rem;
 }
 
 .participant-vote :first-child {
@@ -66,4 +77,10 @@
 
 .assessment-content {
   text-align: center;
+}
+
+.content {
+  text-align: center;
+  font-size: 1.5rem;
+  padding: 2rem;
 }
