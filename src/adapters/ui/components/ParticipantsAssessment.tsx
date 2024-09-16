@@ -1,6 +1,6 @@
 import { useEffect, useRef, ReactNode, useState, cloneElement } from 'react';
 import { useDispatch, useSelector } from "react-redux";
-import { addAssessment } from "../../state/assessmentsSlice";
+import { addAssessment, fetchAssessments } from "../../state/assessmentsSlice";
 import { fetchParticipants } from "../../state/participantsSlice";
 import { Participant } from '../../../core/domain/Participant';
 import { DialogOption } from '../../../core/domain/DialogOption';
@@ -28,6 +28,7 @@ export const ParticipantsAssessment = ({ selectedDate, selectedTask, options }: 
 
   useEffect(() => {
     dispatch(fetchParticipants());
+    dispatch(fetchAssessments());
   }, []);
 
   const [modalOpen, setModalOpen] = useState<boolean>(false);

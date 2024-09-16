@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
+import { fn } from '@storybook/test';
 import TextArea from '../../adapters/ui/components/TextArea';
 
 // More on how to set up stories at: https://storybook.js.org/docs/writing-stories#default-export
@@ -25,5 +26,6 @@ export const Default: Story = {
   args: {
     value:
       'Tempor sunt sint consequat aliqua qui ad commodo commodo ullamco mollit eiusmod velit exercitation. Amet ut sit consectetur laboris officia. Anim officia sit laboris incididunt irure Lorem anim excepteur eiusmod. Est nostrud occaecat velit cupidatat Lorem cillum fugiat.',
+    onChange: fn()
   },
 };
