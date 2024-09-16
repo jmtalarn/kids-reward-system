@@ -6,7 +6,7 @@ import style from './Calendar.module.css';
 import { ParticipantsAssessment } from '../components/ParticipantsAssessment'
 import Button from '../components/Button'
 
-import { Calendar as CalendarIcon, SkipBack, SkipForward, CornerLeftDown, CornerRightDown, ArrowLeft, ArrowRight } from 'react-feather';
+import { Calendar as CalendarIcon, SkipBack, SkipForward, CornerLeftDown, CornerRightDown, ArrowLeft, ArrowRight, Award } from 'react-feather';
 import Select from '../components/Select'
 import { setNewDate, setToday, forwardMonth, forwardDays, backwardDays, backwardMonth } from '../../state/dateSlice';
 
@@ -123,6 +123,7 @@ const MoveDateButtons = ({ offset }: { offset: 1 | 7 | "month" }) => {
 
 const DailyView = ({ tasks }: { tasks: Task[] }) => {
   const { date } = useSelector((state) => state.date);
+  const { rewards } = useSelector((state) => state.rewards);
   const dateSelected = useMemo(() => new Date(date), [date]);
   return (
     <div className={style['calendar-day']}>
@@ -134,7 +135,15 @@ const DailyView = ({ tasks }: { tasks: Task[] }) => {
       </header >
 
       {
-        tasks && tasks.map(task => <div key={`${task.id}_${task.order}`} className={style['calendar-grid-day']}><span className={style.tasks}>{task.description}</span>
+        tasks && tasks.map(task => <div key={`${task.id}_${task.order}`} className={style['calendar-grid-day']}>
+          <div className={style.tasks}>
+            <div className={style.task}>
+              {task.description}
+            </div>
+            <div className={style.award} title={`Reward tasks are due on ${new Date(rewards.byId[task.rewardId].dueDate).toLocaleString('default', { weekday: 'long', day: "numeric", month: 'long' })}`} >
+              <Award color="gold" size="16" /> {rewards.byId[task.rewardId].description}
+            </div>
+          </div>
           <div className={`${style['daily-day']} `}>
             <ParticipantsAssessment selectedTask={task} options={options} />
           </div>

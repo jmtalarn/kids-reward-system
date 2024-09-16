@@ -63,6 +63,16 @@
 
 .tasks {}
 
+.task {
+  font-weight: bold;
+}
+
+.award {
+  padding: 1rem 0;
+  font-weight: 300;
+  font-size: .8rem;
+}
+
 .calendar-grid-month-header,
 .calendar-grid-month {
   display: grid;

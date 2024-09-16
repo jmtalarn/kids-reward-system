@@ -14,7 +14,7 @@ const addAssessment = async ({ date, participantId, taskId, option }: { date: Da
 	if (!assessments[date][participantId]) {
 		assessments[date][participantId] = {};
 	}
-	assessments[date][participantId] = { ...assessments[date][participantId], [taskId]: option };
+	assessments[date][participantId] = { ...assessments[date][participantId], [taskId]: option.value };
 
 	localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(assessments));
 	return assessments;

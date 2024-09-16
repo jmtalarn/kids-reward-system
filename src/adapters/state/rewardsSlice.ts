@@ -18,10 +18,16 @@ export const removeReward = createAsyncThunk('rewards/remove', async (rewardId: 
 });
 
 const initialState = {
-	rewards: [],
+	rewards: { byId: {}, allIds: [] },
 	loading: false,
 	error: null
 };
+const normalizeRewards = (rewards: Reward[]) => (rewards.reduce((acc, curr) => {
+	acc.byId[curr.id] = curr;
+	acc.allIds.push(curr.id);
+
+	return acc;
+}, { byId: {}, allIds: [] }));
 
 const rewardsSlice = createSlice({
 	name: "rewards",
@@ -33,7 +39,7 @@ const rewardsSlice = createSlice({
 				state.loading = true;
 			})
 			.addCase(fetchRewards.fulfilled, (state, action) => {
-				state.rewards = action.payload;
+				state.rewards = normalizeRewards(action.payload);
 				state.loading = false;
 			})
 			.addCase(fetchRewards.rejected, (state, action) => {
@@ -41,10 +47,10 @@ const rewardsSlice = createSlice({
 				state.error = action.error.message ?? 'Failed to load rewards';
 			})
 			.addCase(addReward.fulfilled, (state, action) => {
-				state.rewards = action.payload;
+				state.rewards = normalizeRewards(action.payload);
 			})
 			.addCase(removeReward.fulfilled, (state, action) => {
-				state.rewards = action.payload;
+				state.rewards = normalizeRewards(action.payload);
 			});
 	},
 });

@@ -19,7 +19,12 @@ export const useTasksForDate = () => {
 	useEffect(() => {
 		const date = new Date(dateString);
 		if (date) {
-			const currentRewards = rewards.filter(reward => new Date(reward.startingDate).getTime() <= date.getTime() && new Date(reward.dueDate).getTime() >= date.getTime()).map(({ id }) => id);
+			const currentRewards = rewards
+				.allIds
+				.filter(rewardId => {
+					const reward = rewards.byId[rewardId];
+					return new Date(reward.startingDate).getTime() <= date.getTime() && new Date(reward.dueDate).getTime() >= date.getTime();
+				});
 
 			const filteredTasks = currentRewards.reduce((acc, rewardId) => acc = [...acc, ...tasks.byRewardId[rewardId]], [])
 			setFilteredTasks(filteredTasks.map(taskId => tasks.byId[taskId]));

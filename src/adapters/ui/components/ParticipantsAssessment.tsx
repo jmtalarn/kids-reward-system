@@ -4,6 +4,7 @@ import { addAssessment } from "../../state/assessmentsSlice";
 import { fetchParticipants } from "../../state/participantsSlice";
 import { Participant } from '../../../core/domain/Participant';
 import { DialogOption } from '../../../core/domain/DialogOption';
+import { ValueOptionMap } from '../../../core/domain/Options';
 import { HelpCircle, XCircle, User } from 'react-feather';
 import style from './ParticipantsAssessment.module.css';
 
@@ -17,9 +18,11 @@ interface ModalProps {
 }
 
 
-export const ParticipantsAssessment = ({ selectedDate, selectedTask, options }: { selectedDate: Date, selectedTask: Task, options: DialogOption[] }) => {
+export const ParticipantsAssessment = ({ selectedDate, selectedTask, options }: { selectedDate: string, selectedTask: Task, options: DialogOption[] }) => {
 
   const { participants } = useSelector((state) => state.participants);
+  const { assessments } = useSelector((state) => state.assessments);
+
 
   const dispatch = useDispatch();
 
@@ -29,39 +32,34 @@ export const ParticipantsAssessment = ({ selectedDate, selectedTask, options }: 
 
   const [modalOpen, setModalOpen] = useState<boolean>(false);
 
-  const [participantsVote, setParticipantsVote] = useState<Map<Participant, DialogOption | null>>(new Map(participants.map(participant => [participant, null])));
-
-  const [participantSelected, selectParticipant] = useState<Participant | undefined>();
-
-
-  useEffect(() => {
-    setParticipantsVote(new Map(participants.map(participant => [participant, null])))
-  }, [participants]);
+  const [participantSelected, setParticipantSelected] = useState<Participant | undefined>();
 
   return <div className={style.participants}>
-    {[...participantsVote.entries()].map(
-      ([participant, dialogOption]) => (
-        <div key={`${participant.id}_${dialogOption?.value ?? "NULL"}`} className={style['participant-vote']}>
-          <ParticipantSwitch
-            participant={participant}
-            handleClick={
-              () => {
-                selectParticipant(participant);
-                setModalOpen(true);
-              }
+    {participants.map(participant => {
+      const optionValue = assessments?.[selectedDate]?.[participant.id]?.[selectedTask.id];
+      const dialogOption = (optionValue !== null && optionValue !== undefined) ? ({ option: ValueOptionMap[optionValue], value: optionValue }) : {};
+
+      return (<div key={`${participant.id}_${dialogOption?.value ?? "NULL"}`} className={style['participant-vote']}>
+        <ParticipantSwitch
+          participant={participant}
+          handleClick={
+            () => {
+              setParticipantSelected(participant);
+              setModalOpen(true);
             }
-          />
-          <div className={style['vote']}>
-            {dialogOption ? dialogOption?.option : <HelpCircle />}
-          </div>
+          }
+        />
+        <div className={style['vote']}>
+          {dialogOption?.option || <HelpCircle />}
         </div>
-      )
-    )}
+      </div>)
+    })}
+
     {modalOpen && (<Modal
       openModal={modalOpen}
       closeModal={() => { setModalOpen(false); }}
       handleSelectOption={(dialogOption: DialogOption) => {
-        setParticipantsVote(new Map([...participantsVote.entries(), [participantSelected, dialogOption]]));
+        //setParticipantsVote(new Map([...participantsVote.entries(), [participantSelected, dialogOption]]));
 
         dispatch(
           addAssessment(
@@ -74,7 +72,7 @@ export const ParticipantsAssessment = ({ selectedDate, selectedTask, options }: 
           )
         );
 
-        selectParticipant();
+        setParticipantSelected();
         setModalOpen(false);
       }}
       options={options}>
