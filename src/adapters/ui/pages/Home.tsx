@@ -6,3 +6,5 @@ export const Home = () => (
     anim incididunt sunt deserunt labore nisi est aute. In ipsum quis nostrud do enim irure.
   </p>
 );
+
+export default Home;

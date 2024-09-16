@@ -24,5 +24,5 @@ export const Default: Story = {
   decorators: [
     (Story) => (<Provider store={store} > <Story /></Provider >)
   ],
-  args: { reward: { id: "REWARD_FORM" } }
+  args: { reward: { id: "REWARD_FORM", description: "Reward description" } }
 };

@@ -1,11 +1,11 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { fn } from '@storybook/test';
-import Input from '../../adapters/ui/components/Input';
+// import { fn } from '@storybook/test';
+import Home from '../../adapters/ui/pages/Home';
 
 // More on how to set up stories at: https://storybook.js.org/docs/writing-stories#default-export
 const meta = {
-  title: 'Components/Input',
-  component: Input,
+  title: 'Pages/Home',
+  component: Home,
   parameters: {
     // Optional parameter to center the component in the Canvas. More info: https://storybook.js.org/docs/configure/story-layout
     layout: 'centered',
@@ -24,9 +24,6 @@ type Story = StoryObj<typeof meta>;
 // More on writing stories with args: https://storybook.js.org/docs/writing-stories/args
 export const Default: Story = {
   args: {
-    value: '',
-    placeholder: "Input value",
-    type: 'text',
-    onChange: fn()
+
   },
 };
