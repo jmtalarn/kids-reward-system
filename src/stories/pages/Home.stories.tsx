@@ -1,16 +1,17 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import Root from '../../adapters/ui/pages/Root';
+import Home from '../../adapters/ui/pages/Home';
+import { withRouter, reactRouterOutlet, reactRouterParameters } from 'storybook-addon-remix-react-router';
 
 const meta = {
-  title: 'Pages/Root',
-  component: Root,
+  title: 'Pages/Home',
+  component: Home,
+  decorators: [withRouter],
   parameters: {
     layout: 'centered',
+    reactRouter: reactRouterParameters({ routing: reactRouterOutlet(<Home />) })
   },
-
   tags: ['autodocs'],
   argTypes: {},
-
   args: {},
 } satisfies Meta<typeof Input>;
 

@@ -4,6 +4,7 @@ import { useDispatch } from "react-redux";
 import { addReward, removeReward } from "../../state/rewardsSlice";
 import { Reward } from '../../../core/domain/Reward';
 import Input from './Input';
+import TextArea from './TextArea';
 import Button from './Button';
 import { Check, Trash2 } from 'react-feather';
 import commonStyle from './Common.module.css';
@@ -39,10 +40,12 @@ const RewardForm = ({ reward }: { reward: Reward }) => {
 			<h3>Reward</h3>
 		</header>
 		<div>
-			<Input
+			<TextArea
 				label="Description"
 				value={rewardData?.description || ''}
-				onChange={e => setRewardData({ ...rewardData, description: e.target.value })} placeholder="Reward description"
+				onChange={e => setRewardData({ ...rewardData, description: e.target.value })}
+				placeholder="Reward description"
+				className={rewardFormStyle.description}
 			/>
 			<Input
 				label="Starting Date"

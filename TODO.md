@@ -4,4 +4,5 @@
     -   [x] Tasks byRewardId: TaskId[]
     -   [x] Tasks TaskId[]
 -   [x] Replace FA icons
--   [ ] Get tasks by Date
+-   [x] Get tasks by Date
+-   [ ] App layout

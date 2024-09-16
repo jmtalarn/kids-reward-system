@@ -1,5 +1,5 @@
 import { Reward } from '../domain/Reward';
-
+import { generateUuid } from '../../../core/domain/utils/generate-uuid';
 
 const LOCAL_STORAGE_KEY = 'KRS_REWARDS';
 

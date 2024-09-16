@@ -1,9 +1,11 @@
 import React from 'react';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import { Home } from '../pages/Home';
-import { Config } from '../components/Config';
 import { ErrorPage } from '../pages/Error';
 import { Root } from '../pages/Root';
+import RewardPage from '../pages/Reward';
+import RewardsPage from '../pages/Rewards';
+import ParticipantsPage from '../pages/Participants';
 
 export const router = createBrowserRouter([
   {
@@ -13,8 +15,16 @@ export const router = createBrowserRouter([
     children: [
       { path: '', element: <Home /> },
       {
-        path: '/config',
-        element: <Config />,
+        path: '/reward/:id',
+        element: <RewardPage />,
+      },
+      {
+        path: '/rewards',
+        element: <RewardsPage />,
+      },
+      {
+        path: '/participants',
+        element: <ParticipantsPage />,
       },
     ],
   },
