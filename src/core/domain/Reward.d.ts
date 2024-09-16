@@ -4,6 +4,7 @@ export interface Reward {
 	id?: TaskId;
 	description: string;
 	//tasks: Task[];
-	dueDate: Date;
+	dueDate: string;
 	daysToCount: number;
+	startingDate: string;
 }

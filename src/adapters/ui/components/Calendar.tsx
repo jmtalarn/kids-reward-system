@@ -1,4 +1,7 @@
-import { ReactNode, useState } from 'react';
+import { ReactNode, useState, useMemo } from 'react';
+import { useDispatch, useSelector } from "react-redux";
+
+import { useTasksForDate } from '../../state/hooks/useTasksForDate';
 import style from './Calendar.module.css';
 import { ParticipantsAssessment } from '../components/ParticipantsAssessment'
 import Button from '../components/Button'
@@ -25,6 +28,7 @@ function getDaysInFlow(startDate, length): Date[] {
   }
   return dates;
 }
+
 function getDaysInMonth(month: number, year: number, fullGrid: boolean): Date[] {
   const date = new Date(year, month, 1);
   const days = [];
@@ -50,7 +54,8 @@ const viewMap: ViewComponent =
 };
 
 export const Calendar = () => {
-  const { config: { dailyTasks: tasks } } = useConfigContext();
+
+  const dailyTasks = useTasksForDate();
 
   const dispatch = useDispatch();
 
@@ -68,7 +73,7 @@ export const Calendar = () => {
       />
     </header>
     <div className={style.calendar}>
-      {viewMap[view]({ onDayClick: (date) => { dispatch(setNewDate(date)); setView("daily"); }, tasks })}
+      {viewMap[view]({ onDayClick: (date) => { dispatch(setNewDate(date)); setView("daily"); }, tasks: dailyTasks })}
     </div>
   </div>
 
@@ -117,7 +122,8 @@ const MoveDateButtons = ({ offset }: { offset: 1 | 7 | "month" }) => {
 }
 
 const DailyView = ({ tasks }: { tasks: Task[] }) => {
-  const { date: dateSelected } = useSelector((state) => state.date);
+  const { date } = useSelector((state) => state.date);
+  const dateSelected = useMemo(() => new Date(date), [date]);
   return (
     <div className={style['calendar-day']}>
       <header className={style['calendar-day-header']} >
@@ -128,7 +134,7 @@ const DailyView = ({ tasks }: { tasks: Task[] }) => {
       </header >
 
       {
-        tasks.map(task => <div key={`${task.id}_${task.order}`} className={style['calendar-grid-day']}><span className={style.tasks}>{task.description}</span>
+        tasks && tasks.map(task => <div key={`${task.id}_${task.order}`} className={style['calendar-grid-day']}><span className={style.tasks}>{task.description}</span>
           <div className={`${style['daily-day']} `}>
             <ParticipantsAssessment selectedTask={task} options={options} />
           </div>

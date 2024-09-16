@@ -10,19 +10,18 @@ const getAllRewards = async (): Promise<Reward[]> => {
 
 const addReward = async (reward: Reward): Promise<Reward[]> => {
 	const rewards = await getAllRewards();
-	let updatedRewards;
+	let updatedRewards = [...rewards];
 
 	if (!reward.id) {
 		reward.id = generateUuid();
-		updatedRewards = [...rewards, reward];
-	} else {
-		updatedRewards = rewards.map(item => {
-			if (item.id === reward.id) {
-				return reward;
-			}
-			return item;
-		});
 	}
+	const foundIndex = rewards.findIndex(item => item.id === reward.id);
+	if (foundIndex > -1) {
+		updatedRewards[foundIndex] = reward;
+	} else {
+		updatedRewards = [...rewards, reward];
+	}
+
 	localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(updatedRewards));
 	return updatedRewards;
 };

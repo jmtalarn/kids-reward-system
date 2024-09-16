@@ -11,7 +11,7 @@ import rewardFormStyle from './RewardForm.module.css';
 
 
 const RewardForm = ({ reward }: { reward: Reward }) => {
-	// const { participants } = useSelector((state) => state.participants);
+
 	const dispatch = useDispatch();
 	const [rewardData, setRewardData] = useState(reward);
 	const [dueDate, setDueDate] = useState(rewardData?.dueDate || new Date().toISOString().substring(0, 10));
@@ -28,7 +28,7 @@ const RewardForm = ({ reward }: { reward: Reward }) => {
 		if (diffDays >= 0) {
 
 			setMessage({ text: `The tasks described on the reward will last ${diffDays} day${diffDays > 1 ? 's' : ''}.` });
-			setRewardData(rewardData => ({ ...rewardData, daysToCount: diffDays }));
+			setRewardData(rewardData => ({ ...rewardData, dueDate, startingDate, daysToCount: diffDays }));
 		} else {
 			setMessage({ type: 'ERROR', text: `The starting date needs to be before or same as due date.` })
 		}
@@ -41,7 +41,7 @@ const RewardForm = ({ reward }: { reward: Reward }) => {
 		<div>
 			<Input
 				label="Description"
-				value={rewardData?.description}
+				value={rewardData?.description || ''}
 				onChange={e => setRewardData({ ...rewardData, description: e.target.value })} placeholder="Reward description"
 			/>
 			<Input
