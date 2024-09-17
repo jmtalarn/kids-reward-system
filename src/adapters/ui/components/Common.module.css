@@ -5,6 +5,7 @@
 .field {
   display: flex;
   align-items: center;
+  justify-content: space-around;
 }
 
 .button {
@@ -12,16 +13,17 @@
 }
 
 .section {
-  border-bottom: 1px solid grey;
   margin-bottom: 1rem;
   padding-bottom: 2rem;
   width: 100%;
+  padding: 1rem;
 }
 
 .section-header {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  margin-bottom: 2rem;
 }
 
 .drag-icon {

@@ -9,7 +9,6 @@ import './App.css';
 function App() {
   return (
     <Provider store={store}>
-      <h1>kids-reward-system</h1>
       <Router />
       <PWABadge />
     </Provider>

@@ -9,14 +9,14 @@ import Button from './Button';
 import { Check, Trash2 } from 'react-feather';
 import commonStyle from './Common.module.css';
 import rewardFormStyle from './RewardForm.module.css';
-
+import { dateToShortISOString } from '../../../core/domain/utils/date-utils';
 
 const RewardForm = ({ reward }: { reward: Reward }) => {
 
 	const dispatch = useDispatch();
 	const [rewardData, setRewardData] = useState(reward);
-	const [dueDate, setDueDate] = useState(rewardData?.dueDate || new Date().toISOString().substring(0, 10));
-	const [startingDate, setStartingDate] = useState(new Date().toISOString().substring(0, 10));
+	const [dueDate, setDueDate] = useState(rewardData?.dueDate || dateToShortISOString());
+	const [startingDate, setStartingDate] = useState(dateToShortISOString());
 	const [message, setMessage] = useState({ type: '', text: '' });
 
 	useEffect(() => {
@@ -35,51 +35,57 @@ const RewardForm = ({ reward }: { reward: Reward }) => {
 		}
 
 	}, [startingDate, dueDate]);
-	return <section className={commonStyle.section}>
-		<header className={commonStyle['section-header']}>
-			<h3>Reward</h3>
-		</header>
-		<div>
-			<TextArea
-				label="Description"
-				value={rewardData?.description || ''}
-				onChange={e => setRewardData({ ...rewardData, description: e.target.value })}
-				placeholder="Reward description"
-				className={rewardFormStyle.description}
-			/>
-			<Input
-				label="Starting Date"
-				type="date"
-				value={startingDate}
-				onChange={e => setStartingDate(e.target.value)}
-				placeholder="Starting Date"
-			/>
-			<Input
-				label="Due Date"
-				type="date"
-				value={dueDate}
-				onChange={e => setDueDate(e.target.value)}
-				placeholder="Due Date"
-			/>
-			<p className={`${rewardFormStyle.message}${message.type === "ERROR" ? ` ${rewardFormStyle.error}` : ''}`}>
-				{message.text}
-			</p>
+	return <>
+		<section className={commonStyle.section}>
+			<header className={commonStyle['section-header']}>
+				<h3>Reward</h3>
+			</header>
+			<div>
+				<TextArea
+					label="Description"
+					value={rewardData?.description || ''}
+					onChange={e => setRewardData({ ...rewardData, description: e.target.value })}
+					placeholder="Reward description"
+					className={rewardFormStyle.description}
+				/>
+				<div className={rewardFormStyle['dates-fields']}>
+					<Input
+						label="Starting Date"
+						type="date"
+						value={startingDate}
+						onChange={e => setStartingDate(e.target.value)}
+						placeholder="Starting Date"
+					/>
+					<Input
+						label="Due Date"
+						type="date"
+						value={dueDate}
+						onChange={e => setDueDate(e.target.value)}
+						placeholder="Due Date"
+					/>
+				</div>
 
-		</div>
+				<p className={`${rewardFormStyle.message}${message.type === "ERROR" ? ` ${rewardFormStyle.error}` : ''}`}>
+					{message.text}
+				</p>
+
+			</div>
+			<div className={rewardFormStyle.buttons}>
+				<Button className={commonStyle.button} onClick={() => dispatch(addReward(rewardData))}>
+					<Check />
+				</Button>
+				<Button
+					disabled={!rewardData?.id}
+					className={commonStyle.button}
+					onClick={() => dispatch(removeReward(rewardData?.id))}
+				>
+					<Trash2 />
+				</Button>
+			</div>
+		</section>
 		{Boolean(rewardData?.id) && <TasksList rewardId={rewardData?.id} />}
-		<div className={rewardFormStyle.buttons}>
-			<Button className={commonStyle.button} onClick={() => dispatch(addReward(rewardData))}>
-				<Check />
-			</Button>
-			<Button
-				disabled={!rewardData?.id}
-				className={commonStyle.button}
-				onClick={() => dispatch(removeReward(rewardData?.id))}
-			>
-				<Trash2 />
-			</Button>
-		</div>
-	</section >
+
+	</>
 
 }
 

@@ -3,9 +3,11 @@ import { useDispatch, useSelector } from "react-redux";
 
 import { useTasksForDate } from '../../state/hooks/useTasksForDate';
 import style from './Calendar.module.css';
+import commonStyle from './Common.module.css';
+
 import { ParticipantsAssessment } from '../components/ParticipantsAssessment'
 import Button from '../components/Button'
-
+import { dateToShortISOString, dateToLongLocaleString } from '../../../core/domain/utils/date-utils';
 import { Calendar as CalendarIcon, SkipBack, SkipForward, CornerLeftDown, CornerRightDown, ArrowLeft, ArrowRight, Award } from 'react-feather';
 import Select from '../components/Select'
 import { setNewDate, setToday, forwardMonth, forwardDays, backwardDays, backwardMonth } from '../../state/dateSlice';
@@ -61,7 +63,7 @@ export const Calendar = () => {
 
   const [view, setView] = useState<CalendarView>("daily");
 
-  return <div className={style['calendar-container']}>
+  return <section className={`${style['calendar-container']} ${commonStyle.section}`}>
     <header className={style.header}>
       <h2 className={style['view-selected']}>{view}</h2>
       <Select
@@ -73,9 +75,18 @@ export const Calendar = () => {
       />
     </header>
     <div className={style.calendar}>
-      {viewMap[view]({ onDayClick: (date) => { dispatch(setNewDate(date)); setView("daily"); }, tasks: dailyTasks })}
+      {viewMap[view](
+        {
+          onDayClick: (date) => {
+            dispatch(setNewDate(dateToShortISOString(date)));
+            setView("daily");
+          },
+          tasks: dailyTasks
+        }
+      )
+      }
     </div>
-  </div>
+  </section>
 
 };
 
@@ -129,7 +140,7 @@ const DailyView = ({ tasks }: { tasks: Task[] }) => {
     <div className={style['calendar-day']}>
       <header className={style['calendar-day-header']} >
         <h3>
-          {dateSelected.toLocaleString('default', { weekday: 'long', day: "numeric", month: 'long' })}
+          {dateToLongLocaleString(dateSelected)}
         </h3>
         <MoveDateButtons offset={1} />
       </header >
@@ -140,7 +151,7 @@ const DailyView = ({ tasks }: { tasks: Task[] }) => {
             <div className={style.task}>
               {task.description}
             </div>
-            <div className={style.award} title={`Reward tasks are due on ${new Date(rewards.byId[task.rewardId].dueDate).toLocaleString('default', { weekday: 'long', day: "numeric", month: 'long' })}`} >
+            <div className={style.award} title={`Reward tasks are due on ${dateToLongLocaleString(new Date(rewards.byId[task.rewardId].dueDate))}`} >
               <Award color="gold" size="16" /> {rewards.byId[task.rewardId].description}
             </div>
           </div>
@@ -154,7 +165,8 @@ const DailyView = ({ tasks }: { tasks: Task[] }) => {
 }
 
 const WeeklyView = ({ onDayClick, tasks }: { onDayClick: () => void, tasks: string[] }) => {
-  const { date: dateSelected } = useSelector((state) => state.date);
+  const { date } = useSelector((state) => state.date);
+  const dateSelected = new Date(date);
 
   const weekDays = Array(7);
   weekDays[dateSelected.getDay()] = dateSelected;
@@ -177,12 +189,12 @@ const WeeklyView = ({ onDayClick, tasks }: { onDayClick: () => void, tasks: stri
   return (
     <div className={style['calendar-week']}>
       <header className={style['calendar-week-header']}>
-        <h3>{weekDays[0].toLocaleString('default', { day: "numeric", month: 'long', year: 'numeric' })} ~ {weekDays[6].toLocaleString('default', { day: "numeric", month: 'long', year: 'numeric' })} </h3>
+        <h3>{dateToLongLocaleString(weekDays[0])} ~ {dateToLongLocaleString(weekDays[6])} </h3>
         <MoveDateButtons offset={7} />
       </header>
       <div className={style['calendar-grid-week-header']}>
         <div className={style.tasks} />
-        {weekDays.map(weekDay => <span className={style['calendar-week-weekday-label']} key={weekDay}>{weekDay.toLocaleDateString('default', { weekday: 'long', day: 'numeric' })}</span>)}
+        {weekDays.map(weekDay => <span className={style['calendar-week-weekday-label']} key={weekDay}>{dateToLongLocaleString(weekDay)}</span>)}
       </div>
       {tasks.map(task => <div key={`${task.id}_${task.order}`} className={style['calendar-grid-week']}><span className={style.tasks}>{task.description}</span>
         {
@@ -204,8 +216,8 @@ const WeeklyView = ({ onDayClick, tasks }: { onDayClick: () => void, tasks: stri
 
 
 const MonthlyView = ({ onDayClick }: { onDayClick: () => void }) => {
-  const { date: dateSelected } = useSelector((state) => state.date);
-
+  const { date } = useSelector((state) => state.date);
+  const dateSelected = new Date(date);
   const days = getDaysInMonth(dateSelected.getMonth(), dateSelected.getFullYear(), true);
 
   const weekDays = Array.from(Array(7).keys())
@@ -235,7 +247,7 @@ const MonthlyView = ({ onDayClick }: { onDayClick: () => void }) => {
               onClick={() => day && onDayClick(day)}
             >
               <span className={style['monthly-day-label']}>{day?.getDate() || ""}</span>
-            </button> : <span key={`${day}_noday`} className={style['no-day']} />
+            </button> : <span key={`${idx}_noday`} className={style['no-day']} />
             )
           }
           )
@@ -281,13 +293,14 @@ const arrow = (idx) => {
 }
 
 const FlowView = ({ onDayClick }: { onDayClick: () => void }) => {
-  const { date: dateSelected } = useSelector((state) => state.date);
+  const { date } = useSelector((state) => state.date);
+  const dateSelected = new Date(date);
 
   const days = getDaysInFlow(dateSelected, 25);
   return (
     <>
       <header className={style['calendar-flow-header']}>
-        <h3>Starts on {dateSelected.toLocaleString('default', { weekday: 'long', day: "numeric", month: 'long' })}</h3><MoveDateButtons offset={1} />
+        <h3>Starts on {dateToLongLocaleString(dateSelected)}</h3><MoveDateButtons offset={1} />
       </header>
       <div className={style['calendar-grid-flow']}>
         {

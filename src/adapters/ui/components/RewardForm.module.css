@@ -13,3 +13,9 @@
 .description {
 	width: 100%;
 }
+
+.dates-fields {
+	display: flex;
+	flex-direction: row;
+	gap: 1rem;
+}

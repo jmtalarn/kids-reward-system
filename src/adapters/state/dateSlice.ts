@@ -1,34 +1,34 @@
 import { createSlice } from "@reduxjs/toolkit";
-
+import { dateToShortISOString } from "../../core/domain/utils/date-utils";
 const initialState = {
-	date: new Date().toISOString().substring(0, 10),
+	date: dateToShortISOString(),
 };
 
 const dateSlice = createSlice({
 	name: "date",
 	initialState,
 	reducers: {
-		setNewDate: (state, action) => { state.date = action.payload.toISOString(); },
-		setToday: (state) => { state.date = new Date().toISOString().substring(0, 10); },
+		setNewDate: (state, action) => { state.date = dateToShortISOString(new Date(action.payload)); },
+		setToday: (state) => { state.date = dateToShortISOString(); },
 		forwardDays: (state, action) => {
 			const settedDate = new Date(state.date)
 			settedDate.setDate(settedDate.getDate() + action.payload);
-			state.date = settedDate.toISOString();
+			state.date = dateToShortISOString(settedDate);
 		},
 		backwardDays: (state, action) => {
 			const settedDate = new Date(state.date)
 			settedDate.setDate(settedDate.getDate() - action.payload);
-			state.date = settedDate.toISOString();
+			state.date = dateToShortISOString(settedDate);
 		},
 		forwardMonth: () => {
 			const settedDate = new Date(state.date)
 			settedDate.setMonth(settedDate.getMonth() + 1);
-			state.date = settedDate.toISOString();
+			state.date = dateToShortISOString(settedDate);
 		},
 		backwardMonth: () => {
 			const settedDate = new Date(state.date)
 			settedDate.setMonth(settedDate.getMonth() - 1);
-			state.date = settedDate.toISOString();
+			state.date = dateToShortISOString(settedDate);
 		},
 	},
 });

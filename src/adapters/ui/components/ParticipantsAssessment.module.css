@@ -38,7 +38,6 @@
 }
 
 .dialog {
-  /* min-width: 25rem; */
   top: 1rem;
   margin: 0 auto;
   border-radius: 1rem;
@@ -69,7 +68,7 @@
 }
 
 .participants {
-  gap: 1rem;
+
   display: flex;
   flex-direction: column;
 }

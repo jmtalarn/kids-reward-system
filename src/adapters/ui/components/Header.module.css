@@ -1,0 +1,8 @@
+.header {
+	padding: 1rem;
+	box-shadow: var(--box-shadow-sm);
+}
+
+.title {
+	font-size: 2rem;
+}

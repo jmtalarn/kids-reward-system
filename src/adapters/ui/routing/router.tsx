@@ -6,6 +6,7 @@ import { Root } from '../pages/Root';
 import RewardPage from '../pages/Reward';
 import RewardsPage from '../pages/Rewards';
 import ParticipantsPage from '../pages/Participants';
+import DailyTasksPage from '../pages/DailyTasks';
 
 export const router = createBrowserRouter([
   {
@@ -26,6 +27,10 @@ export const router = createBrowserRouter([
         path: '/participants',
         element: <ParticipantsPage />,
       },
+      {
+        path: '/daily-tasks',
+        element: <DailyTasksPage />,
+      }
     ],
   },
 ]);

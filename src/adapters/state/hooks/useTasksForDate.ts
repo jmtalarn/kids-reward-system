@@ -26,7 +26,7 @@ export const useTasksForDate = () => {
 					return new Date(reward.startingDate).getTime() <= date.getTime() && new Date(reward.dueDate).getTime() >= date.getTime();
 				});
 
-			const filteredTasks = currentRewards.reduce((acc, rewardId) => acc = [...acc, ...tasks.byRewardId[rewardId]], [])
+			const filteredTasks = currentRewards?.reduce((acc, rewardId) => acc = [...acc, ...(tasks.byRewardId[rewardId] || [])], [])
 			setFilteredTasks(filteredTasks.map(taskId => tasks.byId[taskId]));
 		}
 	}, [tasks, rewards, dateString]);

@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { addTask, removeTask, reorderTask, fetchTasks } from "../../state/tasksSlice";
 
 import Button from './Button';
-import { Move, AlignJustify, Check, Trash2, PlusCircle } from 'react-feather'
+import { Move, AlignJustify, Check, Trash2, PlusSquare } from 'react-feather'
 import { Task } from '../../../core/domain/Participant';
 import Input from './Input';
 import style from './Common.module.css';
@@ -26,7 +26,13 @@ const TaskInput = ({ task, dragged }: { task: Task, dragged: boolean }) => {
 				:
 				<AlignJustify className={style['drag-icon']} />
 			}
-			<Input label="Task" value={inputValue} onChange={e => setInputValue(e.target.value)} placeholder="New task" />
+			<Input
+				label="Task"
+				fieldStyle={{ flexGrow: "1" }}
+				style={{ width: "80%" }}
+				value={inputValue}
+				onChange={e => setInputValue(e.target.value)} placeholder="New task"
+			/>
 			<Button className={style.button} onClick={() => dispatch(addTask({ rewardId: task.rewardId, task: { ...task, description: inputValue } }))}>
 				<Check />
 			</Button>
@@ -77,9 +83,9 @@ const TasksList = ({ rewardId }: { rewardId: string }) => {
 
 	return <section className={style.section}>
 		<header className={style['section-header']}>
-			<h3>Tasks for {rewardId}</h3>
+			<h3>Tasks</h3>
 			<Button onClick={() => dispatch(addTask({ rewardId: rewardId, task: { description: '' } }))}>
-				<PlusCircle />
+				<PlusSquare />
 			</Button>
 		</header>
 		{tasks

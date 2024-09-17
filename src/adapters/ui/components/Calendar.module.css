@@ -151,26 +151,15 @@
   left: 1rem;
 }
 
-/* .arrow {
-  transform-origin: center;
-}
 
-.arrow:nth-child(6n) {
-  transform: rotate(45deg);
-
-}
-
-.arrow:nth-child(6n+7) {
-  border: 2px dashed red;
-} */
 
 .button {
   background: none;
 
-  /* padding: 0; */
+
   outline: none;
   overflow: hidden;
-  /* border: 1px solid transparent; */
+
 }
 
 .button:focus,

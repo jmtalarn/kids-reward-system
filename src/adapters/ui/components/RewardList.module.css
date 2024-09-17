@@ -1,6 +1,24 @@
+.reward-list {
+	display: flex;
+	flex-direction: column;
+	gap: 2rem;
+}
+
 .reward-list-item {
 	display: flex;
 	flex-direction: row;
 	align-items: center;
 	justify-content: space-between;
+}
+
+.reward-description {
+	display: flex;
+	flex-direction: column;
+	gap: 1rem;
+}
+
+.additional-description {
+	margin-left: 1.5rem;
+	font-size: 0.8rem;
+	color: var(--color-surface-600);
 }

@@ -1,0 +1,14 @@
+.main {
+	display: grid;
+	grid-template-areas:
+		"header"
+		"content"
+		"footer";
+	grid-template-rows: min-content auto min-content;
+	height: 100%;
+}
+
+
+.content {
+	overflow-x: auto;
+}

@@ -8,13 +8,13 @@ import Button from './Button';
 
 import style from './RewardList.module.css';
 import commonStyle from './Common.module.css';
-
+import { dateToLongLocaleString } from '../../../core/domain/utils/date-utils';
 
 
 
 const RewardList = () => {
 	const { rewards } = useSelector((state) => state.rewards);
-	// const [selectedReward, setSelectedReward] = useState();
+
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
 
@@ -28,40 +28,49 @@ const RewardList = () => {
 				<PlusSquare />
 			</Button>
 		</header>
-		{rewards.allIds.map(rewardId => {
-			const reward = rewards.byId[rewardId];
-			return (
-				<div
-					key={reward.id || 'empty-key'}
-					className={style['reward-list-item']}
-					title={reward.dueDate ? `Due date for this reward is ${new Date(reward.dueDate).toLocaleString('default', { weekday: 'long', day: "numeric", month: 'long' })}` : 'No due date set yet.'}
-				>
-					<div className={style['reward-description']}>
-						<Award color="gold" className={style['reward-icon']} />
-						{reward.description || "No description yet"}
-					</div>
-
-
-					<div className={style.buttons}>
-						<Button
-							onClick={
-								() => {
-									//https://stackoverflow.com/a/72017777/4635829
-									navigate(`/reward/${reward.id}`, { id: reward.id });
+		<div className={style['reward-list']}>
+			{rewards.allIds.map(rewardId => {
+				const reward = rewards.byId[rewardId];
+				const dueDateMessage = reward.dueDate ? `Due date for this reward is ${dateToLongLocaleString(new Date(reward.dueDate))}.` : 'No due date set yet.';
+				const startingDateMessage = reward.startingDate ? `Due date for this reward is ${dateToLongLocaleString(new Date(reward.startingDate))}.` : 'No starting date set yet.';
+				return (
+					<div
+						key={reward.id || 'empty-key'}
+						className={style['reward-list-item']}
+						title={dueDateMessage}
+					>
+						<div className={style['reward-description']}>
+							<div>
+								<Award color="gold" className={style['reward-icon']} />
+								{reward.description || "No description yet"}
+							</div>
+							<div className={style['additional-description']}>
+								<div>{startingDateMessage}</div>
+								<div>{dueDateMessage}</div>
+							</div>
+						</div>
+						<div className={style.buttons}>
+							<Button
+								onClick={
+									() => {
+										navigate(`/reward/${reward.id}`, { id: reward.id });
+									}
 								}
-							}
-						>
-							<Edit />
-						</Button>
+							>
+								<Edit />
+							</Button>
 
-						<Button>
-							<Trash2 onClick={() => dispatch(removeReward(rewardId))} />
-						</Button>
+							<Button
+								onClick={() => dispatch(removeReward(rewardId))}
+							>
+								<Trash2 />
+							</Button>
+						</div>
 					</div>
-				</div>
 
-			)
-		})}
+				)
+			})}
+		</div>
 	</section >
 }
 
