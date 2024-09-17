@@ -5,4 +5,6 @@
     -   [x] Tasks TaskId[]
 -   [x] Replace FA icons
 -   [x] Get tasks by Date
--   [ ] App layout
+-   [x] App layout
+-   [ ] Internationalization
+-   [ ] Header design
