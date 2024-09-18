@@ -8,3 +8,4 @@
 -   [x] App layout
 -   [ ] Internationalization
 -   [ ] Header design
+-   [ ] Dashboard design.
