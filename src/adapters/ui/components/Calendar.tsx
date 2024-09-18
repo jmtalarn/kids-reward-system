@@ -65,7 +65,7 @@ export const Calendar = () => {
 
   return <section className={`${style['calendar-container']} ${commonStyle.section}`}>
     <header className={style.header}>
-      <h2 className={style['view-selected']}>{view}</h2>
+      <h3 className={style['view-selected']}>{view}</h3>
       <Select
         value={{ value: view, label: view }}
         onChange={({ value }) => setView(value)}

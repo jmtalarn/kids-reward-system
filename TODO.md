@@ -9,4 +9,13 @@
 -   [ ] Internationalization
 -   [ ] Header design
 -   [ ] Dashboard design.
+    -   [ ] Close reward Due date and days left
 -   [ ] Participants list layout
+-   [ ] Delete management
+    -   [ ] of rewards -> tasks
+    -   [ ] tasks -> assessments
+    -   [ ] participants -> assessments
+-   [ ] Naming
+    -   [] habit-o-matic
+-   [ ] Reward form not loading content on URL load
+-   [ ] Assign participants to reward

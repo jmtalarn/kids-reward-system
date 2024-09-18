@@ -8,6 +8,16 @@ export default defineConfig({
   plugins: [
     react()
     , svgr()
+    // Custom plugin to load markdown files
+    , {
+      name: "markdown-loader",
+      transform(code, id) {
+        if (id.slice(-3) === ".md") {
+          // For .md files, get the raw content
+          return `export default ${JSON.stringify(code)};`;
+        }
+      }
+    }
     , VitePWA({
       registerType: 'autoUpdate',
       injectRegister: false,

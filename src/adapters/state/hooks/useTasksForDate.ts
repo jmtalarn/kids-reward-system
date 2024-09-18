@@ -13,7 +13,7 @@ export const useTasksForDate = () => {
 
 	useEffect(() => {
 		dispatch(fetchTasks({}));
-		dispatch(fetchRewards({}));
+		dispatch(fetchRewards());
 	}, []);
 
 	useEffect(() => {

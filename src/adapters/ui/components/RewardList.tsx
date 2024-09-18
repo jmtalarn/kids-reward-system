@@ -10,6 +10,21 @@ import style from './RewardList.module.css';
 import commonStyle from './Common.module.css';
 import { dateToLongLocaleString } from '../../../core/domain/utils/date-utils';
 
+const getDiffDaysMessage = (startingDate, dueDate) => {
+	const oneDay = 24 * 60 * 60 * 1000; // hours*minutes*seconds*milliseconds
+
+
+	if (Boolean(startingDate) && Boolean(dueDate)) {
+		const startingDateDate = new Date(startingDate);
+		const dueDateDate = new Date(dueDate);
+
+		const diffDays = Math.round((dueDateDate - startingDateDate) / oneDay) + 1;
+		return <span style={{ fontWeight: "bold" }}> {diffDays} days left.</span>;
+
+	} else return "";
+
+}
+
 
 
 const RewardList = () => {
@@ -31,8 +46,8 @@ const RewardList = () => {
 		<div className={style['reward-list']}>
 			{rewards.allIds.map(rewardId => {
 				const reward = rewards.byId[rewardId];
-				const dueDateMessage = reward.dueDate ? `Due date for this reward is ${dateToLongLocaleString(new Date(reward.dueDate))}.` : 'No due date set yet.';
-				const startingDateMessage = reward.startingDate ? `Due date for this reward is ${dateToLongLocaleString(new Date(reward.startingDate))}.` : 'No starting date set yet.';
+				const dueDateMessage = reward.dueDate ? <>{`Due date for this reward is ${dateToLongLocaleString(new Date(reward.dueDate))}.`}{getDiffDaysMessage(reward.startingDate, reward.dueDate)}</> : 'No due date set yet.';
+				const startingDateMessage = reward.startingDate ? `Starting date for this reward is ${dateToLongLocaleString(new Date(reward.startingDate))}.` : 'No starting date set yet.';
 				return (
 					<div
 						key={reward.id || 'empty-key'}
