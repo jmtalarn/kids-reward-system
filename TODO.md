@@ -9,3 +9,4 @@
 -   [ ] Internationalization
 -   [ ] Header design
 -   [ ] Dashboard design.
+-   [ ] Participants list layout
