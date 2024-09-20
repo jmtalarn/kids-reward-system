@@ -1,10 +1,10 @@
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from "react-redux";
 import { addTask, removeTask, reorderTask, fetchTasks } from "../../state/tasksSlice";
 
 import Button from './Button';
-import { Move, AlignJustify, Check, Trash2, PlusSquare } from 'react-feather'
+import { Move, AlignJustify, Check, Trash2, PlusSquare } from 'react-feather';
 import { Task } from '../../../core/domain/Participant';
 import Input from './Input';
 import style from './Common.module.css';
@@ -53,6 +53,7 @@ const TasksList = ({ rewardId }: { rewardId: string }) => {
 	useEffect(() => {
 		dispatch(fetchTasks({}));
 	}, []);
+	const lastRewardRef = useRef<null | HTMLDivElement>(null);
 
 	const handleDragStart = (e, item) => {
 
@@ -70,10 +71,10 @@ const TasksList = ({ rewardId }: { rewardId: string }) => {
 
 	const handleDragEnter = (e) => {
 		e.target.closest('.field_task_input').classList.add('dragged-over');
-	}
+	};
 	const handleDragLeave = (e) => {
 		e.target.closest('.field_task_input').classList.remove('dragged-over');
-	}
+	};
 
 	const handleDrop = (e, targetItem) => {
 		if (!draggingItem) return;
@@ -81,15 +82,25 @@ const TasksList = ({ rewardId }: { rewardId: string }) => {
 		dispatch(reorderTask({ rewardId: draggingItem.rewardId, taskId: draggingItem.id, order: targetItem.order }));
 	};
 
-	return <section className={style.section}>
+	return <section className={style.section} ref={lastRewardRef}>
 		<header className={style['section-header']}>
 			<h3>Tasks</h3>
-			<Button onClick={() => dispatch(addTask({ rewardId: rewardId, task: { description: '' } }))}>
+			<Button
+				onClick={
+					() => {
+						dispatch(addTask({ rewardId: rewardId, task: { description: '' } }));
+						setTimeout(() => {
+							lastRewardRef.current?.scrollIntoView({ block: 'end', behavior: "smooth" });
+						}, 0);
+
+					}
+				}
+			>
 				<PlusSquare />
 			</Button>
 		</header>
 		{tasks
-			.byRewardId[rewardId]?.map(taskId => {
+			.byRewardId[rewardId]?.map((taskId) => {
 				const task = tasks.byId[taskId];
 				return (
 					<div
@@ -104,9 +115,9 @@ const TasksList = ({ rewardId }: { rewardId: string }) => {
 					>
 						<TaskInput key={task.id || 'empty-key'} dragged={draggingItem && draggingItem.id === task.id} task={task} />
 					</div>
-				)
+				);
 			})}
-	</section>
-}
+	</section>;
+};
 
 export default TasksList;

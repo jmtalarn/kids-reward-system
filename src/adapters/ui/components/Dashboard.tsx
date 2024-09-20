@@ -9,16 +9,36 @@ import { dateToLongLocaleString } from '../../../core/domain/utils/date-utils';
 import { Award, User, HelpCircle } from 'react-feather';
 import { ValueOptionMap } from '../../../core/domain/Options';
 import { Participant } from '../../../core/domain/Participant';
+import { getDiffDaysMessage } from '../../../core/domain/utils/messages';
 
 export const Dashboard = () => (
   <div className={styles.dashboard}>
     <UpComingRewards />
     <UpComingRewards className={styles['span-2']} />
+    <Figures className={styles['span-2']} />
     <UpComingRewards />
     <ParticipantsRecentAssessments className={styles['span-3']} />
+    <UpComingRewards />
   </div>
 );
+const Figures = ({ className }: { className: string }) => {
+  const { tasks } = useSelector((state) => state.tasks);
+  const { rewards } = useSelector((state) => state.rewards);
+  const { participants } = useSelector((state) => state.participants);
+  const dispatch = useDispatch();
 
+  useEffect(() => {
+    dispatch(fetchTasks({}));
+    dispatch(fetchRewards());
+    dispatch(fetchParticipants());
+  }, []);
+
+  return <article className={[styles.card, styles.figures, styles['card-content'], className].filter(Boolean).join(" ")}>
+    <div> <span className={styles.figure}>{rewards?.allIds.length}</span> rewards set until now.</div>
+    <div> There are <span className={styles.figure}>{participants?.allIds.length}</span> participants.</div>
+    <div> A total of <span className={styles.figure}>{tasks?.allIds.length}</span> tasks managed. </div>
+  </article>;
+};
 const UpComingRewards = ({ className }: { className: string }) => {
 
   const { tasks } = useSelector((state) => state.tasks);
@@ -51,6 +71,7 @@ const UpComingRewards = ({ className }: { className: string }) => {
         <div className={styles['upcoming-reward-details']}>
           <div>Reward tasks ends on {dateToLongLocaleString(reward.dueDate)}.</div>
           <div>{new Date(reward.startingDate).getTime() > date.getTime() ? `Reward tasks not yet started` : `Reward tasks started on ${dateToLongLocaleString(reward.dueDate)}.`}</div>
+          <span style={{ fontWeight: "bold" }}>{getDiffDaysMessage(reward.startingDate, reward.dueDate)}</span>
         </div>
       </div>)}
 

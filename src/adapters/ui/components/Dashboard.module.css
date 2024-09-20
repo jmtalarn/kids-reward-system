@@ -75,3 +75,16 @@
 	gap: 1rem;
 	margin: 0.5rem;
 }
+
+.figures {
+	display: flex;
+	flex-direction: column;
+	gap: 1rem;
+	align-items: center;
+}
+
+.figure {
+	font-weight: bold;
+	font-size: 4rem;
+	color: var(--color-primary-200);
+}

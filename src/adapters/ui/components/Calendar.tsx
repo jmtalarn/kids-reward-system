@@ -67,6 +67,7 @@ export const Calendar = () => {
     <header className={style.header}>
       <h3 className={style['view-selected']}>{view}</h3>
       <Select
+        fieldStyle={{ width: "12.8rem" }}
         value={{ value: view, label: view }}
         onChange={({ value }) => setView(value)}
         options={CalendarViewTypes
@@ -233,10 +234,11 @@ const MonthlyView = ({ onDayClick }: { onDayClick: () => void }) => {
         <h3>{dateSelected.toLocaleString('default', { month: 'long', year: 'numeric' })}</h3>
         <MoveDateButtons offset={'month'} />
       </header>
-      <div className={style['calendar-grid-month-header']}>
+      {/* <div className={style['calendar-grid-month-header']}>
         {weekDays.map(weekDay => <span className={style['calendar-month-weekday-label']} key={weekDay}>{weekDay}</span>)}
-      </div>
+      </div> */}
       <div className={style['calendar-grid-month']}>
+        {weekDays.map(weekDay => <span className={style['calendar-month-weekday-label']} key={weekDay}>{weekDay}</span>)}
         {
           days.map((day, idx) => {
             const classNames = [style['monthly-day'], style.button].join(' ');

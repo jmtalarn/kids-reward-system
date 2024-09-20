@@ -16,7 +16,7 @@ import { dateToShortISOString } from '../../../core/domain/utils/date-utils';
 
 const participantsToOptions = (participants: Participant[]) => {
 	return participants?.map(participant => ({ value: participant.id, label: <><User style={{ color: participant.color }} /> {participant.name}</> }));
-}
+};
 
 
 const RewardForm = ({ reward }: { reward: Reward }) => {
@@ -42,15 +42,15 @@ const RewardForm = ({ reward }: { reward: Reward }) => {
 			setMessage({ text: `The tasks described on the reward will last ${diffDays} day${diffDays > 1 ? 's' : ''}.` });
 			setRewardData(rewardData => ({ ...rewardData, dueDate, startingDate, daysToCount: diffDays }));
 		} else {
-			setMessage({ type: 'ERROR', text: `The starting date needs to be before or same as due date.` })
+			setMessage({ type: 'ERROR', text: `The starting date needs to be before or same as due date.` });
 		}
 
 	}, [startingDate, dueDate]);
 	useEffect(() => {
-		if (rewardData.participants === undefined) {
+		if (rewardData && rewardData.participants === undefined) {
 			setRewardData(rewardData => ({ ...rewardData, participants: participants.allIds }));
 		}
-	}, [participants, rewardData.participants])
+	}, [participants, rewardData]);
 
 	return <>
 		<section className={commonStyle.section}>
@@ -109,8 +109,8 @@ const RewardForm = ({ reward }: { reward: Reward }) => {
 		</section>
 		{Boolean(rewardData?.id) && <TasksList rewardId={rewardData?.id} />}
 
-	</>
+	</>;
 
-}
+};
 
 export default RewardForm;
