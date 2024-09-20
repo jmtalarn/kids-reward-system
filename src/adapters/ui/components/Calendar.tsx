@@ -5,11 +5,11 @@ import { useTasksForDate } from '../../state/hooks/useTasksForDate';
 import style from './Calendar.module.css';
 import commonStyle from './Common.module.css';
 
-import { ParticipantsAssessment } from '../components/ParticipantsAssessment'
-import Button from '../components/Button'
+import { ParticipantsAssessment } from '../components/ParticipantsAssessment';
+import Button from '../components/Button';
 import { dateToShortISOString, dateToLongLocaleString } from '../../../core/domain/utils/date-utils';
 import { Calendar as CalendarIcon, SkipBack, SkipForward, CornerLeftDown, CornerRightDown, ArrowLeft, ArrowRight, Award } from 'react-feather';
-import Select from '../components/Select'
+import Select from '../components/Select';
 import { setNewDate, setToday, forwardMonth, forwardDays, backwardDays, backwardMonth } from '../../state/dateSlice';
 
 import { Task } from '../../../core/domain/Task';
@@ -86,7 +86,7 @@ export const Calendar = () => {
       )
       }
     </div>
-  </section>
+  </section>;
 
 };
 
@@ -129,8 +129,8 @@ const MoveDateButtons = ({ offset }: { offset: 1 | 7 | "month" }) => {
     >
       <SkipForward className={style['move-date-button-icon']} />
     </Button>
-  </div >
-}
+  </div >;
+};
 
 const DailyView = ({ tasks }: { tasks: Task[] }) => {
   const { date } = useSelector((state) => state.date);
@@ -156,13 +156,13 @@ const DailyView = ({ tasks }: { tasks: Task[] }) => {
             </div>
           </div>
           <div className={`${style['daily-day']} `}>
-            <ParticipantsAssessment selectedTask={task} options={options} />
+            <ParticipantsAssessment selectedDate={date} selectedTask={task} options={options} />
           </div>
         </div>)
       }
     </div >
-  )
-}
+  );
+};
 
 const WeeklyView = ({ onDayClick, tasks }: { onDayClick: () => void, tasks: string[] }) => {
   const { date } = useSelector((state) => state.date);
@@ -211,8 +211,8 @@ const WeeklyView = ({ onDayClick, tasks }: { onDayClick: () => void, tasks: stri
         }
       </div>)}
     </div>
-  )
-}
+  );
+};
 
 
 const MonthlyView = ({ onDayClick }: { onDayClick: () => void }) => {
@@ -248,14 +248,14 @@ const MonthlyView = ({ onDayClick }: { onDayClick: () => void }) => {
             >
               <span className={style['monthly-day-label']}>{day?.getDate() || ""}</span>
             </button> : <span key={`${idx}_noday`} className={style['no-day']} />
-            )
+            );
           }
           )
         }
       </div >
     </div>
-  )
-}
+  );
+};
 
 const arrow = (idx) => {
 
@@ -265,7 +265,7 @@ const arrow = (idx) => {
       }>
         <CornerLeftDown />
       </span>
-    )
+    );
   }
   if (idx % 3 === 2) {
     return (
@@ -273,7 +273,7 @@ const arrow = (idx) => {
       }>
         <CornerRightDown />
       </span>
-    )
+    );
   }
   if (idx % 6 === 3 || idx % 6 === 4) {
     return (
@@ -281,7 +281,7 @@ const arrow = (idx) => {
       }>
         <ArrowLeft className={`${style.arrow}`} />
       </span>
-    )
+    );
   }
 
   return (
@@ -289,8 +289,8 @@ const arrow = (idx) => {
     }>
       <ArrowRight className={`${style.arrow}`} />
     </span>
-  )
-}
+  );
+};
 
 const FlowView = ({ onDayClick }: { onDayClick: () => void }) => {
   const { date } = useSelector((state) => state.date);
@@ -321,5 +321,5 @@ const FlowView = ({ onDayClick }: { onDayClick: () => void }) => {
         }
       </div>
     </>
-  )
-}
+  );
+};

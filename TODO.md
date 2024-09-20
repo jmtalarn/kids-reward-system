@@ -10,6 +10,8 @@
 -   [ ] Header design
 -   [ ] Dashboard design.
     -   [ ] Close reward Due date and days left
+    -   [ ] Recent assessments
+    -   [ ] Figures. Rewards/Tasks/Participants
 -   [x] Participants list layout
 -   [x] Delete management
     -   [x] of rewards -> tasks
@@ -19,3 +21,5 @@
     -   [] habit-o-matic
 -   [x] Reward form not loading content on URL load
 -   [x] Assign participants to reward
+-   [ ] On click new task, scroll down
+-   [ ] On click new participant, scroll down

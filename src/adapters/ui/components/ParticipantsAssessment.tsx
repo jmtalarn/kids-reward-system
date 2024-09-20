@@ -42,7 +42,7 @@ export const ParticipantsAssessment = ({ selectedDate, selectedTask, options }: 
       const optionValue = assessments?.[selectedDate]?.[participant.id]?.[selectedTask.id];
       const dialogOption = (optionValue !== null && optionValue !== undefined) ? ({ option: ValueOptionMap[optionValue], value: optionValue }) : {};
 
-      return (<div key={`${participant.id}_${dialogOption?.value ?? "NULL"}`} className={style['participant-vote']}>
+      return (participant && <div key={`${participant.id}_${dialogOption?.value ?? "NULL"}`} className={style['participant-vote']}>
         <ParticipantSwitch
           participant={participant}
           handleClick={
@@ -55,14 +55,13 @@ export const ParticipantsAssessment = ({ selectedDate, selectedTask, options }: 
         <div className={style['vote']}>
           {dialogOption?.option || <HelpCircle />}
         </div>
-      </div>)
+      </div>);
     })}
 
     {modalOpen && (<Modal
       openModal={modalOpen}
       closeModal={() => { setModalOpen(false); }}
       handleSelectOption={(dialogOption: DialogOption) => {
-        //setParticipantsVote(new Map([...participantsVote.entries(), [participantSelected, dialogOption]]));
 
         dispatch(
           addAssessment(
@@ -83,8 +82,8 @@ export const ParticipantsAssessment = ({ selectedDate, selectedTask, options }: 
         How did {participantSelected.name} went for {selectedTask.description} ?
       </div>
     </Modal>)}
-  </div>
-}
+  </div>;
+};
 // Modal as a separate component
 const Modal: React.FC<ModalProps> = ({ openModal, closeModal, children, options, handleSelectOption }) => {
 
@@ -134,5 +133,5 @@ const Option = ({ dialogOption, onClick }: { dialogOption: DialogOption, onClick
 const ParticipantSwitch = ({ participant, handleClick }: { participant: Participant, handleClick: () => void }) =>
 (<button className={style['participant-switch']} onClick={handleClick} >
   <User style={{ color: participant.color }} /> {participant.name}
-</button>)
+</button>);
 

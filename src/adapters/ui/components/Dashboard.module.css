@@ -1,11 +1,15 @@
 .dashboard {
-	grid-template-columns: repeat(auto-fill, minmax(1fr, 200px));
+	/* grid-template-columns: repeat(auto-fill, minmax(1fr, 200px)); */
+	grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
 	display: grid;
 	gap: 2rem;
-	grid-auto-rows: minmax(1fr, auto);
+	/* grid-auto-rows: minmax(1fr, auto); */
 	grid-auto-flow: dense;
 	margin: 2rem 0;
+	padding: 0 2rem;
 }
+
+
 
 .span-2 {
 	grid-column-end: span 2;
@@ -15,6 +19,22 @@
 .span-3 {
 	grid-column-end: span 3;
 	grid-row-end: span 4;
+}
+
+@media only screen and (max-width: 500px) {
+	.dashboard {
+		grid-template-columns: 1fr;
+	}
+
+	.span-2 {
+		grid-column-end: span 1;
+		grid-row-end: span 1;
+	}
+
+	.span-3 {
+		grid-column-end: span 1;
+		grid-row-end: span 1;
+	}
 }
 
 .card {
@@ -47,4 +67,11 @@
 	margin-left: 1.5rem;
 	font-size: 0.8rem;
 	color: var(--color-surface-600);
+}
+
+.user-assessments {
+	display: flex;
+	flex-direction: row;
+	gap: 1rem;
+	margin: 0.5rem;
 }
