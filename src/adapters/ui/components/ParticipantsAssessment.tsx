@@ -2,6 +2,7 @@ import { useEffect, useRef, ReactNode, useState, cloneElement } from 'react';
 import { useDispatch, useSelector } from "react-redux";
 import { addAssessment, fetchAssessments } from "../../state/assessmentsSlice";
 import { fetchParticipants } from "../../state/participantsSlice";
+import { fetchRewards } from "../../state/rewardsSlice";
 import { Participant } from '../../../core/domain/Participant';
 import { DialogOption } from '../../../core/domain/DialogOption';
 import { ValueOptionMap } from '../../../core/domain/Options';
@@ -22,13 +23,14 @@ export const ParticipantsAssessment = ({ selectedDate, selectedTask, options }: 
 
   const { participants } = useSelector((state) => state.participants);
   const { assessments } = useSelector((state) => state.assessments);
-
+  const { rewards } = useSelector((state) => state.rewards);
 
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(fetchParticipants());
     dispatch(fetchAssessments());
+    dispatch(fetchRewards());
   }, []);
 
   const [modalOpen, setModalOpen] = useState<boolean>(false);
@@ -36,7 +38,7 @@ export const ParticipantsAssessment = ({ selectedDate, selectedTask, options }: 
   const [participantSelected, setParticipantSelected] = useState<Participant | undefined>();
 
   return <div className={style.participants}>
-    {participants.map(participant => {
+    {rewards.byId[selectedTask.rewardId]?.participants?.map(id => participants.byId[id]).map(participant => {
       const optionValue = assessments?.[selectedDate]?.[participant.id]?.[selectedTask.id];
       const dialogOption = (optionValue !== null && optionValue !== undefined) ? ({ option: ValueOptionMap[optionValue], value: optionValue }) : {};
 

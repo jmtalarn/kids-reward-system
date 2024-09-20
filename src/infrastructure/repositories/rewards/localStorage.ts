@@ -30,15 +30,29 @@ const removeReward = async (rewardId: string): Promise<Reward[]> => {
 	const rewards = await getAllRewards();
 	const updatedRewards = rewards.filter(reward => reward.id !== rewardId);
 	localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(updatedRewards));
+
+
 	return updatedRewards;
 };
 
+const removeParticipantFromRewards = async ({ participantId }: { rewardId: RewardId, participantId: PartipantId }): Promise<Reward[]> => {
+	const rewards = await getAllRewards();
+	const updatedRewards = rewards.map(reward => {
+		reward.participants = reward.participants.filter(participant => participant.id !== participantId);
+		return reward
+	});
+	localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(updatedRewards));
 
+
+	return updatedRewards;
+
+}
 
 
 
 export default {
 	getAllRewards,
 	addReward,
-	removeReward
+	removeReward,
+	removeParticipantFromRewards
 };

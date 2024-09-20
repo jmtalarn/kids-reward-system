@@ -26,7 +26,12 @@ const addTask = async (rewardId: string, task: Task): Promise<Task[]> => {
 
 const removeTask = async (rewardId: string, taskId: string): Promise<Task[]> => {
 	const tasks = await getAllTasks();
-	const updatedTasks = tasks.filter(task => task.id !== taskId);
+	let updatedTasks;
+	if (taskId) {
+		updatedTasks = tasks.filter(task => task.id !== taskId);
+	} else {
+		updatedTasks = tasks.filter(task => task.rewardId !== rewardId);
+	}
 	localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(updatedTasks));
 	return updatedTasks;
 };

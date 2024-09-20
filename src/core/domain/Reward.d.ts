@@ -1,9 +1,10 @@
-import { TaskId } from './Task';
+import { ParticipantId } from "./Participant";
+export type RewardId = typeof string;
 
 export interface Reward {
-	id?: TaskId;
+	id?: RewardId;
 	description: string;
-	//tasks: Task[];
+	participants: ParticipantId[];
 	dueDate: string;
 	daysToCount: number;
 	startingDate: string;

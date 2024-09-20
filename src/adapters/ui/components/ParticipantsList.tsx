@@ -16,7 +16,14 @@ const ParticipantInput = ({ participant }: { participant: Participant }) => {
 
 	return (
 		<div className={style.field}>
-			<Input label="Participant" value={inputParticipant.name} onChange={e => setInputParticipant({ ...inputParticipant, name: e.target.value })} placeholder="New participant" />
+			<Input
+				label="Participant"
+				fieldStyle={{ flexGrow: "1" }}
+				style={{ width: "80%" }}
+				value={inputParticipant.name}
+				onChange={e => setInputParticipant({ ...inputParticipant, name: e.target.value })}
+				placeholder="New participant"
+			/>
 			<Input className={style['color-input']} value={inputParticipant.color} type="color" onChange={e => setInputParticipant({ ...inputParticipant, color: e.target.value })} />
 			<Button className={style.button} onClick={() => dispatch(addParticipant(inputParticipant))}>
 				<Check />
@@ -42,7 +49,7 @@ const ParticipantsList = () => {
 				<UserPlus />
 			</Button>
 		</header>
-		{participants.map(participant => (
+		{participants.allIds.map(id => participants.byId[id]).map(participant => (
 			<ParticipantInput key={participant.id || 'empty-key'} participant={participant} />
 		))}
 	</section>

@@ -10,6 +10,15 @@ type AdditionalProperties = {
 };
 
 const CustomStyle = {
+  container: (base: object) => ({
+    ...base,
+    width: "100%"
+  }),
+  multiValue: (base: object) => ({
+    ...base,
+    borderRadius: "5px",
+    backgroundColor: 'var(--color-primary-700)'
+  }),
   control: (base: object) => ({
     ...base,
     boxShadow: 'var(--box-shadow-inner)',

@@ -12,11 +12,17 @@ const addReward = async (reward: Reward): Promise<Reward[]> => {
 
 const removeReward = async (rewardId: string): Promise<Reward[]> => {
 	return rewardsRepository.removeReward(rewardId);
-}
+};
+
+const removeParticipantFromRewards = async ({ participantId }: { rewardId: RewardId, participantId: PartipantId }): Promise<Reward[]> => {
+	return rewardsRepository.removeParticipantFromRewards({ participantId });
+};
+
 
 export default {
 	getAllRewards,
 	addReward,
-	removeReward
+	removeReward,
+	removeParticipantFromRewards
 };
 

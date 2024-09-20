@@ -1,6 +1,8 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import rewardsService from "../../core/services/RewardsService"
-import { Reward } from '../../core/domain/Reward'
+import rewardsService from "../../core/services/RewardsService";
+import { Reward } from '../../core/domain/Reward';
+import { ParticipantId } from '../../core/domain/Participant';
+import { removeTask } from "./tasksSlice";
 
 export const fetchRewards = createAsyncThunk('rewards/fetch', async () => {
 	const rewards = await rewardsService.getAllRewards();
@@ -12,8 +14,14 @@ export const addReward = createAsyncThunk('rewards/add', async (reward: Reward) 
 	return rewards;
 });
 
-export const removeReward = createAsyncThunk('rewards/remove', async (rewardId: string) => {
+export const removeReward = createAsyncThunk('rewards/remove', async (rewardId: string, { dispatch }) => {
 	const rewards = await rewardsService.removeReward(rewardId);
+	dispatch(removeTask({ rewardId }));
+	return rewards;
+});
+
+export const removeParticipantFromRewards = createAsyncThunk('rewards/removeParticipant', async ({ participantId }: { participantId: ParticipantId }) => {
+	const rewards = await rewardsService.removeParticipantFromRewards({ participantId });
 	return rewards;
 });
 
@@ -50,6 +58,9 @@ const rewardsSlice = createSlice({
 				state.rewards = normalizeRewards(action.payload);
 			})
 			.addCase(removeReward.fulfilled, (state, action) => {
+				state.rewards = normalizeRewards(action.payload);
+			})
+			.addCase(removeParticipantFromRewards.fulfilled, (state, action) => {
 				state.rewards = normalizeRewards(action.payload);
 			});
 	},

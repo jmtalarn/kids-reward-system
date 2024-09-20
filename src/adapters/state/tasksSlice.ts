@@ -1,25 +1,27 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import tasksService from "../../core/services/TasksService"
-import { Task } from '../../core/domain/Task'
+import tasksService from "../../core/services/TasksService";
+import { Task, TaskId } from '../../core/domain/Task';
+import { removeAssessmentsForTaskId } from "./assessmentsSlice";
+import { RewardId } from '../../core/domain/Reward';
 
 
-
-export const fetchTasks = createAsyncThunk('tasks/fetch', async ({ rewardId }: { rewardId: string }) => {
+export const fetchTasks = createAsyncThunk('tasks/fetch', async ({ rewardId }: { rewardId: RewardId }) => {
 	const tasks = await tasksService.getAllTasks(rewardId);
 	return tasks;
 });
 
-export const addTask = createAsyncThunk('tasks/add', async ({ rewardId, task }: { rewardId: string, task: Task }) => {
+export const addTask = createAsyncThunk('tasks/add', async ({ rewardId, task }: { rewardId: RewardId, task: Task }) => {
 	const tasks = await tasksService.addTask(rewardId, task);
 	return tasks;
 });
 
-export const removeTask = createAsyncThunk('tasks/remove', async ({ rewardId, taskId }: { rewardId: string, taskId: string }) => {
+export const removeTask = createAsyncThunk('tasks/remove', async ({ rewardId, taskId }: { rewardId: RewardId, taskId: TaskId }, { dispatch }) => {
 	const tasks = await tasksService.removeTask(rewardId, taskId);
+	dispatch(removeAssessmentsForTaskId({ taskId }));
 	return tasks;
 });
 
-export const reorderTask = createAsyncThunk('tasks/reorder', async ({ rewardId, taskId, order }: { rewardId: string, taskId: string, order: number }) => {
+export const reorderTask = createAsyncThunk('tasks/reorder', async ({ rewardId, taskId, order }: { rewardId: RewardId, taskId: TaskId, order: number }) => {
 	const tasks = await tasksService.reorderTask(rewardId, taskId, order);
 	return tasks;
 });

@@ -1,6 +1,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import assessmentsService from "../../core/services/AssessmentsService";
-
+import { TaskId } from "../../core/domain/Task";
+import { ParticipantId } from "../../core/domain/Participant";
 
 const initialState = {
 	assessments: {},
@@ -23,6 +24,14 @@ export const removeAssessment = createAsyncThunk('assessments/remove', async ({ 
 	return assessments;
 });
 
+export const removeAssessmentsForTaskId = createAsyncThunk('assessments/removeForTaskId', async ({ taskId }: { taskId: TaskId }) => {
+	const assessments = await assessmentsService.removeAssessmentsForTaskId({ taskId });
+	return assessments;
+})
+export const removeAssessmentsForParticipantId = createAsyncThunk('assessments/removeForParticipantId', async ({ participantId }: { participantId: ParticipantId }) => {
+	const assessments = await assessmentsService.removeAssessmentsForParticipantId({ participantId });
+	return assessments;
+})
 const assessmentsSlice = createSlice({
 	name: "assessments",
 	initialState,
@@ -44,6 +53,9 @@ const assessmentsSlice = createSlice({
 				state.assessments = action.payload;
 			})
 			.addCase(removeAssessment.fulfilled, (state, action) => {
+				state.assessments = action.payload;
+			})
+			.addCase(removeAssessmentsForTaskId.fulfilled, (state, action) => {
 				state.assessments = action.payload;
 			});
 	},

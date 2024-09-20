@@ -1,0 +1,50 @@
+.dashboard {
+	grid-template-columns: repeat(auto-fill, minmax(1fr, 200px));
+	display: grid;
+	gap: 2rem;
+	grid-auto-rows: minmax(1fr, auto);
+	grid-auto-flow: dense;
+	margin: 2rem 0;
+}
+
+.span-2 {
+	grid-column-end: span 2;
+	grid-row-end: span 2;
+}
+
+.span-3 {
+	grid-column-end: span 3;
+	grid-row-end: span 4;
+}
+
+.card {
+	box-shadow: var(--box-shadow-md);
+	border-radius: 5px;
+	margin: 0 1rem 1rem 0;
+	display: inline-block;
+	width: 100%;
+}
+
+.card-header {
+	border-bottom: 1px solid var(--color-surface-600);
+	padding: 0.8rem 0.8rem 0 0.8rem;
+}
+
+.card-content {
+	padding: 1rem;
+}
+
+
+.upcoming-reward {
+	margin: 1rem 0;
+}
+
+.upcoming-reward-title {
+	font-weight: bold;
+}
+
+.upcoming-reward-details {
+	margin-left: 1.5rem;
+	font-size: 0.8rem;
+	color: var(--color-surface-600);
+}

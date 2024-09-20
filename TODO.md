@@ -10,12 +10,12 @@
 -   [ ] Header design
 -   [ ] Dashboard design.
     -   [ ] Close reward Due date and days left
--   [ ] Participants list layout
--   [ ] Delete management
-    -   [ ] of rewards -> tasks
-    -   [ ] tasks -> assessments
-    -   [ ] participants -> assessments
+-   [x] Participants list layout
+-   [x] Delete management
+    -   [x] of rewards -> tasks
+    -   [x] tasks -> assessments
+    -   [x] participants -> assessments
 -   [ ] Naming
     -   [] habit-o-matic
--   [ ] Reward form not loading content on URL load
--   [ ] Assign participants to reward
+-   [x] Reward form not loading content on URL load
+-   [x] Assign participants to reward
