@@ -24,3 +24,4 @@
 -   [x] On click new task, scroll down
 -   [x] On click new participant, scroll down
 -   [x] Mobile viewport
+-   [ ] Calendar redesign
