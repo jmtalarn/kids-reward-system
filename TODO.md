@@ -25,3 +25,5 @@
 -   [x] On click new participant, scroll down
 -   [x] Mobile viewport
 -   [ ] Calendar redesign
+-         [ ] default to current week
+-         [ ] expand to month view

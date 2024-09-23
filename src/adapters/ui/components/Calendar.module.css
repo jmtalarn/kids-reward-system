@@ -133,6 +133,11 @@
   position: absolute;
   top: 5px;
   left: 1rem;
+  color: var(--color-surface-mixed-600);
+}
+
+.current-month .monthly-day-label {
+  color: black;
 }
 
 .header {
@@ -198,6 +203,11 @@
   justify-content: center;
   font-size: 2rem;
 }
+
+.today {
+  background-color: lawngreen;
+}
+
 
 .turn-down {
   align-items: end;
