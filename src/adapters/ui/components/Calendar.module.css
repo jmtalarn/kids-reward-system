@@ -1,13 +1,62 @@
 .calendar-container {
   max-width: 960px;
   margin: 0 auto;
+  border-bottom: 1px solid var(--color-surface-mixed-600);
 }
 
-.view-selected {
-  text-transform: capitalize;
+.calendar-grid-week {
+  transition: all 200ms ease-in;
 }
 
-.no-day {}
+.full-month {
+  max-height: 100rem;
+  animation: grow-it 400ms;
+}
+
+
+.hide-week {
+  max-height: 0;
+  margin-bottom: 0 !important;
+  animation: shrink-it 400ms;
+}
+
+@keyframes shrink-it {
+
+  from {
+    transform: scaleY(1);
+  }
+
+  to {
+    transform: scaleY(0);
+  }
+}
+
+@keyframes grow-it {
+
+  from {
+    transform: scaleY(0);
+  }
+
+  to {
+    transform: scaleY(1);
+  }
+}
+
+.view-full-month-button {
+  background: none;
+  margin: .5rem auto;
+  margin-bottom: 0;
+  padding: .1rem;
+  display: block;
+}
+
+.view-full-month-button svg {
+  transition: transform 200ms ease-in;
+}
+
+.view-full-month-button-expanded svg {
+  transform: rotate(180deg);
+}
 
 .move-date-button-icon {
   width: 12px;
@@ -22,52 +71,47 @@
   white-space: nowrap;
 }
 
+.calendar-grid-month {
+  display: flex;
+  flex-direction: column;
+}
 
-.calendar-flow-header,
-.calendar-month-header,
-.calendar-week-header,
-.calendar-day-header {
+.calendar-month-header {
   display: flex;
   align-items: center;
   justify-content: space-between;
   margin-bottom: 2rem;
 }
 
-.calendar-flow-header,
-.calendar-month-header,
-.calendar-week-header,
-.calendar-day-header :first-child {
-  flex: 1;
-}
 
-
-.calendar-grid-day {
+/* .calendar-grid-day {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 1rem;
-  /*margin-bottom: 1rem;*/
   align-items: center;
   transition: background-color 100ms ease-in;
   padding: 1rem;
   border-radius: 4px;
 }
-
+ */
+/* 
 .calendar-grid-day:hover {
   background-color: var(--color-primary-700);
-}
+} */
 
-.calendar-grid-week-header,
 .calendar-grid-week {
   display: grid;
-  grid-template-columns: repeat(8, minmax(0, 1fr));
   gap: 1rem;
   margin-bottom: 1rem;
   align-items: center;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  overflow: hidden;
 }
 
+/* 
 .calendar-grid-week button {
   justify-self: center;
-}
+} */
 
 .tasks {
   overflow: hidden;
@@ -83,20 +127,11 @@
   font-size: .8rem;
 }
 
-.calendar-grid-month-header,
-.calendar-grid-month {
-  display: grid;
-  grid-template-columns: repeat(7, minmax(0, 1fr));
-  gap: 1rem;
-}
 
-.calendar-grid-week-header,
-.calendar-grid-month-header {
-  /* margin: 1rem 0; */
-}
 
-.calendar-week-weekday-label,
-.calendar-month-weekday-label {
+
+
+.calendar-week-weekday-label {
   font-size: .6rem;
   text-transform: uppercase;
   text-align: center;
@@ -104,7 +139,7 @@
 }
 
 
-.weekly-day,
+/*.weekly-day,*/
 .monthly-day {
   border: 1px solid grey;
   cursor: pointer;
@@ -117,22 +152,18 @@
   min-width: 1rem;
   width: 100%;
   aspect-ratio: 1 / 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.daily-day {
-
-  cursor: pointer;
-  position: relative;
-  /* padding: 1rem; */
-
-}
-
-.weekly-day-label,
 .monthly-day-label {
   font-size: 0.8rem;
-  position: absolute;
+  text-align: center;
+  /* position: absolute;
   top: 5px;
-  left: 1rem;
+  width: 2rem;
+  left: 1rem; */
   color: var(--color-surface-mixed-600);
 }
 
@@ -148,43 +179,10 @@
 
 
 
-.calendar-grid-flow {
-  display: grid;
-  grid-template-columns: repeat(6, 1fr);
-  grid-auto-flow: row dense;
-  row-gap: 2rem;
-  max-width: 600px;
-  margin: 0 auto;
-}
-
-.flow-day {
-  width: 5rem;
-  height: 5rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 50%;
-  border: 1px solid grey;
-  position: relative;
-  margin: 0 auto;
-}
-
-.flow-day-label {
-  font-size: 0.8rem;
-  position: absolute;
-  top: 5px;
-  left: 1rem;
-}
-
-
-
 .button {
   background: none;
-
-
   outline: none;
   overflow: hidden;
-
 }
 
 .button:focus,
@@ -197,42 +195,6 @@
 }
 
 
-.arrow {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 2rem;
-}
-
 .today {
   background-color: lawngreen;
-}
-
-
-.turn-down {
-  align-items: end;
-}
-
-.calendar-grid-flow> :nth-child(12n + 7) {
-  grid-column-end: -1;
-}
-
-.calendar-grid-flow> :nth-child(12n + 8) {
-  grid-column-end: -2;
-}
-
-.calendar-grid-flow> :nth-child(12n + 9) {
-  grid-column-end: -3;
-}
-
-.calendar-grid-flow> :nth-child(12n + 10) {
-  grid-column-end: -4;
-}
-
-.calendar-grid-flow> :nth-child(12n + 11) {
-  grid-column-end: -5;
-}
-
-.calendar-grid-flow> :nth-child(12n + 12) {
-  grid-column-end: -6;
 }
