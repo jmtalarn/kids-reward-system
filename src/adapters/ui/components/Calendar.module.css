@@ -1,6 +1,6 @@
 .calendar-container,
 .tasks-container {
-  padding: 1rem 0;
+  padding: 1rem 0 0 0;
   max-width: 500px;
   margin: 0 auto;
 }
@@ -59,6 +59,19 @@
   transform: rotate(180deg);
 }
 
+.move-date-buttons {
+  margin-bottom: 1rem;
+  width: 100%;
+  display: grid;
+  grid-template-columns: 3rem auto 3rem;
+}
+
+.move-date-buttons-days {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 .move-date-button-icon {
   width: 12px;
 }
@@ -78,10 +91,10 @@
 
 .calendar-month-header {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 2rem;
+  margin-bottom: 1rem;
 }
 
 
@@ -180,7 +193,7 @@ button.monthly-day {
   border: none !important;
 }
 
-.button:not(.no-day):hover .monthly-day-label {
+.button:not(.no-day):not(.today):hover .monthly-day-label {
   background-color: var(--color-primary-600);
 }
 

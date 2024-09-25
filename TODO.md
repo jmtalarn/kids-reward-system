@@ -25,7 +25,9 @@
 -   [x] On click new participant, scroll down
 -   [x] Mobile viewport
 -   [ ] Calendar redesign
--         [x] default to current week
--         [x] expand to month view
--         [ ] Move back and forth Month
--         [ ] Controls placement
+    -   [x] default to current week
+    -   [x] expand to month view
+    -   [x] Move back and forth Month
+    -   [x] Controls placement
+    -   [ ] On scroll show the date on top
+    -   [ ] Hints on buttons
