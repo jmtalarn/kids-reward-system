@@ -3,8 +3,6 @@
   padding: 1rem 0;
   max-width: 500px;
   margin: 0 auto;
-
-  /* border-bottom: 1px solid var(--color-surface-mixed-600); */
 }
 
 .calendar-grid-week {
@@ -68,11 +66,7 @@
 .move-date-button {
   font-size: 12px;
   margin: 2px;
-  /* padding: 10px 12px !important; */
-}
 
-.move-date-buttons {
-  /* white-space: nowrap; */
 }
 
 .calendar-month {
@@ -115,11 +109,6 @@
   overflow: hidden;
 }
 
-/* 
-.calendar-grid-week button {
-  justify-self: center;
-} */
-
 .tasks {
   overflow: hidden;
 }
@@ -134,36 +123,20 @@
   font-size: .8rem;
 }
 
-.task-participants {}
-
-
-
 .calendar-week-weekday-label {
   font-size: .6rem;
   text-transform: uppercase;
   text-align: center;
-  /* width: 100%; */
 }
 
-
-/*.weekly-day,*/
 button.monthly-day {
   margin: 0;
   padding: 0;
-  /* border: 1px solid grey; */
   cursor: pointer;
   position: relative;
   margin: 0 auto;
-  /* max-width: 5rem;
-  max-height: 5rem; */
   height: 100%;
-  /* min-height: 2rem;
-  min-width: 1rem; */
   width: 100%;
-  /* aspect-ratio: 1 / 1; */
-  /* display: flex;
-  align-items: center;
-  justify-content: center; */
   display: flex;
   align-items: center;
   justify-content: center;
@@ -191,8 +164,6 @@ button.monthly-day {
   justify-content: space-between;
 }
 
-
-
 .button {
   background: none;
   outline: none;
@@ -213,8 +184,6 @@ button.monthly-day {
   background-color: var(--color-primary-600);
 }
 
-
 .today .monthly-day-label {
   background-color: var(--color-primary-100);
-
 }
