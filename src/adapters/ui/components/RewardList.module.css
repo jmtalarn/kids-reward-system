@@ -22,3 +22,7 @@
 	font-size: 0.8rem;
 	color: var(--color-surface-600);
 }
+
+.highlight-description {
+	font-weight: bold;
+}

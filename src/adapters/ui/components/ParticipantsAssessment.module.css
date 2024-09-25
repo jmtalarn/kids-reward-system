@@ -27,8 +27,13 @@
 
 .participant-switch {
   background: none;
-  padding: 1rem 2rem;
+  padding: .5rem;
+  display: grid;
+  grid-template-columns: 2rem 1fr;
+
 }
+
+
 
 .vote {
   display: flex;
@@ -70,12 +75,13 @@
 .participants {
 
   display: flex;
+  gap: .5rem;
   flex-direction: column;
 }
 
 .participant-vote {
   display: grid;
-  grid-template-columns: 3fr 1fr;
+  grid-template-columns: minmax(0, 3fr) minmax(0, 1fr);
   width: 100%;
   gap: 2rem;
 }

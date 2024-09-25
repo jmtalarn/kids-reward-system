@@ -9,7 +9,7 @@ import Button from './Button';
 import style from './RewardList.module.css';
 import commonStyle from './Common.module.css';
 import { dateToLongLocaleString } from '../../../core/domain/utils/date-utils';
-import { getDiffDaysMessage } from '../../../core/domain/utils/messages';
+import { getDiffDaysMessage, getDaysRemainingOrOverdue } from '../../../core/domain/utils/messages';
 
 
 
@@ -40,8 +40,11 @@ const RewardList = () => {
 		<div className={style['reward-list']}>
 			{rewards.allIds.map((rewardId) => {
 				const reward = rewards.byId[rewardId];
-				const dueDateMessage = reward.dueDate ? <>{`Due date for this reward is ${dateToLongLocaleString(new Date(reward.dueDate))}.`}<span style={{ fontWeight: "bold" }} >{getDiffDaysMessage(reward.startingDate, reward.dueDate)}</span></> : 'No due date set yet.';
+				const dueDateMessage = reward.dueDate ? `Due date for this reward is ${dateToLongLocaleString(new Date(reward.dueDate))}.` : 'No due date set yet.';
 				const startingDateMessage = reward.startingDate ? `Starting date for this reward is ${dateToLongLocaleString(new Date(reward.startingDate))}.` : 'No starting date set yet.';
+				const daysForTasksMessage = getDiffDaysMessage(reward.startingDate, reward.dueDate);
+				const daysLeftOrOverdue = getDaysRemainingOrOverdue(reward.dueDate);
+
 				return (
 					<div
 						key={reward.id || 'empty-key'}
@@ -56,6 +59,7 @@ const RewardList = () => {
 							<div className={style['additional-description']}>
 								<div>{startingDateMessage}</div>
 								<div>{dueDateMessage}</div>
+								<div className={style['highlight-description']}>{daysForTasksMessage} {daysLeftOrOverdue}</div>
 							</div>
 						</div>
 						<div className={style.buttons}>

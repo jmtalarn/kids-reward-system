@@ -1,4 +1,4 @@
-import { ReactNode, useState, useMemo } from 'react';
+import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from "react-redux";
 
 import { useTasksForDate } from '../../state/hooks/useTasksForDate';
@@ -8,27 +8,14 @@ import commonStyle from './Common.module.css';
 import { ParticipantsAssessment } from '../components/ParticipantsAssessment';
 import Button from '../components/Button';
 import { dateToShortISOString, dateToLongLocaleString, parseShortIsoString } from '../../../core/domain/utils/date-utils';
-import { Calendar as CalendarIcon, SkipBack, SkipForward, FastForward, Rewind, ChevronDown } from 'react-feather';
-import Select from '../components/Select';
+import { fetchRewards } from '../../state/rewardsSlice';
+import { Calendar as CalendarIcon, SkipBack, SkipForward, FastForward, Rewind, ChevronDown, Award } from 'react-feather';
+
 import { setNewDate, setToday, forwardMonth, forwardDays, backwardDays, backwardMonth } from '../../state/dateSlice';
-import { Task } from '../../../core/domain/Task';
+// import { Task } from '../../../core/domain/Task';
 import { options } from '../../../core/domain/Options';
 
-const CalendarViewTypes = ["daily", "weekly", "monthly", "flow"];
-type CalendarViewType = typeof CalendarViewTypes[number];
 
-
-interface ViewComponent { [key: CalendarViewType]: ReactNode }
-
-function getDaysInFlow(startDate, length): Date[] {
-  const dates = [startDate];
-  for (let i = 1; i < length; i++) {
-    const localDate = new Date(dates[i - 1].toISOString());
-    localDate.setDate(localDate.getDate() + 1);
-    dates.push(localDate);
-  }
-  return dates;
-}
 function splitDaysInWeeks(days: Date[], selectedDate: Date) {
   const result = [];
   let j = 0;
@@ -43,6 +30,7 @@ function splitDaysInWeeks(days: Date[], selectedDate: Date) {
   }
   return { weeks: result, weekIndex: selectedWeek };
 }
+
 function getFullMonthWithCompleteWeeks(month: number, year: number, weekStartDay = 0) {
   const result = [];
 
@@ -78,75 +66,109 @@ function getFullMonthWithCompleteWeeks(month: number, year: number, weekStartDay
 
 export const Calendar = () => {
   const { date } = useSelector((state) => state.date);
-  const dateSelected = parseShortIsoString(date);
+  const { rewards } = useSelector((state) => state.rewards);
   const [viewFullMonth, setViewFullMonth] = useState(false);
-
   const dailyTasks = useTasksForDate();
-
   const dispatch = useDispatch();
+
+  useEffect(() => { dispatch(fetchRewards()); }, []);
+
+  const dateSelected = parseShortIsoString(date);
 
   const onDayClick = (dateClicked: Date) => {
     dispatch(setNewDate(dateToShortISOString(dateClicked)));
   };
 
-  // const [view, setView] = useState<CalendarView>("daily");
-
   const fullMonthDays = getFullMonthWithCompleteWeeks(dateSelected.getMonth(), dateSelected.getFullYear(), 1);
   const { weeks, weekIndex } = splitDaysInWeeks(fullMonthDays, dateSelected);
   const days = viewFullMonth ? fullMonthDays : weeks[weekIndex];
 
-  return <section className={`${style['calendar-container']} ${commonStyle.section}`}>
-    <header className={style['calendar-month-header']}>
-      <h3>{dateSelected.toLocaleString('default', { month: 'long', year: 'numeric' })}</h3>
-      <MoveDateButtons offset={1} />
-    </header>
-    <div className={[style['calendar-grid-week']].filter(Boolean).join(" ")}>
-      {days.slice(0, 7).map(date => date.toLocaleDateString('default', { weekday: 'short' })).map(date => <span className={style['calendar-week-weekday-label']} key={date}>{date}</span>)}
-    </div>
-    <div className={style['calendar-grid-month']} >
-      {
-        weeks.map((week, idx) =>
-          <div
-            key={`week_${idx}`}
-            className={[
-              style['calendar-grid-week'],
-              idx !== weekIndex && !viewFullMonth ? style['hide-week'] : null,
-              viewFullMonth ? style['full-month'] : null
-            ].filter(Boolean).join(" ")}
-          >
-            {week.map((day, idx) => {
-              //days.map((day, idx) => {
-              const classNames = [
-                style['monthly-day'],
-                style.button,
-                day.getDate() === dateSelected.getDate() && day.getMonth() === dateSelected.getMonth() ? style.today : null,
-                day.getMonth() === dateSelected.getMonth() ? style['current-month'] : null
-              ].filter(Boolean).join(' ');
-
-              return (day ? <button
-                className={classNames}
-                key={`${idx}_${day?.getDay() || "Empty"}`}
-                onClick={() => day && onDayClick(day)}
+  return <div>
+    <section className={`${style['calendar-container']} ${commonStyle.section}`}>
+      <header className={style['calendar-month-header']}>
+        <h3>{dateSelected.toLocaleString('default', { month: 'long', year: 'numeric' })}</h3>
+        <MoveDateButtons />
+      </header>
+      <div className={style['calendar-month']}>
+        <div className={style['calendar-grid-week']}>
+          {days.slice(0, 7).map(date => date.toLocaleDateString('default', { weekday: 'short' })).map(date => <span className={style['calendar-week-weekday-label']} key={date}>{date}</span>)}
+        </div>
+        <div className={style['calendar-grid-month']} >
+          {
+            weeks.map((week, idx) =>
+              <div
+                key={`week_${idx}`}
+                className={[
+                  style['calendar-grid-week'],
+                  idx === weekIndex && style['current-week'],
+                  idx !== weekIndex && !viewFullMonth ? style['hide-week'] : null,
+                  viewFullMonth ? style['full-month'] : null
+                ].filter(Boolean).join(" ")}
               >
-                <span className={style['monthly-day-label']}>{day?.getDate() || ""}</span>
-              </button> : <span key={`${idx}_noday`} className={style['no-day']} />
-              );
-            })}
+                {week.map((day, idx) => {
+                  //days.map((day, idx) => {
+                  const classNames = [
+                    style['monthly-day'],
+                    style.button,
+                    day.getDate() === dateSelected.getDate() && day.getMonth() === dateSelected.getMonth() ? style.today : null,
+                    day.getMonth() === dateSelected.getMonth() ? style['current-month'] : null
+                  ].filter(Boolean).join(' ');
+
+                  return (day ? <button
+                    className={classNames}
+                    key={`${idx}_${day?.getDay() || "Empty"}`}
+                    onClick={() => day && onDayClick(day)}
+                  >
+                    <span className={style['monthly-day-label']}>{day?.getDate() || ""}</span>
+                  </button> : <span key={`${idx}_noday`} className={style['no-day']} />
+                  );
+                })}
+              </div>
+            )
+          }
+        </div>
+        <button className={[style['view-full-month-button'], viewFullMonth ? style['view-full-month-button-expanded'] : null].filter(Boolean).join(" ")} onClick={() => { setViewFullMonth(viewFullMonth => !viewFullMonth); }}>
+          <ChevronDown />
+        </button>
+      </div>
+    </section >
+    <hr />
+    <section className={style['tasks-container']} >
+      {console.log({ dailyTasks })}
+      {
+        dailyTasks && dailyTasks.map(task => <div key={`${task.id}_${task.order}`} className={style['task-participants']}>
+          <div className={style.tasks}>
+            <div className={style.task}>
+              {task.description}
+            </div>
+            <div className={style.award} title={`Reward tasks are due on ${dateToLongLocaleString(new Date(rewards.byId[task.rewardId].dueDate))}`} >
+              <Award color="gold" size="16" /> {rewards.byId[task.rewardId].description}
+            </div>
           </div>
-        )
+
+          <ParticipantsAssessment selectedDate={date} selectedTask={task} options={options} />
+
+        </div>)
       }
-    </div>
-    <button className={[style['view-full-month-button'], viewFullMonth ? style['view-full-month-button-expanded'] : null].filter(Boolean).join(" ")} onClick={() => { setViewFullMonth(viewFullMonth => !viewFullMonth); }}>
-      <ChevronDown />
-    </button>
-  </section >;
+    </section>
+  </div>;
 
 };
 
-const MoveDateButtons = ({ offset }: { offset: 1 | 7 | "month" }) => {
+const MoveDateButtons = () => {
   const dispatch = useDispatch();
 
   return <div className={style['move-date-buttons']}>
+    <Button
+      className={style['move-date-button']}
+      onClick={
+        () => {
+          dispatch(backwardMonth());
+        }
+      }
+    >
+      {"<"}
+    </Button>
     <Button
       className={style['move-date-button']}
       onClick={
@@ -193,6 +215,16 @@ const MoveDateButtons = ({ offset }: { offset: 1 | 7 | "month" }) => {
       }
     >
       <FastForward className={style['move-date-button-icon']} />
+    </Button>
+    <Button
+      className={style['move-date-button']}
+      onClick={
+        () => {
+          dispatch(forwardMonth());
+        }
+      }
+    >
+      {">"}
     </Button>
   </div >;
 };

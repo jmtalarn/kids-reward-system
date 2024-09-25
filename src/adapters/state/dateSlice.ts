@@ -20,12 +20,12 @@ const dateSlice = createSlice({
 			settedDate.setDate(settedDate.getDate() - action.payload);
 			state.date = dateToShortISOString(settedDate);
 		},
-		forwardMonth: () => {
+		forwardMonth: (state) => {
 			const settedDate = new Date(state.date);
 			settedDate.setMonth(settedDate.getMonth() + 1);
 			state.date = dateToShortISOString(settedDate);
 		},
-		backwardMonth: () => {
+		backwardMonth: (state) => {
 			const settedDate = new Date(state.date);
 			settedDate.setMonth(settedDate.getMonth() - 1);
 			state.date = dateToShortISOString(settedDate);
