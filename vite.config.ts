@@ -1,6 +1,6 @@
 import { VitePWA } from 'vite-plugin-pwa';
-import { defineConfig } from 'vite'
-import react from '@vitejs/plugin-react'
+import { defineConfig } from 'vite';
+import react from '@vitejs/plugin-react';
 import svgr from "vite-plugin-svgr";
 
 // https://vitejs.dev/config/
@@ -31,7 +31,31 @@ export default defineConfig({
         name: 'kids-reward-system',
         short_name: 'kids-reward-system',
         description: 'kids-reward-system',
-        theme_color: '#ff004d',
+        theme_color: '#1ea7fd',
+        icons: [
+          {
+            src: 'pwa-64x64.png',
+            sizes: '64x64',
+            type: 'image/png'
+          },
+          {
+            src: 'pwa-192x192.png',
+            sizes: '192x192',
+            type: 'image/png'
+          },
+          {
+            src: 'pwa-512x512.png',
+            sizes: '512x512',
+            type: 'image/png',
+            purpose: 'any'
+          },
+          {
+            src: 'maskable-icon-512x512.png',
+            sizes: '512x512',
+            type: 'image/png',
+            purpose: 'maskable'
+          }
+        ]
       },
 
       workbox: {
@@ -48,4 +72,4 @@ export default defineConfig({
       },
     })
   ],
-})
+});
