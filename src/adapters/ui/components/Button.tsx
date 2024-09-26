@@ -1,7 +1,7 @@
 import { useEffect, useState, ComponentProps } from 'react';
 import styles from './Button.module.css';
 
-const RippleButton = ({ children, className, onClick }: ComponentProps<'button'>) => {
+const RippleButton = ({ children, className, onClick, title }: ComponentProps<'button'>) => {
   const [coords, setCoords] = useState({ x: -1, y: -1 });
   const [isRippling, setIsRippling] = useState(false);
 
@@ -16,10 +16,11 @@ const RippleButton = ({ children, className, onClick }: ComponentProps<'button'>
     if (!isRippling) setCoords({ x: -1, y: -1 });
   }, [isRippling]);
 
-  const classNames = [styles['ripple-button'], className].filter(c => !!c).join(" ");
+  const classNames = [className, styles['ripple-button']].filter(Boolean).join(" ");
 
   return (
     <button
+      title={title}
       className={classNames}
       onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
         const rect = (e.target as HTMLButtonElement).getBoundingClientRect();

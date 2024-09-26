@@ -79,7 +79,10 @@
 .move-date-button {
   font-size: 12px;
   margin: 2px;
+}
 
+.move-date-button svg {
+  min-width: 10px;
 }
 
 .calendar-month {
@@ -199,4 +202,11 @@ button.monthly-day {
 
 .today .monthly-day-label {
   background-color: var(--color-primary-100);
+}
+
+.date-banner {
+  position: sticky !important;
+  top: 0;
+  width: 100%;
+  margin: 0 !important;
 }

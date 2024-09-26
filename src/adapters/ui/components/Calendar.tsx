@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from "react-redux";
 
 import { useTasksForDate } from '../../state/hooks/useTasksForDate';
@@ -14,6 +14,7 @@ import { Calendar as CalendarIcon, SkipBack, SkipForward, FastForward, Rewind, C
 import { setNewDate, setToday, forwardMonth, forwardDays, backwardDays, backwardMonth } from '../../state/dateSlice';
 // import { Task } from '../../../core/domain/Task';
 import { options } from '../../../core/domain/Options';
+import { useElementOnScreen } from '../hooks/useIntersectionObserver';
 
 
 function splitDaysInWeeks(days: Date[], selectedDate: Date) {
@@ -70,7 +71,8 @@ export const Calendar = () => {
   const [viewFullMonth, setViewFullMonth] = useState(false);
   const dailyTasks = useTasksForDate();
   const dispatch = useDispatch();
-
+  const [containerRef, isVisible] = useElementOnScreen({ initiallyVisible: true, options: { root: null, rootMargin: "0px", threshold: 0.1 } });
+  const topRef = useRef();
   useEffect(() => { dispatch(fetchRewards()); }, []);
 
   const dateSelected = parseShortIsoString(date);
@@ -78,14 +80,15 @@ export const Calendar = () => {
   const onDayClick = (dateClicked: Date) => {
     dispatch(setNewDate(dateToShortISOString(dateClicked)));
   };
-
+  useEffect(() => { console.log({ isVisible }); }, [isVisible]);
   const fullMonthDays = getFullMonthWithCompleteWeeks(dateSelected.getMonth(), dateSelected.getFullYear(), 1);
   const { weeks, weekIndex } = splitDaysInWeeks(fullMonthDays, dateSelected);
   const days = viewFullMonth ? fullMonthDays : weeks[weekIndex];
 
-  return <div>
-    <section className={`${style['calendar-container']} ${commonStyle.section}`}>
-      <header className={style['calendar-month-header']}>
+  return <div style={{ position: "relative" }} ref={topRef}>
+    <TodaysDateBanner visible={!isVisible} date={dateSelected} useRef={topRef} />
+    <section className={`${style['calendar-container']} ${commonStyle.section}`} ref={containerRef}>
+      <header className={style['calendar-month-header']}  >
         <Button
           className={style['move-date-button']}
           onClick={
@@ -93,6 +96,7 @@ export const Calendar = () => {
               dispatch(backwardMonth());
             }
           }
+          title="Move the selected date to the previous month."
         >
           <SkipBack className={style['move-date-button-icon']} />
         </Button>
@@ -105,10 +109,10 @@ export const Calendar = () => {
               dispatch(forwardMonth());
             }
           }
+          title="Move the selected date to the next month."
         >
           <SkipForward className={style['move-date-button-icon']} />
         </Button>
-
       </header>
 
 
@@ -160,8 +164,8 @@ export const Calendar = () => {
       </div>
     </section >
     <hr />
+
     <section className={style['tasks-container']} >
-      {console.log({ dailyTasks })}
       {
         dailyTasks?.map(task => <div key={`${task.id}_${task.order}`} className={style['task-participants']}>
           <div className={style.tasks}>
@@ -178,6 +182,7 @@ export const Calendar = () => {
         </div>)
       }
     </section>
+
   </div>;
 
 };
@@ -193,6 +198,7 @@ const MoveDateButtons = () => {
           dispatch(backwardDays(7));
         }
       }
+      title="Move the selected date to a week before."
     >
       <Rewind className={style['move-date-button-icon']} />
     </Button>
@@ -204,12 +210,14 @@ const MoveDateButtons = () => {
             dispatch(backwardDays(1));
           }
         }
+        title="Move the selected date to a day before."
       >
         <SkipBack className={style['move-date-button-icon']} />
       </Button>
       <Button
         className={style['move-date-button']}
         onClick={() => dispatch(setToday())}
+        title="Move the selected date to today."
       >
         <CalendarIcon className={style['move-date-button-icon']} />&nbsp;
         Today
@@ -221,6 +229,7 @@ const MoveDateButtons = () => {
             dispatch(forwardDays(1));
           }
         }
+        title="Move the selected date to a day after."
       >
         <SkipForward className={style['move-date-button-icon']} />
       </Button>
@@ -232,9 +241,19 @@ const MoveDateButtons = () => {
           dispatch(forwardDays(7));
         }
       }
+      title="Move the selected date to a week after."
     >
       <FastForward className={style['move-date-button-icon']} />
     </Button>
   </div >;
 };
+
+const TodaysDateBanner = ({ visible, date, useRef }: { visible: boolean, date: Date, useRef: IntersectionObserver | null }) =>
+(visible && <Button
+  className={style['date-banner']}
+  title="Click to go back to the date selection."
+  onClick={() => useRef?.current?.scrollIntoView()}
+>
+  {dateToLongLocaleString(date)}
+</Button>);
 
