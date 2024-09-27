@@ -4,28 +4,29 @@ import { addAssessment, fetchAssessments } from "../../state/assessmentsSlice";
 import { fetchParticipants } from "../../state/participantsSlice";
 import { fetchRewards } from "../../state/rewardsSlice";
 import { Participant } from '../../../core/domain/Participant';
+import { Task } from '../../../core/domain/Task';
 import { DialogOption } from '../../../core/domain/DialogOption';
 import { ValueOptionMap } from '../../../core/domain/Options';
 import { HelpCircle, XCircle, User } from 'react-feather';
 import style from './ParticipantsAssessment.module.css';
-
-
+import { RootState, AppDispatch } from '../../state/store';
+import { parseShortIsoString } from '../../../core/domain/utils/date-utils';
 interface ModalProps {
   openModal: boolean;
   closeModal: () => void;
   children: ReactNode;
   options: DialogOption[];
-  handleSelectOption: () => void;
+  handleSelectOption: (dialogOption: DialogOption) => void;
 }
 
 
 export const ParticipantsAssessment = ({ selectedDate, selectedTask, options }: { selectedDate: string, selectedTask: Task, options: DialogOption[] }) => {
 
-  const { participants } = useSelector((state) => state.participants);
-  const { assessments } = useSelector((state) => state.assessments);
-  const { rewards } = useSelector((state) => state.rewards);
+  const { participants } = useSelector((state: RootState) => state.participants);
+  const { assessments } = useSelector((state: RootState) => state.assessments);
+  const { rewards } = useSelector((state: RootState) => state.rewards);
 
-  const dispatch = useDispatch();
+  const dispatch = useDispatch<AppDispatch>();
 
   useEffect(() => {
     dispatch(fetchParticipants());
@@ -35,7 +36,7 @@ export const ParticipantsAssessment = ({ selectedDate, selectedTask, options }: 
 
   const [modalOpen, setModalOpen] = useState<boolean>(false);
 
-  const [participantSelected, setParticipantSelected] = useState<Participant | undefined>();
+  const [participantSelected, setParticipantSelected] = useState<Participant | null>(null);
 
   return <div className={style.participants}>
     {rewards.byId[selectedTask.rewardId]?.participants?.map(id => participants.byId[id]).map(participant => {
@@ -62,24 +63,25 @@ export const ParticipantsAssessment = ({ selectedDate, selectedTask, options }: 
       openModal={modalOpen}
       closeModal={() => { setModalOpen(false); }}
       handleSelectOption={(dialogOption: DialogOption) => {
+        if (participantSelected && participantSelected.id) {
+          dispatch(
+            addAssessment(
+              {
+                date: parseShortIsoString(selectedDate),
+                participantId: participantSelected.id,
+                taskId: selectedTask.id,
+                option: dialogOption
+              }
+            )
+          );
+        }
 
-        dispatch(
-          addAssessment(
-            {
-              date: selectedDate,
-              participantId: participantSelected.id,
-              taskId: selectedTask.id,
-              option: dialogOption
-            }
-          )
-        );
-
-        setParticipantSelected();
+        setParticipantSelected(null);
         setModalOpen(false);
       }}
       options={options}>
       <div className={style['assessment-content']}>
-        How did {participantSelected.name} went for {selectedTask.description} ?
+        How did {participantSelected?.name ?? 'this guy'} went for {selectedTask.description} ?
       </div>
     </Modal>)}
   </div>;

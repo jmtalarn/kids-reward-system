@@ -1,18 +1,17 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from "react-redux";
 import { addParticipant, removeParticipant, fetchParticipants } from "../../state/participantsSlice";
 import { Check, Trash2, UserPlus } from 'react-feather';
-import { getRandomColor } from '../../../core/domain/utils/colors'
-
+import { getRandomColor } from '../../../core/domain/utils/colors';
+import { RootState, AppDispatch } from '../../state/store';
 import Button from './Button';
-import { useState } from 'react';
-import { Participant } from '../../../core/domain/Participant';
+import { Participant, ParticipantId } from '../../../core/domain/Participant';
 import Input from './Input';
 import style from './Common.module.css';
 
 const ParticipantInput = ({ participant }: { participant: Participant }) => {
 	const [inputParticipant, setInputParticipant] = useState(participant);
-	const dispatch = useDispatch();
+	const dispatch = useDispatch<AppDispatch>();
 
 	return (
 		<div className={style.field}>
@@ -37,8 +36,8 @@ const ParticipantInput = ({ participant }: { participant: Participant }) => {
 
 
 const ParticipantsList = () => {
-	const { participants } = useSelector((state) => state.participants);
-	const dispatch = useDispatch();
+	const { participants } = useSelector((state: RootState) => state.participants);
+	const dispatch = useDispatch<AppDispatch>();
 	useEffect(() => {
 		dispatch(fetchParticipants());
 	}, []);
@@ -49,10 +48,10 @@ const ParticipantsList = () => {
 				<UserPlus />
 			</Button>
 		</header>
-		{participants.allIds.map(id => participants.byId[id]).map(participant => (
+		{participants.allIds.map((id: ParticipantId) => participants.byId[id]).map((participant: Participant) => (
 			<ParticipantInput key={participant.id || 'empty-key'} participant={participant} />
 		))}
-	</section>
-}
+	</section>;
+};
 
 export default ParticipantsList;

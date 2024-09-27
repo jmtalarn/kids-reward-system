@@ -2,7 +2,7 @@ import { useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from 'react-router-dom';
 import { fetchRewards, addReward, removeReward } from '../../state/rewardsSlice';
-//import { Check, Trash2, PlusSquare } from 'react-feather';
+import { RootState, AppDispatch } from '../../state/store';
 import { PlusSquare, Trash2, Edit, Award } from 'react-feather';
 import Button from './Button';
 
@@ -14,9 +14,9 @@ import { getDiffDaysMessage, getDaysRemainingOrOverdue } from '../../../core/dom
 
 
 const RewardList = () => {
-	const { rewards } = useSelector((state) => state.rewards);
+	const { rewards } = useSelector((state: RootState) => state.rewards);
 
-	const dispatch = useDispatch();
+	const dispatch = useDispatch<AppDispatch>();
 	const navigate = useNavigate();
 	const lastRewardRef = useRef<null | HTMLDivElement>(null);
 
@@ -66,7 +66,7 @@ const RewardList = () => {
 							<Button
 								onClick={
 									() => {
-										navigate(`/reward/${reward.id}`, { id: reward.id });
+										navigate(`/reward/${reward.id}`);
 									}
 								}
 							>

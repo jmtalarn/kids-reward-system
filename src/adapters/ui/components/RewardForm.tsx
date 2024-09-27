@@ -1,6 +1,7 @@
 import { useEffect, useState, useMemo } from 'react';
-import TasksList from './TasksList';
+import { MultiValue } from 'react-select';
 import { useDispatch, useSelector } from "react-redux";
+import TasksList from './TasksList';
 import { addReward, removeReward } from "../../state/rewardsSlice";
 import { fetchParticipants } from "../../state/participantsSlice";
 import { Reward } from '../../../core/domain/Reward';
@@ -12,31 +13,37 @@ import { Check, Trash2, User } from 'react-feather';
 import commonStyle from './Common.module.css';
 import rewardFormStyle from './RewardForm.module.css';
 import { dateToShortISOString } from '../../../core/domain/utils/date-utils';
+import { RootState, AppDispatch } from '../../state/store';
+import { ParticipantId, Participant } from '../../../core/domain/Participant';
 
 
-const participantsToOptions = (participants: Participant[]) => {
-	return participants?.map(participant => ({ value: participant.id, label: <><User style={{ color: participant.color }} /> {participant.name}</> }));
-};
 
-const getDiffDays = (startingDate, dueDate) => {
+// const participantsToOptions = (participants: Participant[]): ParticipantOptionType[] => {
+// 	return participants?.map(participant => ({ value: participant.id, label: <><User style={{ color: participant.color }} /> {participant.name}</> }));
+// };
+
+const ParticipantLabel = ({ participant }: { participant: Participant }) => <><User style={{ color: participant.color }} /> {participant.name}</>;
+
+const getDiffDays = (startingDate: string, dueDate: string) => {
 	const oneDay = 24 * 60 * 60 * 1000; // hours*minutes*seconds*milliseconds
 
-	const startingDateDate = new Date(startingDate);
-	const dueDateDate = new Date(dueDate);
+	const startingDateDate = new Date(startingDate).getTime();
+	const dueDateDate = new Date(dueDate).getTime();
 
 	const diffDays = Math.round((dueDateDate - startingDateDate) / oneDay) + 1;
 	return diffDays;
 };
 const RewardForm = ({ reward }: { reward: Reward }) => {
-	const { participants } = useSelector((state) => state.participants);
-	const participantsOptions = useMemo(() => participantsToOptions(participants.allIds.map(id => participants.byId[id])), [participants]);
-	const dispatch = useDispatch();
-	// const [rewardData, setRewardData] = useState(reward);
-	const [rewardDescription, setRewardDescription] = useState(reward?.description || '');
-	const [rewardParticipants, setRewardParticipants] = useState(reward?.participants || []);
-	const [dueDate, setDueDate] = useState(reward?.dueDate || dateToShortISOString());
-	const [startingDate, setStartingDate] = useState(reward?.startingDate || dateToShortISOString());
-	const [message, setMessage] = useState({ type: '', text: '' });
+	const { participants } = useSelector((state: RootState) => state.participants);
+	const participantsOptions = useMemo(() => (participants.allIds.map((id: ParticipantId) => participants.byId[id])), [participants]);
+
+	const dispatch = useDispatch<AppDispatch>();
+
+	const [rewardDescription, setRewardDescription] = useState<string>(reward?.description || '');
+	const [rewardParticipants, setRewardParticipants] = useState<Participant[]>(reward?.participants || []);
+	const [dueDate, setDueDate] = useState<string>(reward?.dueDate || dateToShortISOString());
+	const [startingDate, setStartingDate] = useState<string>(reward?.startingDate || dateToShortISOString());
+	const [message, setMessage] = useState<{ type?: string, text?: string }>({ type: '', text: '' });
 
 	useEffect(() => { dispatch(fetchParticipants()); }, []);
 
@@ -98,16 +105,22 @@ const RewardForm = ({ reward }: { reward: Reward }) => {
 					{message.text}
 				</p>
 
-				<Select
+				<Select<Participant, true>
 					isMulti
 					label="Participants"
-					value={(participantsToOptions(rewardParticipants?.map(id => participants.byId[id])) || participantsOptions) || []}
-					onChange={(selectedParticipants) => setRewardParticipants(selectedParticipants.map(participantOption => participantOption.value))}
+					value={(rewardParticipants?.map((id: ParticipantId) => participants.byId[id]) || participantsOptions) || []}
+
+					onChange={(selectedParticipants: MultiValue<Participant>) => setRewardParticipants(selectedParticipants?.map((participant: Participant) => participant.id) ?? [])}
+
+					getOptionLabel={(participant: Participant) => participant.name}
+					formatOptionLabel={(participant: Participant) => <ParticipantLabel participant={participant} />}
+					getOptionValue={(participant: Participant) => participant.id}
+
 					options={participantsOptions}
 				/>
 			</div>
 			<div className={rewardFormStyle.buttons}>
-				<Button className={commonStyle.button} onClick={() => dispatch(addReward(rewardData))}>
+				<Button className={commonStyle.button} onClick={() => dispatch(addReward({ ...reward, description: rewardDescription, dueDate, startingDate, participants: rewardParticipants }))}>
 					<Check />
 				</Button>
 				<Button

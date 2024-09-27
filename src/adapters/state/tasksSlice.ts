@@ -5,7 +5,7 @@ import { removeAssessmentsForTaskId } from "./assessmentsSlice";
 import { RewardId } from '../../core/domain/Reward';
 
 
-export const fetchTasks = createAsyncThunk('tasks/fetch', async ({ rewardId }: { rewardId: RewardId }) => {
+export const fetchTasks = createAsyncThunk('tasks/fetch', async ({ rewardId }: { rewardId?: RewardId }) => {
 	const tasks = await tasksService.getAllTasks(rewardId);
 	return tasks;
 });
@@ -15,7 +15,7 @@ export const addTask = createAsyncThunk('tasks/add', async ({ rewardId, task }: 
 	return tasks;
 });
 
-export const removeTask = createAsyncThunk('tasks/remove', async ({ rewardId, taskId }: { rewardId: RewardId, taskId: TaskId }, { dispatch }) => {
+export const removeTask = createAsyncThunk('tasks/remove', async ({ rewardId, taskId }: { rewardId: RewardId, taskId?: TaskId }, { dispatch }) => {
 	const tasks = await tasksService.removeTask(rewardId, taskId);
 	dispatch(removeAssessmentsForTaskId({ taskId }));
 	return tasks;
@@ -26,13 +26,22 @@ export const reorderTask = createAsyncThunk('tasks/reorder', async ({ rewardId, 
 	return tasks;
 });
 
-const initialState = {
+type StateType = {
+	tasks: {
+		byId: Record<TaskId, Task>,
+		allIds: TaskId[],
+		byRewardId: Record<RewardId, TaskId[]>
+	},
+	loading: boolean,
+	error: null | string
+}
+const initialState: StateType = {
 	tasks: { byId: {}, allIds: [], byRewardId: {} },
 	loading: false,
 	error: null
 };
 
-const normalizeTasks = (tasks: Task[]) => (tasks.reduce((acc, curr) => {
+const normalizeTasks = (tasks: Task[]) => (tasks.reduce((acc: StateType['tasks'], curr: Task) => {
 	acc.byId[curr.id] = curr;
 	acc.allIds.push(curr.id);
 	acc.byRewardId[curr.rewardId] = [...(acc.byRewardId[curr.rewardId] || []), curr.id];

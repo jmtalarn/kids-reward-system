@@ -2,10 +2,10 @@
 import { useState, useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from "react-redux";
 import { addTask, removeTask, reorderTask, fetchTasks } from "../../state/tasksSlice";
-
+import { RootState, AppDispatch } from '../../state/store';
 import Button from './Button';
 import { Move, AlignJustify, Check, Trash2, PlusSquare } from 'react-feather';
-import { Task } from '../../../core/domain/Participant';
+import { Task, TaskId } from '../../../core/domain/Task';
 import Input from './Input';
 import style from './Common.module.css';
 
@@ -13,7 +13,7 @@ import style from './Common.module.css';
 
 const TaskInput = ({ task, dragged }: { task: Task, dragged: boolean }) => {
 	const [inputValue, setInputValue] = useState(task.description);
-	const dispatch = useDispatch();
+	const dispatch = useDispatch<AppDispatch>();
 	const classNames = [style.field, "field_task_input",
 	dragged && style.dragged
 	].filter(item => !!item).join(" ");
@@ -46,16 +46,16 @@ const TaskInput = ({ task, dragged }: { task: Task, dragged: boolean }) => {
 
 
 const TasksList = ({ rewardId }: { rewardId: string }) => {
-	const { tasks } = useSelector((state) => state.tasks);
-	const dispatch = useDispatch();
-	const [draggingItem, setDraggingItem] = useState(null);
+	const { tasks } = useSelector((state: RootState) => state.tasks);
+	const dispatch = useDispatch<AppDispatch>();
+	const [draggingItem, setDraggingItem] = useState<Task | null>(null);
 
 	useEffect(() => {
 		dispatch(fetchTasks({}));
 	}, []);
-	const lastRewardRef = useRef<null | HTMLDivElement>(null);
+	const lastRewardRef = useRef<null | HTMLElement>(null);
 
-	const handleDragStart = (e, item) => {
+	const handleDragStart = (e: React.DragEvent<HTMLElement>, item: Task) => {
 
 		setDraggingItem(item);
 		e.dataTransfer.setData('text/plain', '');
@@ -65,21 +65,21 @@ const TasksList = ({ rewardId }: { rewardId: string }) => {
 		setDraggingItem(null);
 	};
 
-	const handleDragOver = (e) => {
+	const handleDragOver = (e: React.DragEvent<HTMLElement>) => {
 		e.preventDefault();
 	};
 
-	const handleDragEnter = (e) => {
-		e.target.closest('.field_task_input').classList.add('dragged-over');
+	const handleDragEnter = (e: React.DragEvent<HTMLElement>) => {
+		(e.target as HTMLElement).closest('.field_task_input')?.classList.add('dragged-over');
 	};
-	const handleDragLeave = (e) => {
-		e.target.closest('.field_task_input').classList.remove('dragged-over');
+	const handleDragLeave = (e: React.DragEvent<HTMLElement>) => {
+		(e.target as HTMLElement).closest('.field_task_input')?.classList.remove('dragged-over');
 	};
 
-	const handleDrop = (e, targetItem) => {
+	const handleDrop = (e: React.DragEvent<HTMLElement>, targetItem: Task) => {
 		if (!draggingItem) return;
-		e.target.classList.remove('dragged-over');
-		dispatch(reorderTask({ rewardId: draggingItem.rewardId, taskId: draggingItem.id, order: targetItem.order }));
+		(e.target as HTMLElement).classList.remove('dragged-over');
+		dispatch(reorderTask({ rewardId: draggingItem.rewardId, taskId: draggingItem.id, order: targetItem.order || 0 }));
 	};
 
 	return <section className={style.section} ref={lastRewardRef}>
@@ -88,7 +88,14 @@ const TasksList = ({ rewardId }: { rewardId: string }) => {
 			<Button
 				onClick={
 					() => {
-						dispatch(addTask({ rewardId: rewardId, task: { description: '' } }));
+						dispatch(
+							addTask(
+								{
+									rewardId: rewardId,
+									task: {
+										description: ''
+									}
+								}));
 						setTimeout(() => {
 							lastRewardRef.current?.scrollIntoView({ block: 'end', behavior: "smooth" });
 						}, 0);
@@ -100,7 +107,7 @@ const TasksList = ({ rewardId }: { rewardId: string }) => {
 			</Button>
 		</header>
 		{tasks
-			.byRewardId[rewardId]?.map((taskId) => {
+			.byRewardId[rewardId]?.map((taskId: TaskId) => {
 				const task = tasks.byId[taskId];
 				return (
 					<div
@@ -113,7 +120,7 @@ const TasksList = ({ rewardId }: { rewardId: string }) => {
 						onDragLeave={handleDragLeave}
 						onDrop={(e) => handleDrop(e, task)}
 					>
-						<TaskInput key={task.id || 'empty-key'} dragged={draggingItem && draggingItem.id === task.id} task={task} />
+						<TaskInput key={task.id || 'empty-key'} dragged={Boolean(draggingItem) && draggingItem?.id === task.id} task={task} />
 					</div>
 				);
 			})}

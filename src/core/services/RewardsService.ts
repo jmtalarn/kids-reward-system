@@ -1,4 +1,5 @@
-import { Reward } from '../domain/Reward';
+import { Reward, RewardId } from '../domain/Reward';
+import { ParticipantId } from '../domain/Participant';
 
 import rewardsRepository from '../../infrastructure/repositories/rewards/localStorage';
 
@@ -10,11 +11,11 @@ const addReward = async (reward: Reward): Promise<Reward[]> => {
 	return rewardsRepository.addReward(reward);
 };
 
-const removeReward = async (rewardId: string): Promise<Reward[]> => {
+const removeReward = async (rewardId: RewardId): Promise<Reward[]> => {
 	return rewardsRepository.removeReward(rewardId);
 };
 
-const removeParticipantFromRewards = async ({ participantId }: { rewardId: RewardId, participantId: PartipantId }): Promise<Reward[]> => {
+const removeParticipantFromRewards = async ({ participantId }: { participantId: ParticipantId }): Promise<Reward[]> => {
 	return rewardsRepository.removeParticipantFromRewards({ participantId });
 };
 

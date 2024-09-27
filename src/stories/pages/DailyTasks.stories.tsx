@@ -15,7 +15,7 @@ const meta = {
   tags: ['autodocs'],
   argTypes: {},
   args: {},
-} satisfies Meta<typeof Input>;
+} satisfies Meta<typeof DailyTasks>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;

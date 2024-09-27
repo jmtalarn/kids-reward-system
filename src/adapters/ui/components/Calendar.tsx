@@ -1,6 +1,6 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, type RefObject } from 'react';
 import { useDispatch, useSelector } from "react-redux";
-
+import { RootState, AppDispatch } from '../../state/store';
 import { useTasksForDate } from '../../state/hooks/useTasksForDate';
 import style from './Calendar.module.css';
 import commonStyle from './Common.module.css';
@@ -12,15 +12,16 @@ import { fetchRewards } from '../../state/rewardsSlice';
 import { Calendar as CalendarIcon, SkipBack, SkipForward, FastForward, Rewind, ChevronDown, Award } from 'react-feather';
 
 import { setNewDate, setToday, forwardMonth, forwardDays, backwardDays, backwardMonth } from '../../state/dateSlice';
-// import { Task } from '../../../core/domain/Task';
+
 import { options } from '../../../core/domain/Options';
 import { useElementOnScreen } from '../hooks/useIntersectionObserver';
+import type { Task } from '../../../core/domain/Task';
 
 
 function splitDaysInWeeks(days: Date[], selectedDate: Date) {
   const result = [];
   let j = 0;
-  let selectedWeek;
+  let selectedWeek = -1; //@TODO: It was undefined 
   for (let i = 0; i < days.length; i += 7) {
     const chunk = days.slice(i, i + 7);
     if (chunk.findIndex(c => dateToShortISOString(c) === dateToShortISOString(selectedDate)) !== -1) {
@@ -66,13 +67,13 @@ function getFullMonthWithCompleteWeeks(month: number, year: number, weekStartDay
 
 
 export const Calendar = () => {
-  const { date } = useSelector((state) => state.date);
-  const { rewards } = useSelector((state) => state.rewards);
+  const { date } = useSelector((state: RootState) => state.date);
+  const { rewards } = useSelector((state: RootState) => state.rewards);
   const [viewFullMonth, setViewFullMonth] = useState(false);
   const dailyTasks = useTasksForDate();
-  const dispatch = useDispatch();
-  const [containerRef, isVisible] = useElementOnScreen({ initiallyVisible: true, options: { root: null, rootMargin: "0px", threshold: 0.1 } });
-  const topRef = useRef();
+  const dispatch = useDispatch<AppDispatch>();
+  const { containerRef, isVisible } = useElementOnScreen({ initiallyVisible: true, options: { root: null, rootMargin: "0px", threshold: 0.1 } });
+  const topRef = useRef<HTMLDivElement>(null);
   useEffect(() => { dispatch(fetchRewards()); }, []);
 
   const dateSelected = parseShortIsoString(date);
@@ -167,12 +168,12 @@ export const Calendar = () => {
 
     <section className={style['tasks-container']} >
       {
-        dailyTasks?.map(task => <div key={`${task.id}_${task.order}`} className={style['task-participants']}>
+        dailyTasks?.map((task: Task) => <div key={`${task.id}_${task.order}`} className={style['task-participants']}>
           <div className={style.tasks}>
             <div className={style.task}>
               {task.description}
             </div>
-            <div className={style.award} title={`Reward tasks are due on ${dateToLongLocaleString(new Date(rewards.byId[task.rewardId].dueDate))}`} >
+            <div className={style.award} title={rewards.byId[task.rewardId].dueDate ? `Reward tasks are due on ${dateToLongLocaleString(parseShortIsoString(rewards.byId[task.rewardId].dueDate))}` : ''} >
               <Award color="gold" size="16" /> {rewards.byId[task.rewardId].description}
             </div>
           </div>
@@ -188,7 +189,7 @@ export const Calendar = () => {
 };
 
 const MoveDateButtons = () => {
-  const dispatch = useDispatch();
+  const dispatch = useDispatch<AppDispatch>();
 
   return <div className={style['move-date-buttons']}>
     <Button
@@ -248,7 +249,7 @@ const MoveDateButtons = () => {
   </div >;
 };
 
-const TodaysDateBanner = ({ visible, date, useRef }: { visible: boolean, date: Date, useRef: IntersectionObserver | null }) =>
+const TodaysDateBanner = ({ visible, date, useRef }: { visible: boolean, date: Date, useRef: RefObject<HTMLDivElement> | null }) =>
 (visible && <Button
   className={style['date-banner']}
   title="Click to go back to the date selection."

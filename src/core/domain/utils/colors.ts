@@ -1,5 +1,5 @@
 
-const randomColors = [
+const randomColors: string[] = [
 	"#f05d5e",
 	"#00a5cf",
 	"#fcd757",
@@ -10,8 +10,8 @@ const randomColors = [
 	"#F8C630",
 	"#F28482",
 	"#9046CF"
-]
+];
 
-export const getRandomColor: string = () => {
-	return randomColors[Math.floor(Math.random() * randomColors.length)]
-}
+export const getRandomColor = (): string => {
+	return randomColors[Math.floor(Math.random() * randomColors.length)];
+};

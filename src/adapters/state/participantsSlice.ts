@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import participantsService from "../../core/services/ParticipantsService"
-import { Participant } from '../../core/domain/Participant'
+import participantsService from "../../core/services/ParticipantsService";
+import { Participant, ParticipantId } from '../../core/domain/Participant';
 import { removeAssessmentsForParticipantId } from "./assessmentsSlice";
 import { removeParticipantFromRewards } from "./rewardsSlice";
 
@@ -14,20 +14,29 @@ export const addParticipant = createAsyncThunk('participants/add', async (partic
 	return participants;
 });
 
-export const removeParticipant = createAsyncThunk('participants/remove', async (participantId: string, { dispatch }) => {
+export const removeParticipant = createAsyncThunk('participants/remove', async (participantId: ParticipantId, { dispatch }) => {
 	const participants = await participantsService.removeParticipant(participantId);
 	dispatch(removeAssessmentsForParticipantId({ participantId }));
 	dispatch(removeParticipantFromRewards({ participantId }));
 	return participants;
 });
 
-const normalizeParticipants = (participants: Participant[]) => (participants.reduce((acc, curr) => {
+const normalizeParticipants = (participants: Participant[]) => (participants.reduce((acc: StateType['participants'], curr: Participant) => {
 	acc.byId[curr.id] = curr;
 	acc.allIds.push(curr.id);
 	return acc;
 }, { byId: {}, allIds: [] }));
 
-const initialState = {
+
+type StateType = {
+	participants: {
+		byId: Record<ParticipantId, Participant>,
+		allIds: ParticipantId[],
+	},
+	loading: boolean,
+	error: null | string
+}
+const initialState: StateType = {
 	participants: { byId: {}, allIds: [] },
 	loading: false,
 	error: null

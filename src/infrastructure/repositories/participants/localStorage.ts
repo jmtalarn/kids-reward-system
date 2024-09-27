@@ -1,5 +1,7 @@
 import { generateUuid } from '../../../core/domain/utils/generate-uuid';
-import { Participant } from '../domain/Participant';
+import { getRandomColor } from '../../../core/domain/utils/colors';
+import { Participant } from '../../../core/domain/Participant';
+
 const LOCAL_STORAGE_KEY = 'KRS_PARTICIPANTS';
 
 const getAllParticipants = async (): Promise<Participant[]> => {
@@ -10,7 +12,7 @@ const getAllParticipants = async (): Promise<Participant[]> => {
 const addParticipant = async (participant: Participant): Promise<Participant[]> => {
 	const participants = await getAllParticipants();
 	let updatedParticipants;
-	if (!participant.color) { participant.color = getRandomColor() }
+	if (!participant.color) { participant.color = getRandomColor(); }
 	if (!participant.id) {
 		participant.id = generateUuid();
 		updatedParticipants = [...participants, participant];

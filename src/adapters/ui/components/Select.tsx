@@ -1,6 +1,8 @@
-import { ComponentProps, ReactNode, CSSProperties } from 'react';
+//import { ComponentProps, ReactNode, CSSProperties } from 'react';
+import { ReactNode, CSSProperties } from 'react';
+
 import styles from './Select.module.css';
-import ReactSelect, { Props } from 'react-select';
+import ReactSelect, { Props, GroupBase } from 'react-select';
 
 type AdditionalProperties = {
   label?: string;
@@ -30,13 +32,21 @@ const CustomStyle = {
   }),
 };
 
-const Select = ({ label, children, fieldStyle, options, id, ...props }: ComponentProps<ReactSelect> & AdditionalProperties) => {
+type SelectProps<Option, IsMulti extends boolean = false, Group extends GroupBase<Option> = GroupBase<Option>> = Props<Option, IsMulti, Group> & AdditionalProperties;
+
+const Select = <
+  Option,
+  IsMulti extends boolean = false,
+  Group extends GroupBase<Option> = GroupBase<Option>
+>(props: SelectProps<Option, IsMulti, Group>) => {
+
+  const { label, children, fieldStyle, options, id, ...restProps } = props;
   return (
     <div className={styles.field} style={fieldStyle}>
       <div className={styles['field-input']}>
         <label htmlFor={id}>{label}</label>
         <ReactSelect
-          {...props}
+          {...restProps}
           instanceId={id}
           options={options}
           styles={CustomStyle}

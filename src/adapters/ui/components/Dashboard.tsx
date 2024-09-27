@@ -1,15 +1,18 @@
-import styles from './Dashboard.module.css';
-import { useState, useEffect } from 'react';
+import { useEffect, useState } from 'react';
+import { Award, HelpCircle, User } from 'react-feather';
 import { useDispatch, useSelector } from "react-redux";
-import { fetchTasks } from "../../state/tasksSlice";
-import { fetchRewards } from "../../state/rewardsSlice";
-import { fetchParticipants } from '../../state/participantsSlice';
-import { fetchAssessments } from '../../state/assessmentsSlice';
-import { dateToLongLocaleString } from '../../../core/domain/utils/date-utils';
-import { Award, User, HelpCircle } from 'react-feather';
 import { ValueOptionMap } from '../../../core/domain/Options';
-import { Participant } from '../../../core/domain/Participant';
+import { Participant, ParticipantId } from '../../../core/domain/Participant';
+import { dateToLongLocaleString, parseShortIsoString } from '../../../core/domain/utils/date-utils';
 import { getDiffDaysMessage } from '../../../core/domain/utils/messages';
+import { fetchAssessments } from '../../state/assessmentsSlice';
+import { fetchParticipants } from '../../state/participantsSlice';
+import { fetchRewards } from "../../state/rewardsSlice";
+import { fetchTasks } from "../../state/tasksSlice";
+import { AppDispatch, RootState } from '../../state/store';
+import styles from './Dashboard.module.css';
+import type { Reward } from '../../../core/domain/Reward';
+
 
 export const Dashboard = () => (
   <div className={styles.dashboard}>
@@ -21,11 +24,11 @@ export const Dashboard = () => (
     <UpComingRewards />
   </div>
 );
-const Figures = ({ className }: { className: string }) => {
-  const { tasks } = useSelector((state) => state.tasks);
-  const { rewards } = useSelector((state) => state.rewards);
-  const { participants } = useSelector((state) => state.participants);
-  const dispatch = useDispatch();
+const Figures = ({ className }: { className?: string }) => {
+  const { tasks } = useSelector((state: RootState) => state.tasks);
+  const { rewards } = useSelector((state: RootState) => state.rewards);
+  const { participants } = useSelector((state: RootState) => state.participants);
+  const dispatch = useDispatch<AppDispatch>();
 
   useEffect(() => {
     dispatch(fetchTasks({}));
@@ -39,13 +42,13 @@ const Figures = ({ className }: { className: string }) => {
     <div> A total of <span className={styles.figure}>{tasks?.allIds.length}</span> tasks managed. </div>
   </article>;
 };
-const UpComingRewards = ({ className }: { className: string }) => {
+const UpComingRewards = ({ className }: { className?: string }) => {
 
-  const { tasks } = useSelector((state) => state.tasks);
-  const { rewards } = useSelector((state) => state.rewards);
+  const { tasks } = useSelector((state: RootState) => state.tasks);
+  const { rewards } = useSelector((state: RootState) => state.rewards);
 
-  const [upcomingRewards, setUpcomingRewards] = useState([]);
-  const dispatch = useDispatch();
+  const [upcomingRewards, setUpcomingRewards] = useState<Reward[]>([]);
+  const dispatch = useDispatch<AppDispatch>();
 
   useEffect(() => {
     dispatch(fetchTasks({}));
@@ -54,7 +57,11 @@ const UpComingRewards = ({ className }: { className: string }) => {
 
   useEffect(() => {
 
-    setUpcomingRewards([...rewards.allIds.map(id => rewards.byId[id]).toSorted((a, b) => (new Date(a.dueDate).getTime() - new Date(b.dueDate).getTime()))].slice(0, 5));
+    setUpcomingRewards([...rewards.allIds.map(id => rewards.byId[id]).toSorted((a: Reward, b: Reward) => {
+      const aValue = a.dueDate ? parseShortIsoString(a.dueDate).getTime() : 0;
+      const bValue = b.dueDate ? parseShortIsoString(b.dueDate).getTime() : 0;
+      return (aValue - bValue);
+    })].slice(0, 5));
   }, [tasks, rewards]);
 
   const date = new Date();
@@ -64,13 +71,13 @@ const UpComingRewards = ({ className }: { className: string }) => {
     <div className={styles['card-content']}>
       {upcomingRewards.length ? `These are ${upcomingRewards.length} the closer upcoming rewards.` : `There are no upcoming rewrds.`}
 
-      {upcomingRewards.map(reward => <div key={reward.id} className={styles['upcoming-reward']}>
+      {upcomingRewards.map((reward: Reward) => <div key={reward.id} className={styles['upcoming-reward']}>
         <div className={styles['upcoming-reward-title']}>
           <Award color="gold" size="16" /> {reward.description || `No description given`}
         </div>
         <div className={styles['upcoming-reward-details']}>
-          <div>Reward tasks ends on {dateToLongLocaleString(reward.dueDate)}.</div>
-          <div>{new Date(reward.startingDate).getTime() > date.getTime() ? `Reward tasks not yet started` : `Reward tasks started on ${dateToLongLocaleString(reward.dueDate)}.`}</div>
+          <div>{reward.dueDate && `Reward tasks ends on ${dateToLongLocaleString(parseShortIsoString(reward.dueDate))}`}.</div>
+          <div>{reward.startingDate && (new Date(reward.startingDate).getTime() > date.getTime() ? `Reward tasks not yet started.` : `Reward tasks started on ${dateToLongLocaleString(parseShortIsoString(reward.startingDate))}.`)}</div>
           <span style={{ fontWeight: "bold" }}>{getDiffDaysMessage(reward.startingDate, reward.dueDate)}</span>
         </div>
       </div>)}
@@ -79,24 +86,24 @@ const UpComingRewards = ({ className }: { className: string }) => {
   </article>;
 };
 
-const ParticipantsRecentAssessments = ({ className }: { className: string }) => {
-  const { participants } = useSelector((state) => state.participants);
-  const { assessments } = useSelector((state) => state.assessments);
-  const [participantAssessment, setParticipantAssessment] = useState({});
-  const dispatch = useDispatch();
+const ParticipantsRecentAssessments = ({ className }: { className?: string }) => {
+  const { participants } = useSelector((state: RootState) => state.participants);
+  const { assessments } = useSelector((state: RootState) => state.assessments);
+  const [participantAssessment, setParticipantAssessment] = useState<Record<ParticipantId, JSX.Element[]>>({});
+  const dispatch = useDispatch<AppDispatch>();
   useEffect(() => {
-    dispatch(fetchParticipants({}));
+    dispatch(fetchParticipants());
     dispatch(fetchAssessments());
   }, []);
 
   useEffect(() => {
     if (participants && assessments) {
-      const temp = {};
+      const temp: Record<ParticipantId, JSX.Element[]> = {};
       const lastAssessmentDates = Object.keys(assessments).map(date => ({ key: date, date: new Date(date) })).sort((a, b) => a.date.getTime() - b.date.getTime()).slice(0, 3).map(date => ({ ...date, assessments: assessments[date.key] }));
 
       for (const date of lastAssessmentDates) {
         for (const [participantId, taskValue] of Object.entries(date.assessments)) {
-          temp[participantId] = [...(temp[participantId] ? temp[participantId] : []), ...Object.values(taskValue).map(value => ValueOptionMap[value] ?? <HelpCircle />)];
+          temp[participantId] = [...(temp[participantId] ? temp[participantId] : []), ...Object.values(taskValue).map((value, idx) => ValueOptionMap[value] ?? <HelpCircle key={`${participantId}_${idx}`} />)];
         }
       }
 
@@ -111,8 +118,8 @@ const ParticipantsRecentAssessments = ({ className }: { className: string }) => 
       These are the more recent assessments for the participants.
       {participants
         .allIds
-        .map(id => participants.byId[id])
-        .map(participant => <UserAndAssessments
+        .map((id: ParticipantId) => participants.byId[id])
+        .map((participant: Participant) => <UserAndAssessments
           key={participant.id}
           participant={participant}
           assessments={participantAssessment[participant.id] ?? []}
@@ -124,11 +131,11 @@ const ParticipantsRecentAssessments = ({ className }: { className: string }) => 
   </article>;
 };
 
-const UserAndAssessments = ({ participant, assessments }: { participant: Participant, assessments: ReactNode[] }) => (
+const UserAndAssessments = ({ participant, assessments }: { participant: Participant, assessments: JSX.Element[] }) => (
   <div className={styles['user-assessments']}>
     <div><User style={{ color: participant.color }} /> {participant.name}</div>
     <div>
-      {assessments.map((assessment, idx) => (<span key={`${participant.id}_${idx}`}>{assessment}</span>))}
+      {assessments.map((assessment: JSX.Element, idx: number) => (<span key={`${participant.id}_${idx}`}>{assessment}</span>))}
     </div>
   </div>
 );

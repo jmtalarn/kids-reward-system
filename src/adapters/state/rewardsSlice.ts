@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import rewardsService from "../../core/services/RewardsService";
-import { Reward } from '../../core/domain/Reward';
+import { Reward, RewardId } from '../../core/domain/Reward';
 import { ParticipantId } from '../../core/domain/Participant';
 import { removeTask } from "./tasksSlice";
 
@@ -14,7 +14,7 @@ export const addReward = createAsyncThunk('rewards/add', async (reward: Reward) 
 	return rewards;
 });
 
-export const removeReward = createAsyncThunk('rewards/remove', async (rewardId: string, { dispatch }) => {
+export const removeReward = createAsyncThunk('rewards/remove', async (rewardId: RewardId, { dispatch }) => {
 	const rewards = await rewardsService.removeReward(rewardId);
 	dispatch(removeTask({ rewardId }));
 	return rewards;
@@ -25,12 +25,22 @@ export const removeParticipantFromRewards = createAsyncThunk('rewards/removePart
 	return rewards;
 });
 
-const initialState = {
+type StateType = {
+	rewards: {
+		byId: Record<RewardId, Reward>,
+		allIds: RewardId[]
+	},
+	loading: boolean,
+	error: string | null
+}
+
+const initialState: StateType = {
 	rewards: { byId: {}, allIds: [] },
 	loading: false,
 	error: null
 };
-const normalizeRewards = (rewards: Reward[]) => (rewards.reduce((acc, curr) => {
+
+const normalizeRewards = (rewards: Reward[]) => (rewards.reduce((acc: StateType['rewards'], curr: Reward) => {
 	acc.byId[curr.id] = curr;
 	acc.allIds.push(curr.id);
 

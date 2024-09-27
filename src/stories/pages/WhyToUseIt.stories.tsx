@@ -13,7 +13,7 @@ const meta = {
   tags: ['autodocs'],
   argTypes: {},
   args: {},
-} satisfies Meta<typeof Input>;
+} satisfies Meta<typeof WhyToUseIt>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;

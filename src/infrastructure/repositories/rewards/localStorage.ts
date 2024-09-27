@@ -1,4 +1,5 @@
-import { Reward } from '../domain/Reward';
+import { Reward, RewardId } from '../../../core/domain/Reward';
+import { Participant, ParticipantId } from '../../../core/domain/Participant';
 import { generateUuid } from '../../../core/domain/utils/generate-uuid';
 
 const LOCAL_STORAGE_KEY = 'KRS_REWARDS';
@@ -15,7 +16,7 @@ const addReward = async (reward: Reward): Promise<Reward[]> => {
 	if (!reward.id) {
 		reward.id = generateUuid();
 	}
-	const foundIndex = rewards.findIndex(item => item.id === reward.id);
+	const foundIndex = rewards.findIndex((item: Reward) => item.id === reward.id);
 	if (foundIndex > -1) {
 		updatedRewards[foundIndex] = reward;
 	} else {
@@ -26,27 +27,27 @@ const addReward = async (reward: Reward): Promise<Reward[]> => {
 	return updatedRewards;
 };
 
-const removeReward = async (rewardId: string): Promise<Reward[]> => {
+const removeReward = async (rewardId: RewardId): Promise<Reward[]> => {
 	const rewards = await getAllRewards();
-	const updatedRewards = rewards.filter(reward => reward.id !== rewardId);
+	const updatedRewards = rewards.filter((reward: Reward) => reward.id !== rewardId);
 	localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(updatedRewards));
 
 
 	return updatedRewards;
 };
 
-const removeParticipantFromRewards = async ({ participantId }: { rewardId: RewardId, participantId: PartipantId }): Promise<Reward[]> => {
+const removeParticipantFromRewards = async ({ participantId }: { participantId: ParticipantId }): Promise<Reward[]> => {
 	const rewards = await getAllRewards();
-	const updatedRewards = rewards.map(reward => {
-		reward.participants = reward.participants.filter(participant => participant.id !== participantId);
-		return reward
+	const updatedRewards = rewards.map((reward: Reward) => {
+		reward.participants = reward.participants?.filter((participant: Participant) => participant.id !== participantId);
+		return reward;
 	});
 	localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(updatedRewards));
 
 
 	return updatedRewards;
 
-}
+};
 
 
 

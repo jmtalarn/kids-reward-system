@@ -13,10 +13,12 @@
 }
 
 .section {
+  max-width: 960px;
+  margin: 0 auto;
   margin-bottom: 1rem;
-  padding-bottom: 2rem;
   width: 100%;
   padding: 1rem;
+  padding-bottom: 2rem;
 }
 
 .section-header {

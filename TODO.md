@@ -24,10 +24,11 @@
 -   [x] On click new task, scroll down
 -   [x] On click new participant, scroll down
 -   [x] Mobile viewport
--   [ ] Calendar redesign
+-   [x] Calendar redesign
     -   [x] default to current week
     -   [x] expand to month view
     -   [x] Move back and forth Month
     -   [x] Controls placement
-    -   [ ] On scroll show the date on top
-    -   [ ] Hints on buttons
+    -   [x] On scroll show the date on top
+    -   [x] Hints on buttons
+-   [ ] Reward form not saving
