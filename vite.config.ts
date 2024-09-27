@@ -72,5 +72,4 @@ export default defineConfig({
       },
     })
   ],
-  base: '/kids-reward-system/'
 });
