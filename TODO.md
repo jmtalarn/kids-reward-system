@@ -31,4 +31,4 @@
     -   [x] Controls placement
     -   [x] On scroll show the date on top
     -   [x] Hints on buttons
--   [ ] Reward form not saving
+-   [x] Reward form not saving

@@ -81,7 +81,7 @@ export const Calendar = () => {
   const onDayClick = (dateClicked: Date) => {
     dispatch(setNewDate(dateToShortISOString(dateClicked)));
   };
-  useEffect(() => { console.log({ isVisible }); }, [isVisible]);
+
   const fullMonthDays = getFullMonthWithCompleteWeeks(dateSelected.getMonth(), dateSelected.getFullYear(), 1);
   const { weeks, weekIndex } = splitDaysInWeeks(fullMonthDays, dateSelected);
   const days = viewFullMonth ? fullMonthDays : weeks[weekIndex];
@@ -253,7 +253,7 @@ const TodaysDateBanner = ({ visible, date, useRef }: { visible: boolean, date: D
 (visible && <Button
   className={style['date-banner']}
   title="Click to go back to the date selection."
-  onClick={() => useRef?.current?.scrollIntoView()}
+  onClick={() => useRef?.current?.scrollIntoView({ block: 'start', behavior: 'smooth' })}
 >
   {dateToLongLocaleString(date)}
 </Button>);
