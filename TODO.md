@@ -7,6 +7,8 @@
 -   [x] Get tasks by Date
 -   [x] App layout
 -   [ ] Internationalization
+    -   [ ] https://blog.logrocket.com/react-intl-internationalize-your-react-apps/
+    -   [ ] Dashboard.tsx#104
 -   [ ] Header design
 -   [x] Dashboard design.
     -   [x] Close reward Due date and days left

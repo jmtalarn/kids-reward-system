@@ -1,4 +1,4 @@
-import { useEffect, useState, useMemo } from 'react';
+import { useEffect, useState, useMemo, type ReactNode } from 'react';
 import { MultiValue } from 'react-select';
 import { useDispatch, useSelector } from "react-redux";
 import TasksList from './TasksList';
@@ -15,12 +15,8 @@ import rewardFormStyle from './RewardForm.module.css';
 import { dateToShortISOString } from '../../../core/domain/utils/date-utils';
 import { RootState, AppDispatch } from '../../state/store';
 import { ParticipantId, Participant } from '../../../core/domain/Participant';
+import { FormattedMessage, useIntl } from 'react-intl';
 
-
-
-// const participantsToOptions = (participants: Participant[]): ParticipantOptionType[] => {
-// 	return participants?.map(participant => ({ value: participant.id, label: <><User style={{ color: participant.color }} /> {participant.name}</> }));
-// };
 
 const ParticipantLabel = ({ participant }: { participant: Participant }) => <><User style={{ color: participant.color }} /> {participant.name}</>;
 
@@ -36,15 +32,14 @@ const getDiffDays = (startingDate: string, dueDate: string) => {
 const RewardForm = ({ reward }: { reward: Reward }) => {
 	const { participants } = useSelector((state: RootState) => state.participants);
 	const participantsOptions = useMemo(() => (participants.allIds.map((id: ParticipantId) => participants.byId[id])), [participants]);
-
 	const dispatch = useDispatch<AppDispatch>();
 
 	const [rewardDescription, setRewardDescription] = useState<string>(reward?.description || '');
 	const [rewardParticipants, setRewardParticipants] = useState<Participant[]>(reward?.participants || []);
 	const [dueDate, setDueDate] = useState<string>(reward?.dueDate || dateToShortISOString());
 	const [startingDate, setStartingDate] = useState<string>(reward?.startingDate || dateToShortISOString());
-	const [message, setMessage] = useState<{ type?: string, text?: string }>({ type: '', text: '' });
-
+	const [message, setMessage] = useState<{ type?: string, text?: ReactNode }>({ type: '', text: '' });
+	const intl = useIntl();
 	useEffect(() => { dispatch(fetchParticipants()); }, []);
 
 	useEffect(() => {
@@ -52,10 +47,10 @@ const RewardForm = ({ reward }: { reward: Reward }) => {
 
 		if (diffDays >= 0) {
 
-			setMessage({ text: `The tasks described on the reward will last ${diffDays} day${diffDays > 1 ? 's' : ''}.` });
+			setMessage({ text: <FormattedMessage defaultMessage={`The tasks described on the reward will last { {count, plural, one {{count} day.} other {{count} days.}}}`} /> });
 
 		} else {
-			setMessage({ type: 'ERROR', text: `The starting date needs to be before or same as due date.` });
+			setMessage({ type: 'ERROR', text: <FormattedMessage defaultMessage={`The starting date needs to be before or same as due date.`} /> });
 		}
 
 	}, [startingDate, dueDate]);
@@ -74,30 +69,30 @@ const RewardForm = ({ reward }: { reward: Reward }) => {
 	return <>
 		<section className={commonStyle.section}>
 			<header className={commonStyle['section-header']}>
-				<h3>Reward</h3>
+				<h3><FormattedMessage defaultMessage={'Reward'} /></h3>
 			</header>
 			<div>
 				<TextArea
-					label="Description"
+					label={intl.formatMessage({ defaultMessage: "Description" })}
 					value={rewardDescription || ''}
 					onChange={e => setRewardDescription(e.target.value)}
-					placeholder="Reward description"
+					placeholder={intl.formatMessage({ defaultMessage: "Reward description" })}
 					className={rewardFormStyle.description}
 				/>
 				<div className={rewardFormStyle['dates-fields']}>
 					<Input
-						label="Starting Date"
+						label={intl.formatMessage({ defaultMessage: "Starting Date" })}
 						type="date"
 						value={startingDate}
 						onChange={e => setStartingDate(e.target.value)}
-						placeholder="Starting Date"
+						placeholder={intl.formatMessage({ defaultMessage: "Starting Date" })}
 					/>
 					<Input
-						label="Due Date"
+						label={intl.formatMessage({ defaultMessage: "Due Date" })}
 						type="date"
 						value={dueDate}
 						onChange={e => setDueDate(e.target.value)}
-						placeholder="Due Date"
+						placeholder={intl.formatMessage({ defaultMessage: "Due Date" })}
 					/>
 				</div>
 
@@ -107,7 +102,7 @@ const RewardForm = ({ reward }: { reward: Reward }) => {
 
 				<Select<Participant, true>
 					isMulti
-					label="Participants"
+					label={intl.formatMessage({ defaultMessage: "Participants" })}
 					value={(rewardParticipants?.map((id: ParticipantId) => participants.byId[id]) || participantsOptions) || []}
 
 					onChange={(selectedParticipants: MultiValue<Participant>) => setRewardParticipants(selectedParticipants?.map((participant: Participant) => participant.id) ?? [])}

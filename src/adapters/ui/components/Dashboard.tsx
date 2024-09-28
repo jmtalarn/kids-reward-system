@@ -12,6 +12,12 @@ import { fetchTasks } from "../../state/tasksSlice";
 import { AppDispatch, RootState } from '../../state/store';
 import styles from './Dashboard.module.css';
 import type { Reward } from '../../../core/domain/Reward';
+import {
+  FormattedMessage,
+  FormattedList,
+  useIntl,
+  FormattedDate,
+} from "react-intl";
 
 
 export const Dashboard = () => (
@@ -37,15 +43,43 @@ const Figures = ({ className }: { className?: string }) => {
   }, []);
 
   return <article className={[styles.card, styles.figures, styles['card-content'], className].filter(Boolean).join(" ")}>
-    <div> <span className={styles.figure}>{rewards?.allIds.length}</span> rewards set until now.</div>
-    <div> There are <span className={styles.figure}>{participants?.allIds.length}</span> participants.</div>
-    <div> A total of <span className={styles.figure}>{tasks?.allIds.length}</span> tasks managed. </div>
+    <div>
+      <FormattedMessage
+        defaultMessage={`{count, plural, zero {No} one {{formattedCount} reward} other {{formattedCount} rewards}} set until now.`}
+        values={{
+          count: rewards?.allIds.length,
+          formattedCount: <span className={styles.figure}>{rewards?.allIds.length}</span>
+        }}
+      />
+    </div>
+    <div>
+      <FormattedMessage
+        defaultMessage={`There {count, plural, zero {isn't any} one {is} other {are}} {count, plural, zero {} other {{formattedCount}}} {count, plural,
+                      zero {participant}
+                      one {participant}
+                      other {participants}
+                    }`}
+        values={{
+          count: participants?.allIds.length, formattedCount: <span className={styles.figure}>{participants?.allIds.length}</span>
+        }}
+      />
+    </div>
+    <div>
+      <FormattedMessage
+        defaultMessage={`{count, plural, zero {None task} one {{formattedCount} task} other {{formattedCount} tasks} } managed.`}
+        values={{
+          count: tasks?.allIds.length,
+          formattedCount: <span className={styles.figure}>{tasks?.allIds.length}</span>
+        }}
+      />
+    </div>
   </article>;
 };
 const UpComingRewards = ({ className }: { className?: string }) => {
 
   const { tasks } = useSelector((state: RootState) => state.tasks);
   const { rewards } = useSelector((state: RootState) => state.rewards);
+  const intl = useIntl();
 
   const [upcomingRewards, setUpcomingRewards] = useState<Reward[]>([]);
   const dispatch = useDispatch<AppDispatch>();
@@ -69,15 +103,22 @@ const UpComingRewards = ({ className }: { className?: string }) => {
   return <article className={[styles.card, className].filter(Boolean).join(" ")}>
     <header className={styles['card-header']}><h3>Upcoming rewards</h3></header>
     <div className={styles['card-content']}>
-      {upcomingRewards.length ? `These are ${upcomingRewards.length} the closer upcoming rewards.` : `There are no upcoming rewrds.`}
+      <FormattedMessage
+        defaultMessage={`{count, plural, zero {There are no upcoming rewards.} one {There is one upcoming reward.} other {There are {count} closer upcoming rewards.} set until now.`}
+        values={{
+          count: upcomingRewards.length
+        }}
+      />
 
       {upcomingRewards.map((reward: Reward) => <div key={reward.id} className={styles['upcoming-reward']}>
         <div className={styles['upcoming-reward-title']}>
-          <Award color="gold" size="16" /> {reward.description || `No description given`}
+          <Award color="gold" size="16" /> {reward.description || intl.formatMessage({
+            defaultMessage: 'No description given.'
+          })}
         </div>
         <div className={styles['upcoming-reward-details']}>
-          <div>{reward.dueDate && `Reward tasks ends on ${dateToLongLocaleString(parseShortIsoString(reward.dueDate))}`}.</div>
-          <div>{reward.startingDate && (new Date(reward.startingDate).getTime() > date.getTime() ? `Reward tasks not yet started.` : `Reward tasks started on ${dateToLongLocaleString(parseShortIsoString(reward.startingDate))}.`)}</div>
+          <div>{reward.dueDate && <FormattedMessage defaultMessage={`Reward tasks ends on {formattedDate}.`} values={{ formattedDate: <FormattedDate value={parseShortIsoString(reward.dueDate)} dateStyle="full" /> }} />}</div>
+          <div>{reward.startingDate && (new Date(reward.startingDate).getTime() > date.getTime() ? <FormattedMessage defaultMessage={`Reward tasks not yet started.`} /> : <FormattedMessage defaultMessage={`Reward tasks started on {formattedDate}.`} values={{ formattedDate: <FormattedDate value={parseShortIsoString(reward.startingDate)} dateStyle="full" /> }} />)}</div>
           <span style={{ fontWeight: "bold" }}>{getDiffDaysMessage(reward.startingDate, reward.dueDate)}</span>
         </div>
       </div>)}
@@ -115,7 +156,7 @@ const ParticipantsRecentAssessments = ({ className }: { className?: string }) =>
   return <article className={[styles.card, className].filter(Boolean).join(" ")}>
     <header className={styles['card-header']}><h3>Recent assessments</h3></header>
     <div className={styles['card-content']}>
-      These are the more recent assessments for the participants.
+      <FormattedMessage defaultMessage={`These are the more recent assessments for the participants.`} />
       {participants
         .allIds
         .map((id: ParticipantId) => participants.byId[id])

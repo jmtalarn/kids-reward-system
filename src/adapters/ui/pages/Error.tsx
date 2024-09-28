@@ -1,7 +1,9 @@
 import { useRouteError, isRouteErrorResponse } from 'react-router-dom';
+import { useIntl } from 'react-intl';
 
 export const ErrorPage = () => {
   const error = useRouteError();
+  const intl = useIntl();
   console.error(error);
   let errorMessage: string;
 
@@ -14,11 +16,11 @@ export const ErrorPage = () => {
     errorMessage = error;
   } else {
     console.error(error);
-    errorMessage = 'Unknown error';
+    errorMessage = intl.formatMessage({ defaultMessage: 'Unknown error' });
   }
   return (
     <div>
-      <h3>Ooops! Some error happened!</h3>
+      <h3>{intl.formatMessage({ defaultMessage: 'Ooops! Some error happened!' })}</h3>
       <p>
         <i>{errorMessage}</i>
       </p>

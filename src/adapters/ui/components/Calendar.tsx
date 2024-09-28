@@ -13,6 +13,9 @@ import { Calendar as CalendarIcon, SkipBack, SkipForward, FastForward, Rewind, C
 
 import { setNewDate, setToday, forwardMonth, forwardDays, backwardDays, backwardMonth } from '../../state/dateSlice';
 
+import { FormattedMessage, useIntl, FormattedNumber, FormattedDate } from 'react-intl';
+
+
 import { options } from '../../../core/domain/Options';
 import { useElementOnScreen } from '../hooks/useIntersectionObserver';
 import type { Task } from '../../../core/domain/Task';
@@ -74,6 +77,7 @@ export const Calendar = () => {
   const dispatch = useDispatch<AppDispatch>();
   const { containerRef, isVisible } = useElementOnScreen({ initiallyVisible: true, options: { root: null, rootMargin: "0px", threshold: 0.1 } });
   const topRef = useRef<HTMLDivElement>(null);
+  const intl = useIntl();
   useEffect(() => { dispatch(fetchRewards()); }, []);
 
   const dateSelected = parseShortIsoString(date);
@@ -97,7 +101,7 @@ export const Calendar = () => {
               dispatch(backwardMonth());
             }
           }
-          title="Move the selected date to the previous month."
+          title={intl.formatMessage({ defaultMessage: 'Move the selected date to the previous month.' })}
         >
           <SkipBack className={style['move-date-button-icon']} />
         </Button>
@@ -110,7 +114,7 @@ export const Calendar = () => {
               dispatch(forwardMonth());
             }
           }
-          title="Move the selected date to the next month."
+          title={intl.formatMessage({ defaultMessage: 'Move the selected date to the next month.' })}
         >
           <SkipForward className={style['move-date-button-icon']} />
         </Button>
@@ -173,7 +177,7 @@ export const Calendar = () => {
             <div className={style.task}>
               {task.description}
             </div>
-            <div className={style.award} title={rewards.byId[task.rewardId].dueDate ? `Reward tasks are due on ${dateToLongLocaleString(parseShortIsoString(rewards.byId[task.rewardId].dueDate))}` : ''} >
+            <div className={style.award} title={rewards.byId[task.rewardId].dueDate ? intl.formatMessage({ defaultMessage: 'Reward tasks are due on {dueDate}' }, { dueDate: intl.formatDate(parseShortIsoString(rewards.byId[task.rewardId].dueDate), { dateStyle: 'full' }) }) : ''} >
               <Award color="gold" size="16" /> {rewards.byId[task.rewardId].description}
             </div>
           </div>
@@ -190,7 +194,7 @@ export const Calendar = () => {
 
 const MoveDateButtons = () => {
   const dispatch = useDispatch<AppDispatch>();
-
+  const intl = useIntl();
   return <div className={style['move-date-buttons']}>
     <Button
       className={style['move-date-button']}
@@ -199,7 +203,7 @@ const MoveDateButtons = () => {
           dispatch(backwardDays(7));
         }
       }
-      title="Move the selected date to a week before."
+      title={intl.formatMessage({ defaultMessage: 'Move the selected date to a week before.' })}
     >
       <Rewind className={style['move-date-button-icon']} />
     </Button>
@@ -211,7 +215,7 @@ const MoveDateButtons = () => {
             dispatch(backwardDays(1));
           }
         }
-        title="Move the selected date to a day before."
+        title={intl.formatMessage({ defaultMessage: 'Move the selected date to a day before.' })}
       >
         <SkipBack className={style['move-date-button-icon']} />
       </Button>
@@ -221,7 +225,7 @@ const MoveDateButtons = () => {
         title="Move the selected date to today."
       >
         <CalendarIcon className={style['move-date-button-icon']} />&nbsp;
-        Today
+        {intl.formatMessage({ defaultMessage: 'Today' })}
       </Button>
       <Button
         className={style['move-date-button']}
@@ -230,7 +234,7 @@ const MoveDateButtons = () => {
             dispatch(forwardDays(1));
           }
         }
-        title="Move the selected date to a day after."
+        title={intl.formatMessage({ defaultMessage: 'Move the selected date to a day after.' })}
       >
         <SkipForward className={style['move-date-button-icon']} />
       </Button>
@@ -242,19 +246,25 @@ const MoveDateButtons = () => {
           dispatch(forwardDays(7));
         }
       }
-      title="Move the selected date to a week after."
+      title={intl.formatMessage({
+        defaultMessage: 'Move the selected date to a week after.'
+      })}
     >
       <FastForward className={style['move-date-button-icon']} />
     </Button>
   </div >;
 };
 
-const TodaysDateBanner = ({ visible, date, useRef }: { visible: boolean, date: Date, useRef: RefObject<HTMLDivElement> | null }) =>
-(visible && <Button
-  className={style['date-banner']}
-  title="Click to go back to the date selection."
-  onClick={() => useRef?.current?.scrollIntoView({ block: 'start', behavior: 'smooth' })}
->
-  {dateToLongLocaleString(date)}
-</Button>);
+const TodaysDateBanner = ({ visible, date, useRef }: { visible: boolean, date: Date, useRef: RefObject<HTMLDivElement> | null }) => {
+  const intl = useIntl();
+  return (visible && <Button
+    className={style['date-banner']}
+    title={intl.formatMessage({
+      defaultMessage: 'Click to go back to the date selection.'
+    })}
+    onClick={() => useRef?.current?.scrollIntoView({ block: 'start', behavior: 'smooth' })}
+  >
+    {intl.formatDate(date, { dateStyle: 'full' })}
+  </Button>);
+};
 

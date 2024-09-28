@@ -1,5 +1,5 @@
 import RewardList from "../components/RewardList";
 
-const RewardsPage = () => <RewardList />
+const RewardsPage = () => <RewardList />;
 
-export default RewardsPage
+export default RewardsPage;

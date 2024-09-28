@@ -1,5 +1,5 @@
 import ParticipantsList from "../components/ParticipantsList";
 
-const ParticipantsPage = () => <ParticipantsList />
+const ParticipantsPage = () => <ParticipantsList />;
 
-export default ParticipantsPage
+export default ParticipantsPage;

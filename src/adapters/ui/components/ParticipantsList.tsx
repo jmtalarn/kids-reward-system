@@ -8,20 +8,21 @@ import Button from './Button';
 import { Participant, ParticipantId } from '../../../core/domain/Participant';
 import Input from './Input';
 import style from './Common.module.css';
+import { FormattedMessage, useIntl } from 'react-intl';
 
 const ParticipantInput = ({ participant }: { participant: Participant }) => {
 	const [inputParticipant, setInputParticipant] = useState(participant);
 	const dispatch = useDispatch<AppDispatch>();
-
+	const intl = useIntl();
 	return (
 		<div className={style.field}>
 			<Input
-				label="Participant"
+				label={intl.formatMessage({ defaultMessage: 'Participant' })}
 				fieldStyle={{ flexGrow: "1" }}
 				style={{ width: "80%" }}
 				value={inputParticipant.name}
 				onChange={e => setInputParticipant({ ...inputParticipant, name: e.target.value })}
-				placeholder="New participant"
+				placeholder={intl.formatMessage({ defaultMessage: 'New participant' })}
 			/>
 			<Input className={style['color-input']} value={inputParticipant.color} type="color" onChange={e => setInputParticipant({ ...inputParticipant, color: e.target.value })} />
 			<Button className={style.button} onClick={() => dispatch(addParticipant(inputParticipant))}>
@@ -43,7 +44,7 @@ const ParticipantsList = () => {
 	}, []);
 	return <section className={style.section}>
 		<header className={style['section-header']}>
-			<h3>Participants</h3>
+			<h3><FormattedMessage defaultMessage={`Participants`} /></h3>
 			<Button onClick={() => dispatch(addParticipant({ name: '', color: getRandomColor() }))}>
 				<UserPlus />
 			</Button>

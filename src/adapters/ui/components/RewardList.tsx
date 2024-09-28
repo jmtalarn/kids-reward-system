@@ -8,8 +8,9 @@ import Button from './Button';
 
 import style from './RewardList.module.css';
 import commonStyle from './Common.module.css';
-import { dateToLongLocaleString } from '../../../core/domain/utils/date-utils';
+import { parseShortIsoString } from '../../../core/domain/utils/date-utils';
 import { getDiffDaysMessage, getDaysRemainingOrOverdue } from '../../../core/domain/utils/messages';
+import { FormattedMessage, useIntl } from 'react-intl';
 
 
 
@@ -19,13 +20,13 @@ const RewardList = () => {
 	const dispatch = useDispatch<AppDispatch>();
 	const navigate = useNavigate();
 	const lastRewardRef = useRef<null | HTMLDivElement>(null);
-
+	const intl = useIntl();
 	useEffect(() => {
 		dispatch(fetchRewards());
 	}, []);
 	return <section className={commonStyle.section} ref={lastRewardRef}>
 		<header className={commonStyle['section-header']}>
-			<h3>Rewards</h3>
+			<h3><FormattedMessage defaultMessage={'Rewards'} /></h3>
 			<Button onClick={
 				() => {
 					dispatch(addReward({}));
@@ -40,8 +41,14 @@ const RewardList = () => {
 		<div className={style['reward-list']}>
 			{rewards.allIds.map((rewardId) => {
 				const reward = rewards.byId[rewardId];
-				const dueDateMessage = reward.dueDate ? `Due date for this reward is ${dateToLongLocaleString(new Date(reward.dueDate))}.` : 'No due date set yet.';
-				const startingDateMessage = reward.startingDate ? `Starting date for this reward is ${dateToLongLocaleString(new Date(reward.startingDate))}.` : 'No starting date set yet.';
+
+				const dueDateMessage = reward.dueDate ? intl.formatMessage({ defaultMessage: `Due date for this reward is {formattedDate}.` }, { formattedDate: intl.formatDate(parseShortIsoString(reward.dueDate), { dateStyle: 'full' }) }) : intl.formatMessage({ defaultMessage: 'No due date set yet.' });
+
+				const startingDateMessage = reward.startingDate ?
+					intl.formatMessage({ defaultMessage: `Starting date for this reward is {formattedDate}.` }, { formattedDate: intl.formatDate(parseShortIsoString(reward.startingDate), { dateStyle: 'full' }) })
+					: intl.formatMessage({
+						defaultMessage: 'No starting date set yet.'
+					});
 				const daysForTasksMessage = getDiffDaysMessage(reward.startingDate, reward.dueDate);
 				const daysLeftOrOverdue = getDaysRemainingOrOverdue(reward.dueDate);
 
@@ -54,7 +61,7 @@ const RewardList = () => {
 						<div className={style['reward-description']}>
 							<div>
 								<Award color="gold" className={style['reward-icon']} />
-								{reward.description || "No description yet"}
+								{reward.description || intl.formatMessage({ defaultMessage: "No description yet" })}
 							</div>
 							<div className={style['additional-description']}>
 								<div>{startingDateMessage}</div>
@@ -80,7 +87,6 @@ const RewardList = () => {
 							</Button>
 						</div>
 					</div>
-
 				);
 			})}
 		</div>

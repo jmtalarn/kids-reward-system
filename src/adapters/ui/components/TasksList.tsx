@@ -8,6 +8,7 @@ import { Move, AlignJustify, Check, Trash2, PlusSquare } from 'react-feather';
 import { Task, TaskId } from '../../../core/domain/Task';
 import Input from './Input';
 import style from './Common.module.css';
+import { FormattedMessage, useIntl } from 'react-intl';
 
 
 
@@ -17,7 +18,7 @@ const TaskInput = ({ task, dragged }: { task: Task, dragged: boolean }) => {
 	const classNames = [style.field, "field_task_input",
 	dragged && style.dragged
 	].filter(item => !!item).join(" ");
-
+	const intl = useIntl();
 	return (
 		<div className={classNames}>
 
@@ -27,11 +28,11 @@ const TaskInput = ({ task, dragged }: { task: Task, dragged: boolean }) => {
 				<AlignJustify className={style['drag-icon']} />
 			}
 			<Input
-				label="Task"
+				label={intl.formatMessage({ defaultMessage: "Task" })}
 				fieldStyle={{ flexGrow: "1" }}
 				style={{ width: "80%" }}
 				value={inputValue}
-				onChange={e => setInputValue(e.target.value)} placeholder="New task"
+				onChange={e => setInputValue(e.target.value)} placeholder={intl.formatMessage({ defaultMessage: "New task" })}
 			/>
 			<Button className={style.button} onClick={() => dispatch(addTask({ rewardId: task.rewardId, task: { ...task, description: inputValue } }))}>
 				<Check />
@@ -84,7 +85,7 @@ const TasksList = ({ rewardId }: { rewardId: string }) => {
 
 	return <section className={style.section} ref={lastRewardRef}>
 		<header className={style['section-header']}>
-			<h3>Tasks</h3>
+			<h3><FormattedMessage defaultMessage={'Tasks'} /></h3>
 			<Button
 				onClick={
 					() => {

@@ -28,7 +28,6 @@ const CustomStyle = {
   option: (base: object) => ({
     ...base,
     color: 'black',
-    //   backgroundColor: state.isSelected ? 'var(--color-primary-200)' : state.isFocused ? 'var(--color-primary-600)' : 'transparent',
   }),
 };
 
