@@ -104,7 +104,11 @@ const UpComingRewards = ({ className }: { className?: string }) => {
     <header className={styles['card-header']}><h3>Upcoming rewards</h3></header>
     <div className={styles['card-content']}>
       <FormattedMessage
-        defaultMessage={`{count, plural, zero {There are no upcoming rewards.} one {There is one upcoming reward.} other {There are {count} closer upcoming rewards.} set until now.`}
+        defaultMessage={`{count, plural, 
+          =0 {There are no upcoming rewards} 
+          one {There is one upcoming reward} 
+          other {There are # closer upcoming rewards}} set until now.
+          `}
         values={{
           count: upcomingRewards.length
         }}

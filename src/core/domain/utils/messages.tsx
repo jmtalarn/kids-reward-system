@@ -13,7 +13,7 @@ export const getDiffDaysMessage = (startingDate?: string, dueDate?: string) => {
 
 	}
 	return (<FormattedMessage
-		defaultMessage={`{count, plural, zero {} one {{count} day of tasks.} other {{count} days of tasks.}`}
+		defaultMessage={`{count, plural, zero {} one {{count} day of tasks.} other {{count} days of tasks.}}`}
 		values={{ count: diffDays }}
 	/>);
 

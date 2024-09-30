@@ -47,7 +47,14 @@ const RewardForm = ({ reward }: { reward: Reward }) => {
 
 		if (diffDays >= 0) {
 
-			setMessage({ text: <FormattedMessage defaultMessage={`The tasks described on the reward will last { {count, plural, one {{count} day.} other {{count} days.}}}`} /> });
+			setMessage({
+				text:
+					<FormattedMessage defaultMessage={`The tasks described on the reward will last {count, plural, 
+							one {# day} 
+							other {# days}
+						}
+					.`} />
+			});
 
 		} else {
 			setMessage({ type: 'ERROR', text: <FormattedMessage defaultMessage={`The starting date needs to be before or same as due date.`} /> });

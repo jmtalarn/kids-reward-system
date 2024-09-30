@@ -6,13 +6,25 @@ import svgr from "vite-plugin-svgr";
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [
-    react()
+    react({
+      babel: {
+        plugins: [
+          [
+            'formatjs',
+            {
+              idInterpolationPattern: '[sha512:contenthash:base64:6]',
+              ast: true,
+            },
+          ],
+        ]
+      },
+    })
     , svgr()
     // Custom plugin to load markdown files
     , {
       name: "markdown-loader",
       transform(code, id) {
-        if (id.slice(-3) === ".md") {
+        if (id.endsWith(".md")) {
           // For .md files, get the raw content
           return `export default ${JSON.stringify(code)};`;
         }
