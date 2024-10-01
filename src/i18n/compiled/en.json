@@ -1,0 +1,683 @@
+{
+  "/cj9iZ": [
+    {
+      "offset": 0,
+      "options": {
+        "one": {
+          "value": [
+            {
+              "type": 1,
+              "value": "formattedCount"
+            },
+            {
+              "type": 0,
+              "value": " task"
+            }
+          ]
+        },
+        "other": {
+          "value": [
+            {
+              "type": 1,
+              "value": "formattedCount"
+            },
+            {
+              "type": 0,
+              "value": " tasks"
+            }
+          ]
+        },
+        "zero": {
+          "value": [
+            {
+              "type": 0,
+              "value": "None task"
+            }
+          ]
+        }
+      },
+      "pluralType": "cardinal",
+      "type": 6,
+      "value": "count"
+    },
+    {
+      "type": 0,
+      "value": " managed."
+    }
+  ],
+  "0jANWM": [
+    {
+      "type": 0,
+      "value": "There "
+    },
+    {
+      "offset": 0,
+      "options": {
+        "one": {
+          "value": [
+            {
+              "type": 0,
+              "value": "is"
+            }
+          ]
+        },
+        "other": {
+          "value": [
+            {
+              "type": 0,
+              "value": "are"
+            }
+          ]
+        },
+        "zero": {
+          "value": [
+            {
+              "type": 0,
+              "value": "isn't any"
+            }
+          ]
+        }
+      },
+      "pluralType": "cardinal",
+      "type": 6,
+      "value": "count"
+    },
+    {
+      "type": 0,
+      "value": " "
+    },
+    {
+      "offset": 0,
+      "options": {
+        "other": {
+          "value": [
+            {
+              "type": 1,
+              "value": "formattedCount"
+            }
+          ]
+        },
+        "zero": {
+          "value": [
+          ]
+        }
+      },
+      "pluralType": "cardinal",
+      "type": 6,
+      "value": "count"
+    },
+    {
+      "type": 0,
+      "value": " "
+    },
+    {
+      "offset": 0,
+      "options": {
+        "one": {
+          "value": [
+            {
+              "type": 0,
+              "value": "participant"
+            }
+          ]
+        },
+        "other": {
+          "value": [
+            {
+              "type": 0,
+              "value": "participants"
+            }
+          ]
+        },
+        "zero": {
+          "value": [
+            {
+              "type": 0,
+              "value": "participant"
+            }
+          ]
+        }
+      },
+      "pluralType": "cardinal",
+      "type": 6,
+      "value": "count"
+    }
+  ],
+  "0wJ7N+": [
+    {
+      "type": 0,
+      "value": "Task"
+    }
+  ],
+  "1oPXdV": [
+    {
+      "type": 0,
+      "value": "New participant"
+    }
+  ],
+  "3Qf4yA": [
+    {
+      "type": 0,
+      "value": "Why to use this app?"
+    }
+  ],
+  "5k/Ujl": [
+    {
+      "type": 0,
+      "value": "The starting date needs to be before or same as due date."
+    }
+  ],
+  "5uumaG": [
+    {
+      "offset": 0,
+      "options": {
+        "one": {
+          "value": [
+            {
+              "type": 1,
+              "value": "count"
+            },
+            {
+              "type": 0,
+              "value": " day overdue."
+            }
+          ]
+        },
+        "other": {
+          "value": [
+            {
+              "type": 1,
+              "value": "count"
+            },
+            {
+              "type": 0,
+              "value": " days overdue."
+            }
+          ]
+        }
+      },
+      "pluralType": "cardinal",
+      "type": 6,
+      "value": "count"
+    }
+  ],
+  "8XUukm": [
+    {
+      "type": 0,
+      "value": "Due Date"
+    }
+  ],
+  "B+52pc": [
+    {
+      "offset": 0,
+      "options": {
+        "one": {
+          "value": [
+            {
+              "type": 1,
+              "value": "count"
+            },
+            {
+              "type": 0,
+              "value": " day of tasks."
+            }
+          ]
+        },
+        "other": {
+          "value": [
+            {
+              "type": 1,
+              "value": "count"
+            },
+            {
+              "type": 0,
+              "value": " days of tasks."
+            }
+          ]
+        },
+        "zero": {
+          "value": [
+          ]
+        }
+      },
+      "pluralType": "cardinal",
+      "type": 6,
+      "value": "count"
+    }
+  ],
+  "FZedl0": [
+    {
+      "type": 0,
+      "value": "Reward tasks are due on "
+    },
+    {
+      "type": 1,
+      "value": "dueDate"
+    }
+  ],
+  "I241Li": [
+    {
+      "type": 0,
+      "value": "Reward tasks not yet started."
+    }
+  ],
+  "JIpkFd": [
+    {
+      "type": 0,
+      "value": "es"
+    }
+  ],
+  "K4O03z": [
+    {
+      "type": 0,
+      "value": "New task"
+    }
+  ],
+  "M4kCeP": [
+    {
+      "type": 0,
+      "value": "No description yet"
+    }
+  ],
+  "MoAKyq": [
+    {
+      "type": 0,
+      "value": "Recent assessments"
+    }
+  ],
+  "NKpJag": [
+    {
+      "type": 0,
+      "value": "Move the selected date to a week before."
+    }
+  ],
+  "O+Xp2H": [
+    {
+      "type": 0,
+      "value": "Reward tasks ends on "
+    },
+    {
+      "type": 1,
+      "value": "formattedDate"
+    },
+    {
+      "type": 0,
+      "value": "."
+    }
+  ],
+  "PuQb0P": [
+    {
+      "type": 0,
+      "value": "Reward"
+    }
+  ],
+  "Q8Qw5B": [
+    {
+      "type": 0,
+      "value": "Description"
+    }
+  ],
+  "Qd11MH": [
+    {
+      "type": 0,
+      "value": "en"
+    }
+  ],
+  "R8WbJf": [
+    {
+      "type": 0,
+      "value": "Move the selected date to the previous month."
+    }
+  ],
+  "Uf5RHY": [
+    {
+      "type": 0,
+      "value": "Click to go back to the date selection."
+    }
+  ],
+  "Yfw4F3": [
+    {
+      "type": 0,
+      "value": "No due date set yet."
+    }
+  ],
+  "Z3SWx0": [
+    {
+      "type": 0,
+      "value": "The tasks described on the reward will last "
+    },
+    {
+      "offset": 0,
+      "options": {
+        "one": {
+          "value": [
+            {
+              "type": 7
+            },
+            {
+              "type": 0,
+              "value": " day"
+            }
+          ]
+        },
+        "other": {
+          "value": [
+            {
+              "type": 7
+            },
+            {
+              "type": 0,
+              "value": " days"
+            }
+          ]
+        }
+      },
+      "pluralType": "cardinal",
+      "type": 6,
+      "value": "count"
+    },
+    {
+      "type": 0,
+      "value": " ."
+    }
+  ],
+  "ZEq9Mg": [
+    {
+      "type": 0,
+      "value": "Starting Date"
+    }
+  ],
+  "ZGpYlL": [
+    {
+      "type": 0,
+      "value": "Due date is today."
+    }
+  ],
+  "brn+AN": [
+    {
+      "type": 0,
+      "value": "Move the selected date to the next month."
+    }
+  ],
+  "bwbVjq": [
+    {
+      "offset": 0,
+      "options": {
+        "one": {
+          "value": [
+            {
+              "type": 1,
+              "value": "count"
+            },
+            {
+              "type": 0,
+              "value": " day left."
+            }
+          ]
+        },
+        "other": {
+          "value": [
+            {
+              "type": 1,
+              "value": "count"
+            },
+            {
+              "type": 0,
+              "value": " days left."
+            }
+          ]
+        }
+      },
+      "pluralType": "cardinal",
+      "type": 6,
+      "value": "count"
+    }
+  ],
+  "e9Ki9H": [
+    {
+      "type": 0,
+      "value": "These are the more recent assessments for the participants."
+    }
+  ],
+  "egMfjt": [
+    {
+      "type": 0,
+      "value": "Starting date for this reward is "
+    },
+    {
+      "type": 1,
+      "value": "formattedDate"
+    },
+    {
+      "type": 0,
+      "value": "."
+    }
+  ],
+  "ejEGdx": [
+    {
+      "type": 0,
+      "value": "Home"
+    }
+  ],
+  "euS84f": [
+    {
+      "type": 0,
+      "value": "Move the selected date to a day after."
+    }
+  ],
+  "f1Tf+P": [
+    {
+      "offset": 0,
+      "options": {
+        "=0": {
+          "value": [
+            {
+              "type": 0,
+              "value": "There are no upcoming rewards"
+            }
+          ]
+        },
+        "one": {
+          "value": [
+            {
+              "type": 0,
+              "value": "There is one upcoming reward"
+            }
+          ]
+        },
+        "other": {
+          "value": [
+            {
+              "type": 0,
+              "value": "There are "
+            },
+            {
+              "type": 7
+            },
+            {
+              "type": 0,
+              "value": " closer upcoming rewards"
+            }
+          ]
+        }
+      },
+      "pluralType": "cardinal",
+      "type": 6,
+      "value": "count"
+    },
+    {
+      "type": 0,
+      "value": " set until now."
+    }
+  ],
+  "fVMECF": [
+    {
+      "type": 0,
+      "value": "Participant"
+    }
+  ],
+  "h1H4z/": [
+    {
+      "type": 0,
+      "value": "Due date for this reward is "
+    },
+    {
+      "type": 1,
+      "value": "formattedDate"
+    },
+    {
+      "type": 0,
+      "value": "."
+    }
+  ],
+  "i/fCAl": [
+    {
+      "type": 0,
+      "value": "Ooops! Some error happened!"
+    }
+  ],
+  "j7nW78": [
+    {
+      "type": 0,
+      "value": "ca"
+    }
+  ],
+  "jCpDlJ": [
+    {
+      "offset": 0,
+      "options": {
+        "one": {
+          "value": [
+            {
+              "type": 1,
+              "value": "formattedCount"
+            },
+            {
+              "type": 0,
+              "value": " reward"
+            }
+          ]
+        },
+        "other": {
+          "value": [
+            {
+              "type": 1,
+              "value": "formattedCount"
+            },
+            {
+              "type": 0,
+              "value": " rewards"
+            }
+          ]
+        },
+        "zero": {
+          "value": [
+            {
+              "type": 0,
+              "value": "No"
+            }
+          ]
+        }
+      },
+      "pluralType": "cardinal",
+      "type": 6,
+      "value": "count"
+    },
+    {
+      "type": 0,
+      "value": " set until now."
+    }
+  ],
+  "llapsS": [
+    {
+      "type": 0,
+      "value": "No description given."
+    }
+  ],
+  "qDwvZ4": [
+    {
+      "type": 0,
+      "value": "Unknown error"
+    }
+  ],
+  "rNxxAj": [
+    {
+      "type": 0,
+      "value": "No starting date set yet."
+    }
+  ],
+  "tfUa9h": [
+    {
+      "type": 0,
+      "value": "Move the selected date to a week after."
+    }
+  ],
+  "tm8nL8": [
+    {
+      "type": 0,
+      "value": "Reward description"
+    }
+  ],
+  "vuOpya": [
+    {
+      "type": 0,
+      "value": "Upcoming rewards"
+    }
+  ],
+  "wR8R+x": [
+    {
+      "type": 0,
+      "value": "Reward tasks started on "
+    },
+    {
+      "type": 1,
+      "value": "formattedDate"
+    },
+    {
+      "type": 0,
+      "value": "."
+    }
+  ],
+  "xhEHo0": [
+    {
+      "type": 0,
+      "value": "Daily tasks"
+    }
+  ],
+  "y0EYpw": [
+    {
+      "type": 0,
+      "value": "Rewards"
+    }
+  ],
+  "y1Z3or": [
+    {
+      "type": 0,
+      "value": "Language"
+    }
+  ],
+  "yhU1et": [
+    {
+      "type": 0,
+      "value": "Tasks"
+    }
+  ],
+  "zWgbGg": [
+    {
+      "type": 0,
+      "value": "Today"
+    }
+  ],
+  "zdqUkg": [
+    {
+      "type": 0,
+      "value": "Move the selected date to a day before."
+    }
+  ],
+  "zx0myy": [
+    {
+      "type": 0,
+      "value": "Participants"
+    }
+  ]
+}

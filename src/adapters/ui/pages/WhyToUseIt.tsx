@@ -1,23 +1,26 @@
 import { useEffect, useState } from "react";
 import { useIntl } from "react-intl";
 import ReactMarkdown from "react-markdown";
-// import en_markdown from './md-files/en/WTUI.md';
+import en_markdown from './md-files/en/WTUI.md';
+import es_markdown from './md-files/es/WTUI.md';
+import ca_markdown from './md-files/ca/WTUI.md';
 import style from './Root.module.css';
+import type { LangType } from "../../../core/domain/Lang";
+
+const filesMap: Record<LangType, string> = {
+	"en": en_markdown,
+	"es": es_markdown,
+	"ca": ca_markdown
+};
 
 export const WhyToUseIt = () => {
 	const intl = useIntl();
 	const [content, setContent] = useState<string>();
 
 	useEffect(() => {
-		import(`./md-files/${intl.locale}/WTUI.md`)
-			.then(res => {
-				fetch(res.default)
-					.then(res => res.text())
-					.then((res: string) => setContent(res))
-					.catch(err => console.log(err));
-			})
-			.catch(err => console.log(err));
-	});
+		setContent(filesMap[intl.locale as LangType]);
+
+	}, [intl.locale]);
 	return (
 		<div className={style['markdown-content']}>
 			<ReactMarkdown

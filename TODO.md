@@ -6,11 +6,11 @@
 -   [x] Replace FA icons
 -   [x] Get tasks by Date
 -   [x] App layout
--   [ ] Internationalization
-    -   [ ] https://blog.logrocket.com/react-intl-internationalize-your-react-apps/
+-   [x] Internationalization
+    -   [x] https://blog.logrocket.com/react-intl-internationalize-your-react-apps/
     -   [x] Dashboard.tsx#104
-    -   [ ] eslint-plugin-formatjs
-    -   [ ] extract message
+    -   [x] extract message
+    -   [x] markdown content
 -   [ ] Header design
 -   [x] Dashboard design.
     -   [x] Close reward Due date and days left
@@ -36,3 +36,5 @@
     -   [x] On scroll show the date on top
     -   [x] Hints on buttons
 -   [x] Reward form not saving
+-   [ ] Loading Component
+-   [ ] Claims and Repeat Reward

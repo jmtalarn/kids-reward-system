@@ -4,6 +4,7 @@ import participantsReducer from "./participantsSlice";
 import tasksReducer from './tasksSlice';
 import assessmentsReducer from "./assessmentsSlice";
 import dateReducer from "./dateSlice";
+import langReducer from "./langSlice";
 
 const store = configureStore({
 	reducer: {
@@ -11,7 +12,8 @@ const store = configureStore({
 		participants: participantsReducer,
 		tasks: tasksReducer,
 		assessments: assessmentsReducer,
-		date: dateReducer
+		date: dateReducer,
+		lang: langReducer
 	},
 });
 

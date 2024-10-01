@@ -1,0 +1,679 @@
+{
+  "/cj9iZ": [
+    {
+      "offset": 0,
+      "options": {
+        "one": {
+          "value": [
+            {
+              "type": 1,
+              "value": "formattedCount"
+            },
+            {
+              "type": 0,
+              "value": " tarea"
+            }
+          ]
+        },
+        "other": {
+          "value": [
+            {
+              "type": 1,
+              "value": "formattedCount"
+            },
+            {
+              "type": 0,
+              "value": " tareas"
+            }
+          ]
+        },
+        "zero": {
+          "value": [
+            {
+              "type": 0,
+              "value": "Ninguna tarea"
+            }
+          ]
+        }
+      },
+      "pluralType": "cardinal",
+      "type": 6,
+      "value": "count"
+    },
+    {
+      "type": 0,
+      "value": " gestionadas."
+    }
+  ],
+  "0jANWM": [
+    {
+      "offset": 0,
+      "options": {
+        "one": {
+          "value": [
+            {
+              "type": 0,
+              "value": "Hay"
+            }
+          ]
+        },
+        "other": {
+          "value": [
+            {
+              "type": 0,
+              "value": "Hay"
+            }
+          ]
+        },
+        "zero": {
+          "value": [
+            {
+              "type": 0,
+              "value": "No hay"
+            }
+          ]
+        }
+      },
+      "pluralType": "cardinal",
+      "type": 6,
+      "value": "count"
+    },
+    {
+      "type": 0,
+      "value": " "
+    },
+    {
+      "offset": 0,
+      "options": {
+        "other": {
+          "value": [
+            {
+              "type": 1,
+              "value": "formattedCount"
+            }
+          ]
+        },
+        "zero": {
+          "value": [
+          ]
+        }
+      },
+      "pluralType": "cardinal",
+      "type": 6,
+      "value": "count"
+    },
+    {
+      "type": 0,
+      "value": " "
+    },
+    {
+      "offset": 0,
+      "options": {
+        "one": {
+          "value": [
+            {
+              "type": 0,
+              "value": "participante"
+            }
+          ]
+        },
+        "other": {
+          "value": [
+            {
+              "type": 0,
+              "value": "participantes"
+            }
+          ]
+        },
+        "zero": {
+          "value": [
+            {
+              "type": 0,
+              "value": "participante"
+            }
+          ]
+        }
+      },
+      "pluralType": "cardinal",
+      "type": 6,
+      "value": "count"
+    }
+  ],
+  "0wJ7N+": [
+    {
+      "type": 0,
+      "value": "Tarea"
+    }
+  ],
+  "1oPXdV": [
+    {
+      "type": 0,
+      "value": "Nuevo participante"
+    }
+  ],
+  "3Qf4yA": [
+    {
+      "type": 0,
+      "value": "¿Por qué usar esta aplicación?"
+    }
+  ],
+  "5k/Ujl": [
+    {
+      "type": 0,
+      "value": "La fecha de inicio debe ser anterior o igual a la fecha de vencimiento."
+    }
+  ],
+  "5uumaG": [
+    {
+      "offset": 0,
+      "options": {
+        "one": {
+          "value": [
+            {
+              "type": 1,
+              "value": "count"
+            },
+            {
+              "type": 0,
+              "value": " día de retraso."
+            }
+          ]
+        },
+        "other": {
+          "value": [
+            {
+              "type": 1,
+              "value": "count"
+            },
+            {
+              "type": 0,
+              "value": " días de retraso."
+            }
+          ]
+        }
+      },
+      "pluralType": "cardinal",
+      "type": 6,
+      "value": "count"
+    }
+  ],
+  "8XUukm": [
+    {
+      "type": 0,
+      "value": "Fecha de vencimiento"
+    }
+  ],
+  "B+52pc": [
+    {
+      "offset": 0,
+      "options": {
+        "one": {
+          "value": [
+            {
+              "type": 1,
+              "value": "count"
+            },
+            {
+              "type": 0,
+              "value": " día de tareas."
+            }
+          ]
+        },
+        "other": {
+          "value": [
+            {
+              "type": 1,
+              "value": "count"
+            },
+            {
+              "type": 0,
+              "value": " días de tareas."
+            }
+          ]
+        },
+        "zero": {
+          "value": [
+          ]
+        }
+      },
+      "pluralType": "cardinal",
+      "type": 6,
+      "value": "count"
+    }
+  ],
+  "FZedl0": [
+    {
+      "type": 0,
+      "value": "Las tareas de recompensa vencen el "
+    },
+    {
+      "type": 1,
+      "value": "dueDate"
+    }
+  ],
+  "I241Li": [
+    {
+      "type": 0,
+      "value": "Las tareas de recompensa aún no han comenzado."
+    }
+  ],
+  "JIpkFd": [
+    {
+      "type": 0,
+      "value": "Castellano"
+    }
+  ],
+  "K4O03z": [
+    {
+      "type": 0,
+      "value": "Nueva tarea"
+    }
+  ],
+  "M4kCeP": [
+    {
+      "type": 0,
+      "value": "Aún no hay descripción"
+    }
+  ],
+  "MoAKyq": [
+    {
+      "type": 0,
+      "value": "Avaluaciones recientes"
+    }
+  ],
+  "NKpJag": [
+    {
+      "type": 0,
+      "value": "Mover la fecha seleccionada a una semana antes."
+    }
+  ],
+  "O+Xp2H": [
+    {
+      "type": 0,
+      "value": "Las tareas de recompensa terminan el "
+    },
+    {
+      "type": 1,
+      "value": "formattedDate"
+    },
+    {
+      "type": 0,
+      "value": "."
+    }
+  ],
+  "PuQb0P": [
+    {
+      "type": 0,
+      "value": "Recompensa"
+    }
+  ],
+  "Q8Qw5B": [
+    {
+      "type": 0,
+      "value": "Descripción"
+    }
+  ],
+  "Qd11MH": [
+    {
+      "type": 0,
+      "value": "English"
+    }
+  ],
+  "R8WbJf": [
+    {
+      "type": 0,
+      "value": "Mover la fecha seleccionada al mes anterior."
+    }
+  ],
+  "Uf5RHY": [
+    {
+      "type": 0,
+      "value": "Haz clic para volver a la selección de fecha."
+    }
+  ],
+  "Yfw4F3": [
+    {
+      "type": 0,
+      "value": "Aún no se ha establecido una fecha de vencimiento."
+    }
+  ],
+  "Z3SWx0": [
+    {
+      "type": 0,
+      "value": "Las tareas descritas en la recompensa durarán "
+    },
+    {
+      "offset": 0,
+      "options": {
+        "one": {
+          "value": [
+            {
+              "type": 7
+            },
+            {
+              "type": 0,
+              "value": " día"
+            }
+          ]
+        },
+        "other": {
+          "value": [
+            {
+              "type": 7
+            },
+            {
+              "type": 0,
+              "value": " días"
+            }
+          ]
+        }
+      },
+      "pluralType": "cardinal",
+      "type": 6,
+      "value": "count"
+    },
+    {
+      "type": 0,
+      "value": " ."
+    }
+  ],
+  "ZEq9Mg": [
+    {
+      "type": 0,
+      "value": "Fecha de inicio"
+    }
+  ],
+  "ZGpYlL": [
+    {
+      "type": 0,
+      "value": "La fecha de vencimiento es hoy."
+    }
+  ],
+  "brn+AN": [
+    {
+      "type": 0,
+      "value": "Mover la fecha seleccionada al mes siguiente."
+    }
+  ],
+  "bwbVjq": [
+    {
+      "offset": 0,
+      "options": {
+        "one": {
+          "value": [
+            {
+              "type": 1,
+              "value": "count"
+            },
+            {
+              "type": 0,
+              "value": " día restante."
+            }
+          ]
+        },
+        "other": {
+          "value": [
+            {
+              "type": 1,
+              "value": "count"
+            },
+            {
+              "type": 0,
+              "value": " días restantes."
+            }
+          ]
+        }
+      },
+      "pluralType": "cardinal",
+      "type": 6,
+      "value": "count"
+    }
+  ],
+  "e9Ki9H": [
+    {
+      "type": 0,
+      "value": "Estas son las evaluaciones más recientes para los participantes."
+    }
+  ],
+  "egMfjt": [
+    {
+      "type": 0,
+      "value": "La fecha de inicio para esta recompensa es "
+    },
+    {
+      "type": 1,
+      "value": "formattedDate"
+    },
+    {
+      "type": 0,
+      "value": "."
+    }
+  ],
+  "ejEGdx": [
+    {
+      "type": 0,
+      "value": "Inicio"
+    }
+  ],
+  "euS84f": [
+    {
+      "type": 0,
+      "value": "Mover la fecha seleccionada al día siguiente."
+    }
+  ],
+  "f1Tf+P": [
+    {
+      "offset": 0,
+      "options": {
+        "=0": {
+          "value": [
+            {
+              "type": 0,
+              "value": "No hay recompensas próximas establecidas"
+            }
+          ]
+        },
+        "one": {
+          "value": [
+            {
+              "type": 0,
+              "value": "Hay una recompensa próxima establecida"
+            }
+          ]
+        },
+        "other": {
+          "value": [
+            {
+              "type": 0,
+              "value": "Hay "
+            },
+            {
+              "type": 7
+            },
+            {
+              "type": 0,
+              "value": " recompensas próximas más cercanas establecidas"
+            }
+          ]
+        }
+      },
+      "pluralType": "cardinal",
+      "type": 6,
+      "value": "count"
+    },
+    {
+      "type": 0,
+      "value": " hasta ahora."
+    }
+  ],
+  "fVMECF": [
+    {
+      "type": 0,
+      "value": "Participante"
+    }
+  ],
+  "h1H4z/": [
+    {
+      "type": 0,
+      "value": "La fecha de vencimiento de esta recompensa es "
+    },
+    {
+      "type": 1,
+      "value": "formattedDate"
+    },
+    {
+      "type": 0,
+      "value": "."
+    }
+  ],
+  "i/fCAl": [
+    {
+      "type": 0,
+      "value": "¡Ups! Ocurrió un error."
+    }
+  ],
+  "j7nW78": [
+    {
+      "type": 0,
+      "value": "Catalan"
+    }
+  ],
+  "jCpDlJ": [
+    {
+      "offset": 0,
+      "options": {
+        "one": {
+          "value": [
+            {
+              "type": 1,
+              "value": "formattedCount"
+            },
+            {
+              "type": 0,
+              "value": " recompensa establecida"
+            }
+          ]
+        },
+        "other": {
+          "value": [
+            {
+              "type": 1,
+              "value": "formattedCount"
+            },
+            {
+              "type": 0,
+              "value": " recompensas establecidas"
+            }
+          ]
+        },
+        "zero": {
+          "value": [
+            {
+              "type": 0,
+              "value": "Ninguna recompensa establecida"
+            }
+          ]
+        }
+      },
+      "pluralType": "cardinal",
+      "type": 6,
+      "value": "count"
+    },
+    {
+      "type": 0,
+      "value": " hasta ahora."
+    }
+  ],
+  "llapsS": [
+    {
+      "type": 0,
+      "value": "No se dio ninguna descripción."
+    }
+  ],
+  "qDwvZ4": [
+    {
+      "type": 0,
+      "value": "Error desconocido"
+    }
+  ],
+  "rNxxAj": [
+    {
+      "type": 0,
+      "value": "Aún no se ha establecido una fecha de inicio."
+    }
+  ],
+  "tfUa9h": [
+    {
+      "type": 0,
+      "value": "Mover la fecha seleccionada a una semana después."
+    }
+  ],
+  "tm8nL8": [
+    {
+      "type": 0,
+      "value": "Descripción de la recompensa"
+    }
+  ],
+  "vuOpya": [
+    {
+      "type": 0,
+      "value": "Próximas recompensas"
+    }
+  ],
+  "wR8R+x": [
+    {
+      "type": 0,
+      "value": "Las tareas de recompensa comenzaron el "
+    },
+    {
+      "type": 1,
+      "value": "formattedDate"
+    },
+    {
+      "type": 0,
+      "value": "."
+    }
+  ],
+  "xhEHo0": [
+    {
+      "type": 0,
+      "value": "Tareas diarias"
+    }
+  ],
+  "y0EYpw": [
+    {
+      "type": 0,
+      "value": "Recompensas"
+    }
+  ],
+  "y1Z3or": [
+    {
+      "type": 0,
+      "value": "Idioma"
+    }
+  ],
+  "yhU1et": [
+    {
+      "type": 0,
+      "value": "Tareas"
+    }
+  ],
+  "zWgbGg": [
+    {
+      "type": 0,
+      "value": "Hoy"
+    }
+  ],
+  "zdqUkg": [
+    {
+      "type": 0,
+      "value": "Mover la fecha seleccionada al día anterior."
+    }
+  ],
+  "zx0myy": [
+    {
+      "type": 0,
+      "value": "Participantes"
+    }
+  ]
+}

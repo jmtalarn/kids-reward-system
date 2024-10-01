@@ -3,7 +3,7 @@ import { Award, HelpCircle, User } from 'react-feather';
 import { useDispatch, useSelector } from "react-redux";
 import { ValueOptionMap } from '../../../core/domain/Options';
 import { Participant, ParticipantId } from '../../../core/domain/Participant';
-import { dateToLongLocaleString, parseShortIsoString } from '../../../core/domain/utils/date-utils';
+import { parseShortIsoString } from '../../../core/domain/utils/date-utils';
 import { getDiffDaysMessage } from '../../../core/domain/utils/messages';
 import { fetchAssessments } from '../../state/assessmentsSlice';
 import { fetchParticipants } from '../../state/participantsSlice';
@@ -14,7 +14,6 @@ import styles from './Dashboard.module.css';
 import type { Reward } from '../../../core/domain/Reward';
 import {
   FormattedMessage,
-  FormattedList,
   useIntl,
   FormattedDate,
 } from "react-intl";
@@ -101,7 +100,7 @@ const UpComingRewards = ({ className }: { className?: string }) => {
   const date = new Date();
 
   return <article className={[styles.card, className].filter(Boolean).join(" ")}>
-    <header className={styles['card-header']}><h3>Upcoming rewards</h3></header>
+    <header className={styles['card-header']}><h3><FormattedMessage defaultMessage={'Upcoming rewards'} /></h3></header>
     <div className={styles['card-content']}>
       <FormattedMessage
         defaultMessage={`{count, plural, 
@@ -158,7 +157,11 @@ const ParticipantsRecentAssessments = ({ className }: { className?: string }) =>
 
   }, [assessments, participants]);
   return <article className={[styles.card, className].filter(Boolean).join(" ")}>
-    <header className={styles['card-header']}><h3>Recent assessments</h3></header>
+    <header className={styles['card-header']}>
+      <h3>
+        <FormattedMessage defaultMessage={'Recent assessments'} />
+      </h3>
+    </header>
     <div className={styles['card-content']}>
       <FormattedMessage defaultMessage={`These are the more recent assessments for the participants.`} />
       {participants

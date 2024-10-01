@@ -1,0 +1,679 @@
+{
+  "/cj9iZ": [
+    {
+      "offset": 0,
+      "options": {
+        "one": {
+          "value": [
+            {
+              "type": 1,
+              "value": "formattedCount"
+            },
+            {
+              "type": 0,
+              "value": " tasca"
+            }
+          ]
+        },
+        "other": {
+          "value": [
+            {
+              "type": 1,
+              "value": "formattedCount"
+            },
+            {
+              "type": 0,
+              "value": " tasques"
+            }
+          ]
+        },
+        "zero": {
+          "value": [
+            {
+              "type": 0,
+              "value": "Cap tasca"
+            }
+          ]
+        }
+      },
+      "pluralType": "cardinal",
+      "type": 6,
+      "value": "count"
+    },
+    {
+      "type": 0,
+      "value": " gestionades."
+    }
+  ],
+  "0jANWM": [
+    {
+      "offset": 0,
+      "options": {
+        "one": {
+          "value": [
+            {
+              "type": 0,
+              "value": "Hi ha"
+            }
+          ]
+        },
+        "other": {
+          "value": [
+            {
+              "type": 0,
+              "value": "Hi ha"
+            }
+          ]
+        },
+        "zero": {
+          "value": [
+            {
+              "type": 0,
+              "value": "No hi ha cap"
+            }
+          ]
+        }
+      },
+      "pluralType": "cardinal",
+      "type": 6,
+      "value": "count"
+    },
+    {
+      "type": 0,
+      "value": " "
+    },
+    {
+      "offset": 0,
+      "options": {
+        "=0": {
+          "value": [
+          ]
+        },
+        "other": {
+          "value": [
+            {
+              "type": 1,
+              "value": "formattedCount"
+            }
+          ]
+        }
+      },
+      "pluralType": "cardinal",
+      "type": 6,
+      "value": "count"
+    },
+    {
+      "type": 0,
+      "value": " "
+    },
+    {
+      "offset": 0,
+      "options": {
+        "one": {
+          "value": [
+            {
+              "type": 0,
+              "value": "participant"
+            }
+          ]
+        },
+        "other": {
+          "value": [
+            {
+              "type": 0,
+              "value": "participants"
+            }
+          ]
+        },
+        "zero": {
+          "value": [
+            {
+              "type": 0,
+              "value": "participant"
+            }
+          ]
+        }
+      },
+      "pluralType": "cardinal",
+      "type": 6,
+      "value": "count"
+    }
+  ],
+  "0wJ7N+": [
+    {
+      "type": 0,
+      "value": "Tasca"
+    }
+  ],
+  "1oPXdV": [
+    {
+      "type": 0,
+      "value": "Nou participant"
+    }
+  ],
+  "3Qf4yA": [
+    {
+      "type": 0,
+      "value": "Per què utilitzar aquesta aplicació?"
+    }
+  ],
+  "5k/Ujl": [
+    {
+      "type": 0,
+      "value": "La data d'inici ha de ser anterior o igual a la data de venciment."
+    }
+  ],
+  "5uumaG": [
+    {
+      "offset": 0,
+      "options": {
+        "one": {
+          "value": [
+            {
+              "type": 1,
+              "value": "count"
+            },
+            {
+              "type": 0,
+              "value": " dia de retard."
+            }
+          ]
+        },
+        "other": {
+          "value": [
+            {
+              "type": 1,
+              "value": "count"
+            },
+            {
+              "type": 0,
+              "value": " dies de retard."
+            }
+          ]
+        }
+      },
+      "pluralType": "cardinal",
+      "type": 6,
+      "value": "count"
+    }
+  ],
+  "8XUukm": [
+    {
+      "type": 0,
+      "value": "Data de venciment"
+    }
+  ],
+  "B+52pc": [
+    {
+      "offset": 0,
+      "options": {
+        "one": {
+          "value": [
+            {
+              "type": 1,
+              "value": "count"
+            },
+            {
+              "type": 0,
+              "value": " dia de tasques."
+            }
+          ]
+        },
+        "other": {
+          "value": [
+            {
+              "type": 1,
+              "value": "count"
+            },
+            {
+              "type": 0,
+              "value": " dies de tasques."
+            }
+          ]
+        },
+        "zero": {
+          "value": [
+          ]
+        }
+      },
+      "pluralType": "cardinal",
+      "type": 6,
+      "value": "count"
+    }
+  ],
+  "FZedl0": [
+    {
+      "type": 0,
+      "value": "Les tasques de recompensa vencen el "
+    },
+    {
+      "type": 1,
+      "value": "dueDate"
+    }
+  ],
+  "I241Li": [
+    {
+      "type": 0,
+      "value": "Les tasques de recompensa encara no han començat."
+    }
+  ],
+  "JIpkFd": [
+    {
+      "type": 0,
+      "value": "Espanyol"
+    }
+  ],
+  "K4O03z": [
+    {
+      "type": 0,
+      "value": "Nova tasca"
+    }
+  ],
+  "M4kCeP": [
+    {
+      "type": 0,
+      "value": "Encara no hi ha descripció"
+    }
+  ],
+  "MoAKyq": [
+    {
+      "type": 0,
+      "value": "Avaluacións recents"
+    }
+  ],
+  "NKpJag": [
+    {
+      "type": 0,
+      "value": "Mou la data seleccionada una setmana abans."
+    }
+  ],
+  "O+Xp2H": [
+    {
+      "type": 0,
+      "value": "Les tasques de recompensa acaben el "
+    },
+    {
+      "type": 1,
+      "value": "formattedDate"
+    },
+    {
+      "type": 0,
+      "value": "."
+    }
+  ],
+  "PuQb0P": [
+    {
+      "type": 0,
+      "value": "Recompensa"
+    }
+  ],
+  "Q8Qw5B": [
+    {
+      "type": 0,
+      "value": "Descripció"
+    }
+  ],
+  "Qd11MH": [
+    {
+      "type": 0,
+      "value": "Anglès"
+    }
+  ],
+  "R8WbJf": [
+    {
+      "type": 0,
+      "value": "Mou la data seleccionada al mes anterior."
+    }
+  ],
+  "Uf5RHY": [
+    {
+      "type": 0,
+      "value": "Fes clic per tornar a la selecció de data."
+    }
+  ],
+  "Yfw4F3": [
+    {
+      "type": 0,
+      "value": "Encara no s'ha establert cap data de venciment."
+    }
+  ],
+  "Z3SWx0": [
+    {
+      "type": 0,
+      "value": "Les tasques descrites a la recompensa duraran "
+    },
+    {
+      "offset": 0,
+      "options": {
+        "one": {
+          "value": [
+            {
+              "type": 7
+            },
+            {
+              "type": 0,
+              "value": " dia"
+            }
+          ]
+        },
+        "other": {
+          "value": [
+            {
+              "type": 7
+            },
+            {
+              "type": 0,
+              "value": " dies"
+            }
+          ]
+        }
+      },
+      "pluralType": "cardinal",
+      "type": 6,
+      "value": "count"
+    },
+    {
+      "type": 0,
+      "value": " ."
+    }
+  ],
+  "ZEq9Mg": [
+    {
+      "type": 0,
+      "value": "Data d'inici"
+    }
+  ],
+  "ZGpYlL": [
+    {
+      "type": 0,
+      "value": "La data de venciment és avui."
+    }
+  ],
+  "brn+AN": [
+    {
+      "type": 0,
+      "value": "Mou la data seleccionada al mes següent."
+    }
+  ],
+  "bwbVjq": [
+    {
+      "offset": 0,
+      "options": {
+        "one": {
+          "value": [
+            {
+              "type": 1,
+              "value": "count"
+            },
+            {
+              "type": 0,
+              "value": " dia restant."
+            }
+          ]
+        },
+        "other": {
+          "value": [
+            {
+              "type": 1,
+              "value": "count"
+            },
+            {
+              "type": 0,
+              "value": " dies restants."
+            }
+          ]
+        }
+      },
+      "pluralType": "cardinal",
+      "type": 6,
+      "value": "count"
+    }
+  ],
+  "e9Ki9H": [
+    {
+      "type": 0,
+      "value": "Aquestes són les avaluacions més recents per als participants."
+    }
+  ],
+  "egMfjt": [
+    {
+      "type": 0,
+      "value": "La data d'inici d'aquesta recompensa és el "
+    },
+    {
+      "type": 1,
+      "value": "formattedDate"
+    },
+    {
+      "type": 0,
+      "value": "."
+    }
+  ],
+  "ejEGdx": [
+    {
+      "type": 0,
+      "value": "Inici"
+    }
+  ],
+  "euS84f": [
+    {
+      "type": 0,
+      "value": "Mou la data seleccionada al dia següent."
+    }
+  ],
+  "f1Tf+P": [
+    {
+      "offset": 0,
+      "options": {
+        "=0": {
+          "value": [
+            {
+              "type": 0,
+              "value": "No hi ha recompenses properes establertes"
+            }
+          ]
+        },
+        "one": {
+          "value": [
+            {
+              "type": 0,
+              "value": "Hi ha una recompensa propera establerta"
+            }
+          ]
+        },
+        "other": {
+          "value": [
+            {
+              "type": 0,
+              "value": "Hi ha "
+            },
+            {
+              "type": 7
+            },
+            {
+              "type": 0,
+              "value": " recompenses properes establertes"
+            }
+          ]
+        }
+      },
+      "pluralType": "cardinal",
+      "type": 6,
+      "value": "count"
+    },
+    {
+      "type": 0,
+      "value": "  fins ara."
+    }
+  ],
+  "fVMECF": [
+    {
+      "type": 0,
+      "value": "Participant"
+    }
+  ],
+  "h1H4z/": [
+    {
+      "type": 0,
+      "value": "La data de venciment d'aquesta recompensa és el "
+    },
+    {
+      "type": 1,
+      "value": "formattedDate"
+    },
+    {
+      "type": 0,
+      "value": "."
+    }
+  ],
+  "i/fCAl": [
+    {
+      "type": 0,
+      "value": "Ups! Hi ha hagut un error."
+    }
+  ],
+  "j7nW78": [
+    {
+      "type": 0,
+      "value": "Català"
+    }
+  ],
+  "jCpDlJ": [
+    {
+      "offset": 0,
+      "options": {
+        "one": {
+          "value": [
+            {
+              "type": 1,
+              "value": "formattedCount"
+            },
+            {
+              "type": 0,
+              "value": " recompensa establerta"
+            }
+          ]
+        },
+        "other": {
+          "value": [
+            {
+              "type": 1,
+              "value": "formattedCount"
+            },
+            {
+              "type": 0,
+              "value": " recompenses establertes"
+            }
+          ]
+        },
+        "zero": {
+          "value": [
+            {
+              "type": 0,
+              "value": "Cap recompensa establerta"
+            }
+          ]
+        }
+      },
+      "pluralType": "cardinal",
+      "type": 6,
+      "value": "count"
+    },
+    {
+      "type": 0,
+      "value": " fins ara."
+    }
+  ],
+  "llapsS": [
+    {
+      "type": 0,
+      "value": "No s'ha donat cap descripció."
+    }
+  ],
+  "qDwvZ4": [
+    {
+      "type": 0,
+      "value": "Error desconegut"
+    }
+  ],
+  "rNxxAj": [
+    {
+      "type": 0,
+      "value": "Encara no s'ha establert cap data d'inici."
+    }
+  ],
+  "tfUa9h": [
+    {
+      "type": 0,
+      "value": "Mou la data seleccionada una setmana després."
+    }
+  ],
+  "tm8nL8": [
+    {
+      "type": 0,
+      "value": "Descripció de la recompensa"
+    }
+  ],
+  "vuOpya": [
+    {
+      "type": 0,
+      "value": "Properes recompenses"
+    }
+  ],
+  "wR8R+x": [
+    {
+      "type": 0,
+      "value": "Les tasques de recompensa van començar el "
+    },
+    {
+      "type": 1,
+      "value": "formattedDate"
+    },
+    {
+      "type": 0,
+      "value": "."
+    }
+  ],
+  "xhEHo0": [
+    {
+      "type": 0,
+      "value": "Tasques diàries"
+    }
+  ],
+  "y0EYpw": [
+    {
+      "type": 0,
+      "value": "Recompenses"
+    }
+  ],
+  "y1Z3or": [
+    {
+      "type": 0,
+      "value": "Idioma"
+    }
+  ],
+  "yhU1et": [
+    {
+      "type": 0,
+      "value": "Tasques"
+    }
+  ],
+  "zWgbGg": [
+    {
+      "type": 0,
+      "value": "Avui"
+    }
+  ],
+  "zdqUkg": [
+    {
+      "type": 0,
+      "value": "Mou la data seleccionada al dia anterior."
+    }
+  ],
+  "zx0myy": [
+    {
+      "type": 0,
+      "value": "Participants"
+    }
+  ]
+}
