@@ -157,6 +157,12 @@
       "value": "Per què utilitzar aquesta aplicació?"
     }
   ],
+  "3a5wL8": [
+    {
+      "type": 0,
+      "value": "Actives"
+    }
+  ],
   "5k/Ujl": [
     {
       "type": 0,
@@ -297,6 +303,12 @@
       "value": "Nova tasca"
     }
   ],
+  "M0vCGv": [
+    {
+      "type": 0,
+      "value": "Vençudes"
+    }
+  ],
   "M4kCeP": [
     {
       "type": 0,
@@ -345,12 +357,6 @@
     {
       "type": 0,
       "value": "Mou la data seleccionada al mes anterior."
-    }
-  ],
-  "SXP7Jc": [
-    {
-      "type": 0,
-      "value": "Espanyol"
     }
   ],
   "Uf5RHY": [
@@ -461,6 +467,12 @@
       "pluralType": "cardinal",
       "type": 6,
       "value": "count"
+    }
+  ],
+  "dX8jTq": [
+    {
+      "type": 0,
+      "value": "Español"
     }
   ],
   "e9Ki9H": [
