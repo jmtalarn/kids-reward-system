@@ -37,12 +37,12 @@
     -   [x] Hints on buttons
 -   [x] Reward form not saving
 -   [x] Loading Component
--   [ ] Claims
+-   [ ] Claims [WIP https://github.com/jmtalarn/kids-reward-system/tree/claiming-rewards]
 -   [ ] Recurring reward
     -   [ ] Weekly. Autodetected if difference of days are less than a week and all in the same week
     -   [ ] Monthly with specific range of dates. Autodetected if difference of days is more than a week and in same month
     -   [ ] Whole month. Autodetected if starting date is first day of month and due date is last day of month
--   [ ] Settings
+-   [ ] Settings [High Priority in order to complete both tasks above]
     -   [ ] move lang to settings slice
     -   [ ] first day of week
     -   [ ] threshold for confirmation on claiming reward
