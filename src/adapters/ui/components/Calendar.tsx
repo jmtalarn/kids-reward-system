@@ -19,6 +19,7 @@ import { useIntl } from 'react-intl';
 import { options } from '../../../core/domain/Options';
 import type { Task } from '../../../core/domain/Task';
 import { useElementOnScreen } from '../hooks/useIntersectionObserver';
+import type { DayOfWeek } from '../../../core/domain/Settings';
 
 
 function splitDaysInWeeks(days: Date[], selectedDate: Date) {
@@ -36,7 +37,7 @@ function splitDaysInWeeks(days: Date[], selectedDate: Date) {
   return { weeks: result, weekIndex: selectedWeek };
 }
 
-function getFullMonthWithCompleteWeeks(month: number, year: number, weekStartDay = 0) {
+function getFullMonthWithCompleteWeeks(month: number, year: number, weekStartDay: DayOfWeek = 0) {
   const result = [];
 
   const firstDayOfMonth = new Date(Date.UTC(year, month, 1));
@@ -71,6 +72,7 @@ function getFullMonthWithCompleteWeeks(month: number, year: number, weekStartDay
 
 export const Calendar = () => {
   const { date } = useSelector((state: RootState) => state.date);
+  const { firstDayOfWeek } = useSelector((state: RootState) => state.settings);
   const { rewards } = useSelector((state: RootState) => state.rewards);
   const [viewFullMonth, setViewFullMonth] = useState(false);
   const dailyTasks = useTasksForDate();
@@ -86,7 +88,7 @@ export const Calendar = () => {
     dispatch(setNewDate(dateToShortISOString(dateClicked)));
   };
 
-  const fullMonthDays = getFullMonthWithCompleteWeeks(dateSelected.getMonth(), dateSelected.getFullYear(), 1);
+  const fullMonthDays = getFullMonthWithCompleteWeeks(dateSelected.getMonth(), dateSelected.getFullYear(), firstDayOfWeek);
   const { weeks, weekIndex } = splitDaysInWeeks(fullMonthDays, dateSelected);
   const days = viewFullMonth ? fullMonthDays : weeks[weekIndex];
 

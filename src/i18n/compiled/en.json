@@ -161,12 +161,6 @@
       "value": "Why to use this app?"
     }
   ],
-  "3a5wL8": [
-    {
-      "type": 0,
-      "value": "Active"
-    }
-  ],
   "5k/Ujl": [
     {
       "type": 0,
@@ -295,6 +289,12 @@
       "value": "dueDate"
     }
   ],
+  "GZKzD6": [
+    {
+      "type": 0,
+      "value": "First day of the week"
+    }
+  ],
   "I241Li": [
     {
       "type": 0,
@@ -331,6 +331,12 @@
       "value": "Move the selected date to a week before."
     }
   ],
+  "Ns2VgY": [
+    {
+      "type": 0,
+      "value": "Claiming reward threshold confirmation"
+    }
+  ],
   "O+Xp2H": [
     {
       "type": 0,
@@ -357,6 +363,12 @@
       "value": "Description"
     }
   ],
+  "QrihTZ": [
+    {
+      "type": 0,
+      "value": "Friday"
+    }
+  ],
   "R8WbJf": [
     {
       "type": 0,
@@ -369,10 +381,22 @@
       "value": "Click to go back to the date selection."
     }
   ],
+  "WMNHPh": [
+    {
+      "type": 0,
+      "value": "Saturday"
+    }
+  ],
   "WkrNSk": [
     {
       "type": 0,
       "value": "English"
+    }
+  ],
+  "YAgYL6": [
+    {
+      "type": 0,
+      "value": "Tuesday"
     }
   ],
   "Yfw4F3": [
@@ -431,6 +455,12 @@
     {
       "type": 0,
       "value": "Due date is today."
+    }
+  ],
+  "azMsfM": [
+    {
+      "type": 0,
+      "value": "Monday"
     }
   ],
   "brn+AN": [
@@ -503,6 +533,12 @@
     {
       "type": 0,
       "value": "Home"
+    }
+  ],
+  "eptAE4": [
+    {
+      "type": 0,
+      "value": "Percentage of the total to asking for confirmation on claiming the reward."
     }
   ],
   "euS84f": [
@@ -632,6 +668,24 @@
     {
       "type": 0,
       "value": "No description given."
+    }
+  ],
+  "lxblgl": [
+    {
+      "type": 0,
+      "value": "Wednesday"
+    }
+  ],
+  "mJR06P": [
+    {
+      "type": 0,
+      "value": "Sunday"
+    }
+  ],
+  "qAhUUO": [
+    {
+      "type": 0,
+      "value": "Thursday"
     }
   ],
   "qDwvZ4": [

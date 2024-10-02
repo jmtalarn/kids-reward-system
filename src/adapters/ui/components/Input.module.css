@@ -61,6 +61,7 @@
   transform-origin: bottom left;
   clip-path: polygon(14% 44%, 0 65%, 50% 100%, 100% 16%, 80% 0%, 43% 62%);
 }
+
 .field-input input[type='checkbox']:checked::before {
   transform: scale(1);
 }
@@ -112,6 +113,7 @@
   transform-origin: center;
   box-shadow: inset 1em 1em var(--color-primary-200);
 }
+
 .field-input input[type='radio']:checked::before {
   transform: scale(1);
 }
@@ -120,3 +122,23 @@
   outline: 1px solid var(--color-primary-400);
   outline-offset: 2px;
 }
+
+/*
+ 
+ ██████      █████     ███    ██     ██████     ███████ 
+ ██   ██    ██   ██    ████   ██    ██          ██      
+ ██████     ███████    ██ ██  ██    ██   ███    █████   
+ ██   ██    ██   ██    ██  ██ ██    ██    ██    ██      
+ ██   ██    ██   ██    ██   ████     ██████     ███████ 
+                                                        
+                                                        
+ 
+*/
+.field-input input[type='range'] {
+  box-shadow: var(--box-shadow-none);
+
+}
+
+/* .field-input:has(input[type='range']) {
+  flex-wrap: wrap;
+} */

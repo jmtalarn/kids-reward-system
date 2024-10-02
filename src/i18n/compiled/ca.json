@@ -291,6 +291,12 @@
       "value": "dueDate"
     }
   ],
+  "GZKzD6": [
+    {
+      "type": 0,
+      "value": "Primer dia de la setmana"
+    }
+  ],
   "I241Li": [
     {
       "type": 0,
@@ -327,6 +333,12 @@
       "value": "Mou la data seleccionada una setmana abans."
     }
   ],
+  "Ns2VgY": [
+    {
+      "type": 0,
+      "value": "Límit per la confirmació a l'hora de reclamar la recompensa"
+    }
+  ],
   "O+Xp2H": [
     {
       "type": 0,
@@ -353,6 +365,12 @@
       "value": "Descripció"
     }
   ],
+  "QrihTZ": [
+    {
+      "type": 0,
+      "value": "divendres"
+    }
+  ],
   "R8WbJf": [
     {
       "type": 0,
@@ -365,10 +383,22 @@
       "value": "Fes clic per tornar a la selecció de data."
     }
   ],
+  "WMNHPh": [
+    {
+      "type": 0,
+      "value": "dissabte"
+    }
+  ],
   "WkrNSk": [
     {
       "type": 0,
       "value": "English"
+    }
+  ],
+  "YAgYL6": [
+    {
+      "type": 0,
+      "value": "dimarts"
     }
   ],
   "Yfw4F3": [
@@ -427,6 +457,12 @@
     {
       "type": 0,
       "value": "La data de venciment és avui."
+    }
+  ],
+  "azMsfM": [
+    {
+      "type": 0,
+      "value": "dilluns"
     }
   ],
   "brn+AN": [
@@ -499,6 +535,12 @@
     {
       "type": 0,
       "value": "Inici"
+    }
+  ],
+  "eptAE4": [
+    {
+      "type": 0,
+      "value": "Percentatge del total assolit amb el que es demanarà confirmació per reclamar la recompensa."
     }
   ],
   "euS84f": [
@@ -628,6 +670,24 @@
     {
       "type": 0,
       "value": "No s'ha donat cap descripció."
+    }
+  ],
+  "lxblgl": [
+    {
+      "type": 0,
+      "value": "dimecres"
+    }
+  ],
+  "mJR06P": [
+    {
+      "type": 0,
+      "value": "diumenge"
+    }
+  ],
+  "qAhUUO": [
+    {
+      "type": 0,
+      "value": "dijous"
     }
   ],
   "qDwvZ4": [

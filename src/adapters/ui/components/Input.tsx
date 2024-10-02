@@ -15,7 +15,7 @@ const Input = ({ label, children, fieldStyle, ...props }: ComponentProps<'input'
     <div className={styles.field} style={fieldStyle}>
       <div className={styles['field-input']}>
         <label htmlFor={props.id}>{label}</label>
-        <input {...props} />
+        <input {...props} />{props.type === "range" && <span style={{ width: "4rem" }}>{props.value}</span>}
       </div>
 
       {children && <div>{children}</div>}

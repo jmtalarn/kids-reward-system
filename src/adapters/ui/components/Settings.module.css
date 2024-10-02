@@ -53,5 +53,15 @@ button.settings-button {
 }
 
 .field {
-	max-width: 15rem;
+	max-width: 20rem;
+}
+
+.threshold {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+}
+
+.information {
+	color: var(--color-surface-600);
 }
