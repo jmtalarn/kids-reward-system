@@ -36,5 +36,5 @@
     -   [x] On scroll show the date on top
     -   [x] Hints on buttons
 -   [x] Reward form not saving
--   [ ] Loading Component
+-   [x] Loading Component
 -   [ ] Claims and Repeat Reward
