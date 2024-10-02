@@ -1,24 +1,24 @@
-import { useState, useEffect, useRef, type RefObject } from 'react';
+import { useEffect, useRef, useState, type RefObject } from 'react';
 import { useDispatch, useSelector } from "react-redux";
-import { RootState, AppDispatch } from '../../state/store';
 import { useTasksForDate } from '../../state/hooks/useTasksForDate';
+import { AppDispatch, RootState } from '../../state/store';
 import style from './Calendar.module.css';
 import commonStyle from './Common.module.css';
 
-import { ParticipantsAssessment } from '../components/ParticipantsAssessment';
-import Button from '../components/Button';
-import { dateToShortISOString, dateToLongLocaleString, parseShortIsoString } from '../../../core/domain/utils/date-utils';
+import { Award, Calendar as CalendarIcon, ChevronDown, FastForward, Rewind, SkipBack, SkipForward } from 'react-feather';
+import { dateToShortISOString, parseShortIsoString } from '../../../core/domain/utils/date-utils';
 import { fetchRewards } from '../../state/rewardsSlice';
-import { Calendar as CalendarIcon, SkipBack, SkipForward, FastForward, Rewind, ChevronDown, Award } from 'react-feather';
+import Button from '../components/Button';
+import { ParticipantsAssessment } from '../components/ParticipantsAssessment';
 
-import { setNewDate, setToday, forwardMonth, forwardDays, backwardDays, backwardMonth } from '../../state/dateSlice';
+import { backwardDays, backwardMonth, forwardDays, forwardMonth, setNewDate, setToday } from '../../state/dateSlice';
 
-import { FormattedMessage, useIntl, FormattedNumber, FormattedDate } from 'react-intl';
+import { useIntl } from 'react-intl';
 
 
 import { options } from '../../../core/domain/Options';
-import { useElementOnScreen } from '../hooks/useIntersectionObserver';
 import type { Task } from '../../../core/domain/Task';
+import { useElementOnScreen } from '../hooks/useIntersectionObserver';
 
 
 function splitDaysInWeeks(days: Date[], selectedDate: Date) {

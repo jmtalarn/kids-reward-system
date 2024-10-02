@@ -2,7 +2,7 @@ import { type LangType } from "../../../core/domain/Lang";
 import { getLang, setLang } from "../../state/langSlice";
 
 
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useIntl } from "react-intl";
 import { useDispatch, useSelector } from "react-redux";
 import type { AppDispatch, RootState } from "../../state/store";
@@ -12,15 +12,15 @@ export const LanguageSelector = () => {
 	const { lang } = useSelector((state: RootState) => state.lang);
 	const intl = useIntl();
 	const dispatch = useDispatch<AppDispatch>();
-	const [selectedLang, setSelectedLang] = useState<LangType>("en");
+	//const [selectedLang, setSelectedLang] = useState<LangType>("en");
 
 	useEffect(() => {
 		dispatch(getLang());
 	}, []);
 
-	useEffect(() => {
-		setSelectedLang(lang);
-	}, [lang]);
+	// useEffect(() => {
+	// 	setSelectedLang(lang);
+	// }, [lang]);
 
 
 	const optionsMap = {
@@ -37,7 +37,7 @@ export const LanguageSelector = () => {
 		label={intl.formatMessage({ defaultMessage: "Language" })}
 		isSearchable={false}
 		isClearable={false}
-		value={optionsMap[selectedLang || "en"]}
+		value={optionsMap[lang || "en"]}
 		onChange={(selectedLang) => {
 			dispatch(setLang((selectedLang?.value ?? "en") as LangType));
 		}}
