@@ -201,6 +201,28 @@
       "value": "count"
     }
   ],
+  "7eHRWk": [
+    {
+      "type": 0,
+      "value": "How did "
+    },
+    {
+      "type": 1,
+      "value": "name"
+    },
+    {
+      "type": 0,
+      "value": " do with "
+    },
+    {
+      "type": 1,
+      "value": "description"
+    },
+    {
+      "type": 0,
+      "value": " ?"
+    }
+  ],
   "8XUukm": [
     {
       "type": 0,
@@ -245,6 +267,18 @@
       "value": "count"
     }
   ],
+  "CdmP6j": [
+    {
+      "type": 0,
+      "value": "Català"
+    }
+  ],
+  "D3idYv": [
+    {
+      "type": 0,
+      "value": "Settings"
+    }
+  ],
   "FZedl0": [
     {
       "type": 0,
@@ -259,12 +293,6 @@
     {
       "type": 0,
       "value": "Reward tasks not yet started."
-    }
-  ],
-  "JIpkFd": [
-    {
-      "type": 0,
-      "value": "es"
     }
   ],
   "K4O03z": [
@@ -317,12 +345,6 @@
       "value": "Description"
     }
   ],
-  "Qd11MH": [
-    {
-      "type": 0,
-      "value": "en"
-    }
-  ],
   "R8WbJf": [
     {
       "type": 0,
@@ -333,6 +355,12 @@
     {
       "type": 0,
       "value": "Click to go back to the date selection."
+    }
+  ],
+  "WkrNSk": [
+    {
+      "type": 0,
+      "value": "English"
     }
   ],
   "Yfw4F3": [
@@ -431,6 +459,12 @@
       "pluralType": "cardinal",
       "type": 6,
       "value": "count"
+    }
+  ],
+  "dX8jTq": [
+    {
+      "type": 0,
+      "value": "Español"
     }
   ],
   "e9Ki9H": [
@@ -534,12 +568,6 @@
     {
       "type": 0,
       "value": "Ooops! Some error happened!"
-    }
-  ],
-  "j7nW78": [
-    {
-      "type": 0,
-      "value": "ca"
     }
   ],
   "jCpDlJ": [

@@ -197,6 +197,28 @@
       "value": "count"
     }
   ],
+  "7eHRWk": [
+    {
+      "type": 0,
+      "value": "¿Cómo le fué a "
+    },
+    {
+      "type": 1,
+      "value": "name"
+    },
+    {
+      "type": 0,
+      "value": " con "
+    },
+    {
+      "type": 1,
+      "value": "description"
+    },
+    {
+      "type": 0,
+      "value": " ?"
+    }
+  ],
   "8XUukm": [
     {
       "type": 0,
@@ -241,6 +263,18 @@
       "value": "count"
     }
   ],
+  "CdmP6j": [
+    {
+      "type": 0,
+      "value": "Català"
+    }
+  ],
+  "D3idYv": [
+    {
+      "type": 0,
+      "value": "Configuración"
+    }
+  ],
   "FZedl0": [
     {
       "type": 0,
@@ -255,12 +289,6 @@
     {
       "type": 0,
       "value": "Las tareas de recompensa aún no han comenzado."
-    }
-  ],
-  "JIpkFd": [
-    {
-      "type": 0,
-      "value": "Castellano"
     }
   ],
   "K4O03z": [
@@ -313,22 +341,28 @@
       "value": "Descripción"
     }
   ],
-  "Qd11MH": [
-    {
-      "type": 0,
-      "value": "English"
-    }
-  ],
   "R8WbJf": [
     {
       "type": 0,
       "value": "Mover la fecha seleccionada al mes anterior."
     }
   ],
+  "SXP7Jc": [
+    {
+      "type": 0,
+      "value": "Espanyol"
+    }
+  ],
   "Uf5RHY": [
     {
       "type": 0,
       "value": "Haz clic para volver a la selección de fecha."
+    }
+  ],
+  "WkrNSk": [
+    {
+      "type": 0,
+      "value": "English"
     }
   ],
   "Yfw4F3": [
@@ -530,12 +564,6 @@
     {
       "type": 0,
       "value": "¡Ups! Ocurrió un error."
-    }
-  ],
-  "j7nW78": [
-    {
-      "type": 0,
-      "value": "Catalan"
     }
   ],
   "jCpDlJ": [

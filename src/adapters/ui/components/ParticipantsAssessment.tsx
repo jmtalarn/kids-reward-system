@@ -11,6 +11,7 @@ import { HelpCircle, XCircle, User } from 'react-feather';
 import style from './ParticipantsAssessment.module.css';
 import { RootState, AppDispatch } from '../../state/store';
 import { parseShortIsoString } from '../../../core/domain/utils/date-utils';
+import { FormattedMessage } from 'react-intl';
 interface ModalProps {
   openModal: boolean;
   closeModal: () => void;
@@ -81,7 +82,8 @@ export const ParticipantsAssessment = ({ selectedDate, selectedTask, options }: 
       }}
       options={options}>
       <div className={style['assessment-content']}>
-        How did {participantSelected?.name ?? 'this guy'} went for {selectedTask.description} ?
+        <FormattedMessage defaultMessage={'How did {name} do with {description} ?'} values={{ name: participantSelected?.name ?? 'this guy', description: selectedTask.description }} />
+
       </div>
     </Modal>)}
   </div>;

@@ -197,6 +197,28 @@
       "value": "count"
     }
   ],
+  "7eHRWk": [
+    {
+      "type": 0,
+      "value": "Com li ha anat a "
+    },
+    {
+      "type": 1,
+      "value": "name"
+    },
+    {
+      "type": 0,
+      "value": " amb "
+    },
+    {
+      "type": 1,
+      "value": "description"
+    },
+    {
+      "type": 0,
+      "value": " ?"
+    }
+  ],
   "8XUukm": [
     {
       "type": 0,
@@ -241,6 +263,18 @@
       "value": "count"
     }
   ],
+  "CdmP6j": [
+    {
+      "type": 0,
+      "value": "Català"
+    }
+  ],
+  "D3idYv": [
+    {
+      "type": 0,
+      "value": "Configuració"
+    }
+  ],
   "FZedl0": [
     {
       "type": 0,
@@ -255,12 +289,6 @@
     {
       "type": 0,
       "value": "Les tasques de recompensa encara no han començat."
-    }
-  ],
-  "JIpkFd": [
-    {
-      "type": 0,
-      "value": "Espanyol"
     }
   ],
   "K4O03z": [
@@ -313,22 +341,28 @@
       "value": "Descripció"
     }
   ],
-  "Qd11MH": [
-    {
-      "type": 0,
-      "value": "Anglès"
-    }
-  ],
   "R8WbJf": [
     {
       "type": 0,
       "value": "Mou la data seleccionada al mes anterior."
     }
   ],
+  "SXP7Jc": [
+    {
+      "type": 0,
+      "value": "Espanyol"
+    }
+  ],
   "Uf5RHY": [
     {
       "type": 0,
       "value": "Fes clic per tornar a la selecció de data."
+    }
+  ],
+  "WkrNSk": [
+    {
+      "type": 0,
+      "value": "English"
     }
   ],
   "Yfw4F3": [
@@ -530,12 +564,6 @@
     {
       "type": 0,
       "value": "Ups! Hi ha hagut un error."
-    }
-  ],
-  "j7nW78": [
-    {
-      "type": 0,
-      "value": "Català"
     }
   ],
   "jCpDlJ": [

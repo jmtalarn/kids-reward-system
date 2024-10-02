@@ -1,6 +1,9 @@
 .header {
 	padding: 1rem;
 	box-shadow: var(--box-shadow-sm);
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
 }
 
 .title {

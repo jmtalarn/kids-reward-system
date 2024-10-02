@@ -24,14 +24,11 @@ export const LanguageSelector = () => {
 
 
 	const optionsMap = {
-		"en": { value: "en", label: intl.formatMessage({ defaultMessage: "en" }) },
-		"es": { value: "es", label: intl.formatMessage({ defaultMessage: "es" }) },
-		"ca": { value: "ca", label: intl.formatMessage({ defaultMessage: "ca" }) },
+		"en": { value: "en", label: intl.formatMessage({ defaultMessage: "English" }) },
+		"es": { value: "es", label: intl.formatMessage({ defaultMessage: "Español" }) },
+		"ca": { value: "ca", label: intl.formatMessage({ defaultMessage: "Català" }) },
 	};
-	const options = [
-		{ value: "en", label: intl.formatMessage({ defaultMessage: "en" }) },
-		{ value: "es", label: intl.formatMessage({ defaultMessage: "es" }) },
-		{ value: "ca", label: intl.formatMessage({ defaultMessage: "ca" }) }];
+
 
 	return (<Select
 		label={intl.formatMessage({ defaultMessage: "Language" })}
@@ -42,7 +39,7 @@ export const LanguageSelector = () => {
 			dispatch(setLang((selectedLang?.value ?? "en") as LangType));
 		}}
 
-		options={options}
+		options={Object.values(optionsMap)}
 	/>
 
 	);
