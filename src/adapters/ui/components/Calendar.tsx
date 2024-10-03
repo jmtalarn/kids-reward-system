@@ -13,7 +13,7 @@ import { ParticipantsAssessment } from '../components/ParticipantsAssessment';
 
 import { backwardDays, backwardMonth, forwardDays, forwardMonth, setNewDate, setToday } from '../../state/dateSlice';
 
-import { useIntl } from 'react-intl';
+import { FormattedDate, useIntl } from 'react-intl';
 
 
 import { options } from '../../../core/domain/Options';
@@ -108,7 +108,8 @@ export const Calendar = () => {
           <SkipBack className={style['move-date-button-icon']} />
         </Button>
         <h3>
-          {dateSelected.toLocaleString('default', { month: 'long', year: 'numeric' })}</h3>
+          <FormattedDate value={dateSelected} year="numeric" month="long" />
+        </h3>
         <Button
           className={style['move-date-button']}
           onClick={
@@ -126,7 +127,7 @@ export const Calendar = () => {
       <div className={style['calendar-month']}>
         <MoveDateButtons />
         <div className={style['calendar-grid-week']}>
-          {days.slice(0, 7).map(date => date.toLocaleDateString('default', { weekday: 'short' })).map(date => <span className={style['calendar-week-weekday-label']} key={date}>{date}</span>)}
+          {days.slice(0, 7).map(date => intl.formatDate(date, { weekday: "short" })).map(date => <span className={style['calendar-week-weekday-label']} key={date}>{date}</span>)}
         </div>
 
 

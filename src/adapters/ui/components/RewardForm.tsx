@@ -49,11 +49,11 @@ const RewardForm = ({ reward }: { reward: Reward }) => {
 
 			setMessage({
 				text:
-					<FormattedMessage defaultMessage={`The tasks described on the reward will last {count, plural, 
+					<FormattedMessage defaultMessage={`The tasks described on the reward will last 	{count, plural, 
 							one {# day} 
 							other {# days}
 						}
-					.`} />
+					.`} values={{ count: diffDays }} />
 			});
 
 		} else {
@@ -68,9 +68,9 @@ const RewardForm = ({ reward }: { reward: Reward }) => {
 		}
 	}, [participants, rewardParticipants]);
 	useEffect(() => {
-		setRewardDescription(reward?.description || '');
-		setDueDate(reward?.dueDate || dateToShortISOString());
-		setStartingDate(reward?.startingDate || dateToShortISOString());
+		setRewardDescription(reward?.description ?? '');
+		setDueDate(reward?.dueDate ?? dateToShortISOString());
+		setStartingDate(reward?.startingDate ?? dateToShortISOString());
 		setRewardParticipants(reward?.participants || []);
 	}, [reward]);
 	return <>
@@ -134,6 +134,7 @@ const RewardForm = ({ reward }: { reward: Reward }) => {
 				</Button>
 			</div>
 		</section>
+		<hr />
 		{Boolean(reward?.id) && <TasksList rewardId={reward?.id} />}
 
 	</>;

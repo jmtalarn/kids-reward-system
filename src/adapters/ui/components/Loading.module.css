@@ -64,12 +64,13 @@
 	align-items: center;
 	justify-content: center;
 	background-color: white;
+	z-index: 1;
 }
 
 .enter {
-	animation: appear 900ms ease-in;
+	animation: appear 400ms ease-in;
 }
 
 .leave {
-	animation: disappear 1000ms ease-in;
+	animation: disappear 500ms ease-in;
 }

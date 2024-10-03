@@ -9,13 +9,16 @@ import ParticipantsPage from '../pages/Participants';
 import DailyTasksPage from '../pages/DailyTasks';
 import WhyToUseIt from '../pages/WhyToUseIt';
 
+
 export const router = createBrowserRouter([
   {
     path: '/',
     element: <Root />,
     errorElement: <ErrorPage />,
     children: [
-      { path: '', element: <Home /> },
+      {
+        path: '', element: <Home />
+      },
       {
         path: '/reward/:id',
         element: <RewardPage />,

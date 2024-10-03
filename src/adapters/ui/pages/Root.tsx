@@ -6,9 +6,9 @@ import { LoadingState } from '../components/LoadingState';
 
 export const Root = () => (
   <main className={style.main}>
-    <LoadingState />
     <Header />
     <div className={style.content}>
+      <LoadingState />
       <Outlet />
     </div>
     <Navigation />

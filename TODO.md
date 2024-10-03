@@ -36,11 +36,11 @@
     -   [x] On scroll show the date on top
     -   [x] Hints on buttons
 -   [x] Reward form not saving
--   [ ] Loading Component
+-   [x] Loading Component
     -   [x] Warnings as Error for using selector the whole state
-    -   [ ] Improve when it shows and hides
-    -   [ ] Place it over the content, not the whole thing
-    -   [ ] z-index work as buttons are above it
+    -   [x] Improve when it shows and hides
+    -   [x] Place it over the content, not the whole thing
+    -   [x] z-index work as buttons are above it
 -   [ ] Claims [WIP https://github.com/jmtalarn/kids-reward-system/tree/claiming-rewards]
 -   [ ] Recurring reward
     -   [ ] Weekly. Autodetected if difference of days are less than a week and all in the same week
@@ -50,5 +50,5 @@
     -   [x] move lang to settings slice
     -   [x] first day of week
     -   [x] threshold for confirmation on claiming reward
--   [ ] Calendar internationalization for month and weekdays
--   [ ] Scrolling to bottom on new Reward or new Participant
+-   [x] Calendar internationalization for month and weekdays
+-   [x] Scrolling to bottom on new Reward or new Participant

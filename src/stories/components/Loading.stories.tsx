@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
 import Loading from '../../adapters/ui/components/Loading';
+import Button from '../../adapters/ui/components/Button';
 
 const Background = () => (<p>Culpa laboris sit quis occaecat eu excepteur.Aliquip minim sit esse anim elit velit eiusmod non.Laborum cillum dolor proident aute enim enim exercitation aute esse velit est irure sint.Excepteur cillum laboris consequat irure deserunt esse Lorem adipisicing cillum.</p>);
 
@@ -9,7 +10,7 @@ const meta = {
   title: 'Components/Loading',
   component: Loading,
   decorators: [
-    (Story) => (<><Background /><Story /></>)
+    (Story) => (<><Background /><Button >Hello</Button><Story /></>)
   ],
   parameters: {
     layout: 'centered',
