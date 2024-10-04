@@ -1,6 +1,8 @@
 :root {
   --white-text-color: white;
   --black-text-color: #213547;
+  --error-text-color: #C51145;
+
   /** CSS THEME PRIMARY COLORS */
   --color-primary-100: #1ea7fd;
   --color-primary-200: #46b7fd;

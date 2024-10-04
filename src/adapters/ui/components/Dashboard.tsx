@@ -3,8 +3,7 @@ import { Award, HelpCircle, User } from 'react-feather';
 import { useDispatch, useSelector } from "react-redux";
 import { ValueOptionMap } from '../../../core/domain/Options';
 import { Participant, ParticipantId } from '../../../core/domain/Participant';
-import { parseShortIsoString } from '../../../core/domain/utils/date-utils';
-import { getDiffDaysMessage } from '../../../core/domain/utils/messages';
+import { RewardMessages } from '../../../core/domain/utils/reward-messages';
 import { fetchAssessments } from '../../state/assessmentsSlice';
 import { fetchParticipants } from '../../state/participantsSlice';
 import { fetchRewards } from "../../state/rewardsSlice";
@@ -17,6 +16,7 @@ import {
   useIntl,
   FormattedDate,
 } from "react-intl";
+import { getRewardDueDate, getRewardStartingDate } from '../../../core/domain/utils/reward-utils';
 
 
 export const Dashboard = () => (
@@ -29,6 +29,7 @@ export const Dashboard = () => (
     <UpComingRewards />
   </div>
 );
+
 const Figures = ({ className }: { className?: string }) => {
   const { tasks } = useSelector((state: RootState) => state.tasks);
   const { rewards } = useSelector((state: RootState) => state.rewards);
@@ -91,12 +92,13 @@ const UpComingRewards = ({ className }: { className?: string }) => {
   useEffect(() => {
 
     setUpcomingRewards([...rewards.allIds.map(id => rewards.byId[id]).toSorted((a: Reward, b: Reward) => {
-      const aValue = a.dueDate ? parseShortIsoString(a.dueDate).getTime() : 0;
-      const bValue = b.dueDate ? parseShortIsoString(b.dueDate).getTime() : 0;
+      const aValue = getRewardDueDate(a)?.getTime() ?? 0;
+      const bValue = getRewardDueDate(b)?.getTime() ?? 0;
       return (aValue - bValue);
     })].slice(0, 5));
   }, [tasks, rewards]);
 
+  const rewardMessages = RewardMessages(intl);
   const date = new Date();
 
   return <article className={[styles.card, className].filter(Boolean).join(" ")}>
@@ -120,9 +122,19 @@ const UpComingRewards = ({ className }: { className?: string }) => {
           })}
         </div>
         <div className={styles['upcoming-reward-details']}>
-          <div>{reward.dueDate && <FormattedMessage defaultMessage={`Reward tasks ends on {formattedDate}.`} values={{ formattedDate: <FormattedDate value={parseShortIsoString(reward.dueDate)} dateStyle="full" /> }} />}</div>
-          <div>{reward.startingDate && (new Date(reward.startingDate).getTime() > date.getTime() ? <FormattedMessage defaultMessage={`Reward tasks not yet started.`} /> : <FormattedMessage defaultMessage={`Reward tasks started on {formattedDate}.`} values={{ formattedDate: <FormattedDate value={parseShortIsoString(reward.startingDate)} dateStyle="full" /> }} />)}</div>
-          <span style={{ fontWeight: "bold" }}>{getDiffDaysMessage(reward.startingDate, reward.dueDate)}</span>
+          <div>{getRewardDueDate(reward) && <FormattedMessage defaultMessage={`Reward tasks ends on {formattedDate}.`} values={{ formattedDate: <FormattedDate value={getRewardDueDate(reward)} dateStyle="full" /> }} />}</div>
+          <div>
+            {getRewardStartingDate(reward) &&
+              (
+                (getRewardStartingDate(reward)?.getTime() ?? 0) > date.getTime() ?
+                  <FormattedMessage defaultMessage={`Reward tasks not yet started.`} /> :
+                  <FormattedMessage
+                    defaultMessage={`Reward tasks started on {formattedDate}.`}
+                    values={{ formattedDate: <FormattedDate value={getRewardStartingDate(reward)} dateStyle="full" /> }}
+                  />
+              )}
+          </div>
+          <span style={{ fontWeight: "bold" }}>{rewardMessages.getDiffDaysMessage(reward)}</span>
         </div>
       </div>)}
 

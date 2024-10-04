@@ -1,13 +1,8 @@
-.message {
-	color: grey;
-}
-
-.message.error {
-	color: salmon;
-}
-
 .buttons {
-	text-align: right;
+	display: flex;
+	align-items: center;
+	justify-content: end;
+	gap: 0.5rem;
 }
 
 .description {

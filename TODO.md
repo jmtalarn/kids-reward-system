@@ -42,13 +42,17 @@
     -   [x] Place it over the content, not the whole thing
     -   [x] z-index work as buttons are above it
 -   [ ] Claims [WIP https://github.com/jmtalarn/kids-reward-system/tree/claiming-rewards]
--   [ ] Recurring reward
-    -   [ ] Weekly. Autodetected if difference of days are less than a week and all in the same week
-    -   [ ] Monthly with specific range of dates. Autodetected if difference of days is more than a week and in same month
-    -   [ ] Whole month. Autodetected if starting date is first day of month and due date is last day of month
+-   [x] Recurring reward
+    -   [x] Weekly. Autodetected if difference of days are less than a week and all in the same week
+    -   [x] Monthly with specific range of dates. Autodetected if difference of days is more than a week and in same month
+    -   [x] Whole month. Autodetected if starting date is first day of month and due date is last day of month
+    -   [x] starting date and due date are moved on recurring depending on type so
+        -   [x] Dashboard messages and reward description should be showing the information accordingly.
+        -   [x] To get the tasks for a day need to check the Recurring type to get those also
 -   [x] Settings [High Priority in order to complete both tasks above]
     -   [x] move lang to settings slice
     -   [x] first day of week
     -   [x] threshold for confirmation on claiming reward
 -   [x] Calendar internationalization for month and weekdays
 -   [x] Scrolling to bottom on new Reward or new Participant
+-   [x] Input radio, click on label to click

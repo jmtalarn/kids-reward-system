@@ -6,7 +6,7 @@ import style from './Calendar.module.css';
 import commonStyle from './Common.module.css';
 
 import { Award, Calendar as CalendarIcon, ChevronDown, FastForward, Rewind, SkipBack, SkipForward } from 'react-feather';
-import { dateToShortISOString, parseShortIsoString } from '../../../core/domain/utils/date-utils';
+import { dateToShortISOString, getFullMonthWithCompleteWeeks, parseShortIsoString, splitDaysInWeeks } from '../../../core/domain/utils/date-utils';
 import { fetchRewards } from '../../state/rewardsSlice';
 import Button from '../components/Button';
 import { ParticipantsAssessment } from '../components/ParticipantsAssessment';
@@ -19,53 +19,9 @@ import { FormattedDate, useIntl } from 'react-intl';
 import { options } from '../../../core/domain/Options';
 import type { Task } from '../../../core/domain/Task';
 import { useElementOnScreen } from '../hooks/useIntersectionObserver';
-import type { DayOfWeek } from '../../../core/domain/Settings';
+import { getRewardDueDate } from '../../../core/domain/utils/reward-utils';
 
 
-function splitDaysInWeeks(days: Date[], selectedDate: Date) {
-  const result = [];
-  let j = 0;
-  let selectedWeek = -1; //@TODO: It was undefined 
-  for (let i = 0; i < days.length; i += 7) {
-    const chunk = days.slice(i, i + 7);
-    if (chunk.findIndex(c => dateToShortISOString(c) === dateToShortISOString(selectedDate)) !== -1) {
-      selectedWeek = j;
-    }
-    result.push(chunk);
-    j++;
-  }
-  return { weeks: result, weekIndex: selectedWeek };
-}
-
-function getFullMonthWithCompleteWeeks(month: number, year: number, weekStartDay: DayOfWeek = 0) {
-  const result = [];
-
-  const firstDayOfMonth = new Date(Date.UTC(year, month, 1));
-  const lastDayOfMonth = new Date(Date.UTC(year, month + 1, 0));
-
-  // Get the first day of the week that includes the first day of the month
-  const startOfWeek = new Date(firstDayOfMonth);
-  const dayOffset = (startOfWeek.getDay() - weekStartDay + 7) % 7;  // Adjust based on the weekStartDay
-  startOfWeek.setDate(firstDayOfMonth.getDate() - dayOffset);
-
-  // Get the last day of the week that includes the last day of the month 
-  const weekDays = [0, 1, 2, 3, 4, 5, 6].map(d => ((d + weekStartDay) % 7));
-
-
-  const endOfWeek = new Date(lastDayOfMonth);
-  const endDayOffset = 6 - weekDays.indexOf(lastDayOfMonth.getDay());
-
-  endOfWeek.setDate(lastDayOfMonth.getDate() + endDayOffset);
-
-  // Loop through from the start of the first full week to the end of the last full week
-  const currentDay = new Date(startOfWeek);
-  while (parseInt(dateToShortISOString(currentDay).replaceAll('-', ''), 10) <= parseInt(dateToShortISOString(endOfWeek).replaceAll('-', ''), 10)) {
-    result.push(new Date(currentDay)); // Add a copy of the current date to the array
-    currentDay.setDate(currentDay.getDate() + 1); // Move to the next day
-  }
-
-  return result;
-}
 
 
 
@@ -180,7 +136,7 @@ export const Calendar = () => {
             <div className={style.task}>
               {task.description}
             </div>
-            <div className={style.award} title={rewards.byId[task.rewardId].dueDate ? intl.formatMessage({ defaultMessage: 'Reward tasks are due on {dueDate}' }, { dueDate: intl.formatDate(parseShortIsoString(rewards.byId[task.rewardId].dueDate), { dateStyle: 'full' }) }) : ''} >
+            <div className={style.award} title={getRewardDueDate(rewards.byId[task.rewardId]) ? intl.formatMessage({ defaultMessage: 'Reward tasks are due on {dueDate}' }, { dueDate: intl.formatDate(getRewardDueDate(rewards.byId[task.rewardId]), { dateStyle: 'full' }) }) : ''} >
               <Award color="gold" size="16" /> {rewards.byId[task.rewardId].description}
             </div>
           </div>

@@ -1,0 +1,45 @@
+.recurring {
+	flex-direction: column;
+	gap: 0;
+	align-items: start;
+}
+
+div.recurring-field {
+	margin: .5rem 0 0 0
+}
+
+.radio {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	gap: 2rem;
+}
+
+.date-range {
+	display: flex;
+	flex-direction: row;
+	gap: 1rem;
+}
+
+.checkbox-day>div {
+	display: flex;
+	flex-direction: column;
+	gap: 0
+}
+
+.weekdays {
+	display: grid;
+	gap: 1rem;
+
+	align-items: center;
+	grid-template-columns: repeat(7, minmax(0, 2rem));
+}
+
+.additional-information {
+	min-height: 3.2rem;
+	color: var(--color-surface-600);
+}
+
+.additional-information.error {
+	color: var(--error-text-color);
+}

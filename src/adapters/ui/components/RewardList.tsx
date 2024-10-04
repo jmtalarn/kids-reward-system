@@ -8,8 +8,8 @@ import Button from './Button';
 
 import style from './RewardList.module.css';
 import commonStyle from './Common.module.css';
-import { parseShortIsoString } from '../../../core/domain/utils/date-utils';
-import { getDiffDaysMessage, getDaysRemainingOrOverdue } from '../../../core/domain/utils/messages';
+
+import { RewardMessages } from '../../../core/domain/utils/reward-messages';
 import { FormattedMessage, useIntl } from 'react-intl';
 
 
@@ -21,6 +21,8 @@ const RewardList = () => {
 	const navigate = useNavigate();
 	const lastRewardRef = useRef<null | HTMLDivElement>(null);
 	const intl = useIntl();
+	const rewardMessages = RewardMessages(intl);
+
 	useEffect(() => {
 		dispatch(fetchRewards());
 	}, []);
@@ -42,15 +44,11 @@ const RewardList = () => {
 			{rewards.allIds.map((rewardId) => {
 				const reward = rewards.byId[rewardId];
 
-				const dueDateMessage = reward.dueDate ? intl.formatMessage({ defaultMessage: `Due date for this reward is {formattedDate}.` }, { formattedDate: intl.formatDate(parseShortIsoString(reward.dueDate), { dateStyle: 'full' }) }) : intl.formatMessage({ defaultMessage: 'No due date set yet.' });
+				const dueDateMessage = rewardMessages.getDueDateMessage(reward);
 
-				const startingDateMessage = reward.startingDate ?
-					intl.formatMessage({ defaultMessage: `Starting date for this reward is {formattedDate}.` }, { formattedDate: intl.formatDate(parseShortIsoString(reward.startingDate), { dateStyle: 'full' }) })
-					: intl.formatMessage({
-						defaultMessage: 'No starting date set yet.'
-					});
-				const daysForTasksMessage = getDiffDaysMessage(reward.startingDate, reward.dueDate);
-				const daysLeftOrOverdue = getDaysRemainingOrOverdue(reward.dueDate);
+				const startingDateMessage = rewardMessages.getStartingDateMessage(reward);
+				const daysForTasksMessage = rewardMessages.getDiffDaysMessage(reward);
+				const daysLeftOrOverdue = rewardMessages.getDaysRemainingOrOverdue(reward);
 
 				return (
 					<div
