@@ -56,3 +56,4 @@
 -   [x] Calendar internationalization for month and weekdays
 -   [x] Scrolling to bottom on new Reward or new Participant
 -   [x] Input radio, click on label to click
+-   [] On each page reload load the language from setting

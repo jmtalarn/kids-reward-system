@@ -40,25 +40,26 @@ export const ParticipantsAssessment = ({ selectedDate, selectedTask, options }: 
   const [participantSelected, setParticipantSelected] = useState<Participant | null>(null);
 
   return <div className={style.participants}>
-    {rewards.byId[selectedTask.rewardId]?.participants?.map(id => participants.byId[id]).map(participant => {
-      const optionValue = assessments?.[selectedDate]?.[participant.id]?.[selectedTask.id];
-      const dialogOption = (optionValue !== null && optionValue !== undefined) ? ({ option: ValueOptionMap[optionValue], value: optionValue }) : {};
+    {participants.allIds.length && rewards.byId[selectedTask.rewardId]?.participants?.map(id => participants.byId[id]).filter(Boolean)
+      .map(participant => {
+        const optionValue = assessments?.[selectedDate]?.[participant.id]?.[selectedTask.id];
+        const dialogOption = (optionValue !== null && optionValue !== undefined) ? ({ option: ValueOptionMap[optionValue], value: optionValue }) : {};
 
-      return (participant && <div key={`${participant.id}_${dialogOption?.value ?? "NULL"}`} className={style['participant-vote']}>
-        <ParticipantSwitch
-          participant={participant}
-          handleClick={
-            () => {
-              setParticipantSelected(participant);
-              setModalOpen(true);
+        return (participant && <div key={`${participant.id}_${dialogOption?.value ?? "NULL"}`} className={style['participant-vote']}>
+          <ParticipantSwitch
+            participant={participant}
+            handleClick={
+              () => {
+                setParticipantSelected(participant);
+                setModalOpen(true);
+              }
             }
-          }
-        />
-        <div className={style['vote']}>
-          {dialogOption?.option || <HelpCircle />}
-        </div>
-      </div>);
-    })}
+          />
+          <div className={style['vote']}>
+            {dialogOption?.option || <HelpCircle />}
+          </div>
+        </div>);
+      })}
 
     {modalOpen && (<Modal
       openModal={modalOpen}

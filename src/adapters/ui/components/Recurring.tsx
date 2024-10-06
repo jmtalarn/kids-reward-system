@@ -190,11 +190,7 @@ const WeekDays = ({ days, setDays }: { days: string[], setDays: React.Dispatch<R
 	}, [firstDayOfWeek]);
 
 	const handlerOnChange = ({ target: { checked, value } }: React.ChangeEvent<HTMLInputElement>) => {
-		if (checked) {
-			setDays(days => ([...days, value]));
-		} else {
-			setDays(days => (days.filter(day => day !== value)));
-		}
+		setDays(days => checked ? ([...days, value]) : (days.filter(day => day !== value)));
 	};
 
 	return <div className={style.weekdays}>
