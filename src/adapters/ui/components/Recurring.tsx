@@ -60,7 +60,16 @@ export const Recurring = ({ recurring, setRecurring }: { recurring?: RecurringEv
 		}
 
 	};
+	useEffect(() => {
+		setSelectedRecurringType(recurring ? recurring.kind : "OnlyOnce");
+		if (recurring?.kind === "Weekly") {
+			setWeekDays(recurring?.dates);
+		} else {
+			setStartingDate(recurring?.startingDate ?? '');
+			setDueDate(recurring?.dueDate ?? '');
+		}
 
+	}, [recurring]);
 	useEffect(() => {
 		let recurring;
 		if (selectedRecurringType === "Weekly") {
@@ -94,11 +103,11 @@ export const Recurring = ({ recurring, setRecurring }: { recurring?: RecurringEv
 		"OnlyOnce": <FormattedMessage defaultMessage={`No recurring reward. Once the period is finished and reward is claimed reward won't be rescheduled again.`} />,
 		"Monthly": <FormattedMessage defaultMessage={'The period set on the starting date and due date for the reward will be set again next month once it is claimed.'} />,
 		"Weekly": <FormattedMessage defaultMessage={'The reward tasks will be scheduled for the selected week days, and set again on next week once the reward is claimed.'} />,
-		"WholeMonth": <FormattedMessage defaultMessage={'The reward tasks will be scheduled for each day for the whole month and rescheduled again on next week once the reward is claimed.'} />,
+		"WholeMonth": <FormattedMessage defaultMessage={'The reward tasks will be scheduled for each day for the whole month and rescheduled again on next month once the reward is claimed.'} />,
 	};
 
 	return <div className={[commonStyle.field, style.recurring].join(" ")}>
-		<label>Recurrence
+		<label><FormattedMessage defaultMessage={'Recurrence'} />
 			<div className={style.radio}>
 				<Input
 					label={intl.formatMessage({ defaultMessage: "Only Once" })}

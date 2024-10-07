@@ -45,6 +45,12 @@
       "value": " gestionadas."
     }
   ],
+  "/clOBU": [
+    {
+      "type": 0,
+      "value": "Semanal"
+    }
+  ],
   "0jANWM": [
     {
       "offset": 0,
@@ -149,6 +155,18 @@
     {
       "type": 0,
       "value": "Nuevo participante"
+    }
+  ],
+  "28Z0Cd": [
+    {
+      "type": 0,
+      "value": "No se ha establecido todavía una fecha de vencimiento"
+    }
+  ],
+  "2DzaNF": [
+    {
+      "type": 0,
+      "value": "Recurrencia"
     }
   ],
   "3Qf4yA": [
@@ -269,6 +287,12 @@
       "value": "count"
     }
   ],
+  "CaO+Py": [
+    {
+      "type": 0,
+      "value": "Mes entero"
+    }
+  ],
   "CdmP6j": [
     {
       "type": 0,
@@ -281,6 +305,54 @@
       "value": "Configuración"
     }
   ],
+  "FStE9Q": [
+    {
+      "type": 0,
+      "value": "Les tareas definidas para la recompensa se han establecido para "
+    },
+    {
+      "offset": 0,
+      "options": {
+        "=0": {
+          "value": [
+            {
+              "type": 0,
+              "value": "0 dias"
+            }
+          ]
+        },
+        "one": {
+          "value": [
+            {
+              "type": 7
+            },
+            {
+              "type": 0,
+              "value": " dia"
+            }
+          ]
+        },
+        "other": {
+          "value": [
+            {
+              "type": 7
+            },
+            {
+              "type": 0,
+              "value": " dias"
+            }
+          ]
+        }
+      },
+      "pluralType": "cardinal",
+      "type": 6,
+      "value": "count"
+    },
+    {
+      "type": 0,
+      "value": "."
+    }
+  ],
   "FZedl0": [
     {
       "type": 0,
@@ -289,6 +361,12 @@
     {
       "type": 1,
       "value": "dueDate"
+    }
+  ],
+  "G9FcJt": [
+    {
+      "type": 0,
+      "value": "Las tareas de la recompensa serán programadas para cada dia durante todo el mes, y programadas para el mes siguiente una vez reclamada la recompensa."
     }
   ],
   "GZKzD6": [
@@ -307,6 +385,12 @@
     {
       "type": 0,
       "value": "Nueva tarea"
+    }
+  ],
+  "LaXCri": [
+    {
+      "type": 0,
+      "value": "Las tareas de la recompensa serán programadas para los dias de la semana seleccionados, i vueltos a programar para la siguiente semana una vez reclamada la recompensa."
     }
   ],
   "M0vCGv": [
@@ -395,16 +479,16 @@
       "value": "English"
     }
   ],
+  "XjsCEK": [
+    {
+      "type": 0,
+      "value": "Recompensa no recurrente. Una vez el período ha finalizado y la recompensa sea reclamada no será programada otra vez."
+    }
+  ],
   "YAgYL6": [
     {
       "type": 0,
       "value": "martes"
-    }
-  ],
-  "Yfw4F3": [
-    {
-      "type": 0,
-      "value": "Aún no se ha establecido una fecha de vencimiento."
     }
   ],
   "Z3SWx0": [
@@ -666,6 +750,12 @@
       "value": " hasta ahora."
     }
   ],
+  "kC3GAv": [
+    {
+      "type": 0,
+      "value": "El periodo definido por la fecha de inicio y la fecha de vencimiento para la recompensa será reprogramado para el siguiente mes una vez sea reclamada."
+    }
+  ],
   "llapsS": [
     {
       "type": 0,
@@ -694,6 +784,12 @@
     {
       "type": 0,
       "value": "Error desconocido"
+    }
+  ],
+  "rHsVHH": [
+    {
+      "type": 0,
+      "value": "Una sola vez"
     }
   ],
   "rNxxAj": [
@@ -732,6 +828,12 @@
     {
       "type": 0,
       "value": "."
+    }
+  ],
+  "wYsv4Z": [
+    {
+      "type": 0,
+      "value": "Mensualmente"
     }
   ],
   "xhEHo0": [

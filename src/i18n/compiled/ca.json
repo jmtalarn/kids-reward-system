@@ -45,6 +45,12 @@
       "value": " gestionades."
     }
   ],
+  "/clOBU": [
+    {
+      "type": 0,
+      "value": "Setmanal"
+    }
+  ],
   "0jANWM": [
     {
       "offset": 0,
@@ -149,6 +155,18 @@
     {
       "type": 0,
       "value": "Nou participant"
+    }
+  ],
+  "28Z0Cd": [
+    {
+      "type": 0,
+      "value": "Encara no s'ha establert una data de venciment"
+    }
+  ],
+  "2DzaNF": [
+    {
+      "type": 0,
+      "value": "Recurrència"
     }
   ],
   "3Qf4yA": [
@@ -269,6 +287,12 @@
       "value": "count"
     }
   ],
+  "CaO+Py": [
+    {
+      "type": 0,
+      "value": "Mes sencer"
+    }
+  ],
   "CdmP6j": [
     {
       "type": 0,
@@ -281,6 +305,54 @@
       "value": "Configuració"
     }
   ],
+  "FStE9Q": [
+    {
+      "type": 0,
+      "value": "Les tasques definides a la recompensa s'han establert per "
+    },
+    {
+      "offset": 0,
+      "options": {
+        "=0": {
+          "value": [
+            {
+              "type": 0,
+              "value": "0 dies"
+            }
+          ]
+        },
+        "one": {
+          "value": [
+            {
+              "type": 7
+            },
+            {
+              "type": 0,
+              "value": " dia"
+            }
+          ]
+        },
+        "other": {
+          "value": [
+            {
+              "type": 7
+            },
+            {
+              "type": 0,
+              "value": " dies"
+            }
+          ]
+        }
+      },
+      "pluralType": "cardinal",
+      "type": 6,
+      "value": "count"
+    },
+    {
+      "type": 0,
+      "value": "."
+    }
+  ],
   "FZedl0": [
     {
       "type": 0,
@@ -289,6 +361,12 @@
     {
       "type": 1,
       "value": "dueDate"
+    }
+  ],
+  "G9FcJt": [
+    {
+      "type": 0,
+      "value": "Les tasques de la recompensa seràn programades per cada dia durant tot el mes, i programades per al mes següent un cop reclamada la recompensa."
     }
   ],
   "GZKzD6": [
@@ -307,6 +385,12 @@
     {
       "type": 0,
       "value": "Nova tasca"
+    }
+  ],
+  "LaXCri": [
+    {
+      "type": 0,
+      "value": "Les tasques de la recompensa serán programades pels dies de la setmana seleccionats, i tornats a programar per la setmana següent un cop sigui reclamada la recompensa."
     }
   ],
   "M0vCGv": [
@@ -395,16 +479,16 @@
       "value": "English"
     }
   ],
+  "XjsCEK": [
+    {
+      "type": 0,
+      "value": "Recompensa no recurrent. Un cop el període ha finalitzat i la recompensa reclamada ja no es programarà de nou."
+    }
+  ],
   "YAgYL6": [
     {
       "type": 0,
       "value": "dimarts"
-    }
-  ],
-  "Yfw4F3": [
-    {
-      "type": 0,
-      "value": "Encara no s'ha establert cap data de venciment."
     }
   ],
   "Z3SWx0": [
@@ -666,6 +750,12 @@
       "value": " fins ara."
     }
   ],
+  "kC3GAv": [
+    {
+      "type": 0,
+      "value": "El període definit per la data d'inici i la data de venciment per la recompensa será reprogramat per el següent mes un cop sigui reclamada."
+    }
+  ],
   "llapsS": [
     {
       "type": 0,
@@ -694,6 +784,12 @@
     {
       "type": 0,
       "value": "Error desconegut"
+    }
+  ],
+  "rHsVHH": [
+    {
+      "type": 0,
+      "value": "Un sol cop"
     }
   ],
   "rNxxAj": [
@@ -732,6 +828,12 @@
     {
       "type": 0,
       "value": "."
+    }
+  ],
+  "wYsv4Z": [
+    {
+      "type": 0,
+      "value": "Mensualment"
     }
   ],
   "xhEHo0": [

@@ -51,3 +51,25 @@ export const getDiffDays = (reward?: Reward) => {
 	}
 	return diffDays;
 };
+
+export const getNewRecurring = (reward: Reward) => {
+
+	const { recurring } = reward;
+	if (recurring) {
+		if (recurring.kind === "Monthly") {
+			const startingDate = new Date(parseShortIsoString(reward?.recurring?.startingDate ?? ''));
+			return {
+				kind: "Monthly",
+				startingDate: "",
+				dueDate: ""
+			}; //Add a month
+		} else if (recurring.kind === "WholeMonth") {
+			return { kind: "WholeMonth", startingDate: "", dueDate: "" }; //set first and last day of next month
+		} else if (recurring.kind === "Weekly") {
+			return { kind: "Weekly", dates: }; //add 7 days to each date
+		} else if (recurring.kind === "OnlyOnce") {
+			return null;
+		}
+
+		return null;
+	};

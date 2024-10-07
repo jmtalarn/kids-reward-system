@@ -45,6 +45,12 @@
       "value": " managed."
     }
   ],
+  "/clOBU": [
+    {
+      "type": 0,
+      "value": "Weekly"
+    }
+  ],
   "0jANWM": [
     {
       "type": 0,
@@ -155,10 +161,28 @@
       "value": "New participant"
     }
   ],
+  "28Z0Cd": [
+    {
+      "type": 0,
+      "value": "No due date set yet"
+    }
+  ],
+  "2DzaNF": [
+    {
+      "type": 0,
+      "value": "Recurrence"
+    }
+  ],
   "3Qf4yA": [
     {
       "type": 0,
       "value": "Why to use this app?"
+    }
+  ],
+  "3a5wL8": [
+    {
+      "type": 0,
+      "value": "Active"
     }
   ],
   "5k/Ujl": [
@@ -267,6 +291,12 @@
       "value": "count"
     }
   ],
+  "CaO+Py": [
+    {
+      "type": 0,
+      "value": "Whole Month"
+    }
+  ],
   "CdmP6j": [
     {
       "type": 0,
@@ -279,6 +309,54 @@
       "value": "Settings"
     }
   ],
+  "FStE9Q": [
+    {
+      "type": 0,
+      "value": "The tasks described on the reward are set for "
+    },
+    {
+      "offset": 0,
+      "options": {
+        "=0": {
+          "value": [
+            {
+              "type": 0,
+              "value": " any day"
+            }
+          ]
+        },
+        "one": {
+          "value": [
+            {
+              "type": 7
+            },
+            {
+              "type": 0,
+              "value": " day"
+            }
+          ]
+        },
+        "other": {
+          "value": [
+            {
+              "type": 7
+            },
+            {
+              "type": 0,
+              "value": " days"
+            }
+          ]
+        }
+      },
+      "pluralType": "cardinal",
+      "type": 6,
+      "value": "count"
+    },
+    {
+      "type": 0,
+      "value": " ."
+    }
+  ],
   "FZedl0": [
     {
       "type": 0,
@@ -287,6 +365,12 @@
     {
       "type": 1,
       "value": "dueDate"
+    }
+  ],
+  "G9FcJt": [
+    {
+      "type": 0,
+      "value": "The reward tasks will be scheduled for each day for the whole month and rescheduled again on next month once the reward is claimed."
     }
   ],
   "GZKzD6": [
@@ -305,6 +389,12 @@
     {
       "type": 0,
       "value": "New task"
+    }
+  ],
+  "LaXCri": [
+    {
+      "type": 0,
+      "value": "The reward tasks will be scheduled for the selected week days, and set again on next week once the reward is claimed."
     }
   ],
   "M0vCGv": [
@@ -393,16 +483,16 @@
       "value": "English"
     }
   ],
+  "XjsCEK": [
+    {
+      "type": 0,
+      "value": "No recurring reward. Once the period is finished and reward is claimed reward won't be rescheduled again."
+    }
+  ],
   "YAgYL6": [
     {
       "type": 0,
       "value": "Tuesday"
-    }
-  ],
-  "Yfw4F3": [
-    {
-      "type": 0,
-      "value": "No due date set yet."
     }
   ],
   "Z3SWx0": [
@@ -664,6 +754,12 @@
       "value": " set until now."
     }
   ],
+  "kC3GAv": [
+    {
+      "type": 0,
+      "value": "The period set on the starting date and due date for the reward will be set again next month once it is claimed."
+    }
+  ],
   "llapsS": [
     {
       "type": 0,
@@ -692,6 +788,12 @@
     {
       "type": 0,
       "value": "Unknown error"
+    }
+  ],
+  "rHsVHH": [
+    {
+      "type": 0,
+      "value": "Only Once"
     }
   ],
   "rNxxAj": [
@@ -730,6 +832,12 @@
     {
       "type": 0,
       "value": "."
+    }
+  ],
+  "wYsv4Z": [
+    {
+      "type": 0,
+      "value": "Monthly"
     }
   ],
   "xhEHo0": [

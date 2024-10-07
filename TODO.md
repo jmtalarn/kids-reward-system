@@ -41,7 +41,9 @@
     -   [x] Improve when it shows and hides
     -   [x] Place it over the content, not the whole thing
     -   [x] z-index work as buttons are above it
--   [ ] Claims [WIP https://github.com/jmtalarn/kids-reward-system/tree/claiming-rewards]
+-   [ ] Claims [WIP https://github.com/jmtalarn/kids-reward-system/tree/claiming]
+    -   [ ] Claim newdates calculation
+    -   [ ] Add claiming data to new slice
 -   [x] Recurring reward
     -   [x] Weekly. Autodetected if difference of days are less than a week and all in the same week
     -   [x] Monthly with specific range of dates. Autodetected if difference of days is more than a week and in same month
@@ -56,4 +58,5 @@
 -   [x] Calendar internationalization for month and weekdays
 -   [x] Scrolling to bottom on new Reward or new Participant
 -   [x] Input radio, click on label to click
--   [] On each page reload load the language from setting
+-   [x] On each page reload load the language from setting
+-   [x] On edit reward values not properly set.
