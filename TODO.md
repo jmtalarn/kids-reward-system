@@ -42,7 +42,9 @@
     -   [x] Place it over the content, not the whole thing
     -   [x] z-index work as buttons are above it
 -   [ ] Claims [WIP https://github.com/jmtalarn/kids-reward-system/tree/claiming]
-    -   [ ] Claim newdates calculation
+    -   [x] Claim newdates calculation
+    -   [ ] Claim for participant
+    -   [ ] Ask for confirmation
     -   [ ] Add claiming data to new slice
 -   [x] Recurring reward
     -   [x] Weekly. Autodetected if difference of days are less than a week and all in the same week

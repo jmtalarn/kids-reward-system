@@ -1,13 +1,15 @@
 export type RecurringType = "OnlyOnce" | "Weekly" | "Monthly" | "WholeMonth";
 
+export type RecurringEventExcludeWeekly = {
+	kind: Exclude<RecurringType, "Weekly">;
+	startingDate: string;
+	dueDate: string;
+};
+export type RecurringEventExtractWeekly = {
+	kind: Extract<RecurringType, "Weekly">;
+	dates: string[];
+}
 export type RecurringEvent =
-	| {
-		kind: Exclude<RecurringType, "Weekly">;
-		startingDate: string;
-		dueDate: string;
-	}
-	| {
-		kind: Extract<RecurringType, "Weekly">;
-		dates: string[];
-	};
+	| RecurringEventExcludeWeekly
+	| RecurringEventExtractWeekly;
 

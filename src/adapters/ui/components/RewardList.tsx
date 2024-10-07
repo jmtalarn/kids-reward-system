@@ -12,7 +12,7 @@ import style from './RewardList.module.css';
 import { FormattedMessage, useIntl } from 'react-intl';
 import type { Reward } from '../../../core/domain/Reward';
 import { RewardMessages } from '../../../core/domain/utils/reward-messages';
-import { getRewardDueDate } from '../../../core/domain/utils/reward-utils';
+import { getNewRecurring, getRewardDueDate } from '../../../core/domain/utils/reward-utils';
 
 type RewardFilterType = "Active" | "Overdue";
 
@@ -126,7 +126,7 @@ const RewardList = () => {
 									if (reward?.recurring?.kind === "OnlyOnce") {
 										dispatch(removeReward(reward.id));
 									} else {
-										dispatch(addReward({ ...reward, ...getNewRecurringDates(reward) }));
+										dispatch(addReward({ ...reward, recurring: getNewRecurring(reward) }));
 									}
 								}
 							>
