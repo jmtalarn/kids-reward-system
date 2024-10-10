@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from "react-redux";
 import { addParticipant, removeParticipant, fetchParticipants } from "../../state/participantsSlice";
-import { Check, Trash2, UserPlus } from 'react-feather';
+import { Award, Check, Trash2, UserPlus } from 'react-feather';
 import { getRandomColor } from '../../../core/domain/utils/colors';
 import { RootState, AppDispatch } from '../../state/store';
 import Button from './Button';
@@ -31,7 +31,10 @@ const ParticipantInput = ({ participant }: { participant: Participant }) => {
 			<Button className={style.button} onClick={() => dispatch(removeParticipant(participant.id || ''))}>
 				<Trash2 />
 			</Button>
-		</div>
+			<Button className={style.button} onClick={() => alert("Should open the page for claimed rewards")} >
+				<Award />
+			</Button>
+		</div >
 	);
 };
 

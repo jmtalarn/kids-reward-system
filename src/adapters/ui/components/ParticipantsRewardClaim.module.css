@@ -1,0 +1,132 @@
+.close-button {
+	background: none;
+	font-size: 2rem;
+	padding: 0;
+	outline: none;
+	overflow: hidden;
+	border: none;
+	right: 10px;
+	position: absolute;
+}
+
+.close-button:focus,
+.close-button:focus-visible {
+	outline: none;
+}
+
+.close-button:hover {
+	border: none;
+	color: salmon;
+}
+
+.dialog {
+	top: 1rem;
+	margin: 2rem auto;
+	border-radius: 1rem;
+	border: none;
+	padding: 1rem;
+	/* height: 90%; */
+	max-width: 800px;
+	width: 95%;
+	box-shadow: var(--box-shadow-2xl);
+}
+
+.header {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	position: relative;
+	height: 3rem;
+}
+
+.content {
+	padding: 2rem;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+.participant-score {
+	display: grid;
+	grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+	align-items: center;
+	margin-bottom: 1rem;
+}
+
+.thumb.active {
+	background: var(--white-text-color);
+	color: var(--black-text-color);
+	box-shadow: var(--box-shadow-inner);
+}
+
+.cancel-button {
+	background: var(--white-text-color);
+	color: var(--black-text-color);
+	width: 25%
+}
+
+.buttons {
+	display: flex;
+	flex-direction: row;
+	gap: 2rem;
+	align-items: center;
+	justify-content: space-around;
+}
+
+.claim-button {
+	width: 50%;
+}
+
+@keyframes rubberBand {
+	0% {
+		-webkit-transform: scale3d(1, 1, 1);
+		-ms-transform: scale3d(1, 1, 1);
+		transform: scale3d(1, 1, 1)
+	}
+
+	7.5% {
+		-webkit-transform: scale3d(1.25, .75, 1);
+		-ms-transform: scale3d(1.25, .75, 1);
+		transform: scale3d(1.25, .75, 1)
+	}
+
+	10% {
+		-webkit-transform: scale3d(0.75, 1.25, 1);
+		-ms-transform: scale3d(0.75, 1.25, 1);
+		transform: scale3d(0.75, 1.25, 1)
+	}
+
+	12.5% {
+		-webkit-transform: scale3d(1.15, .85, 1);
+		-ms-transform: scale3d(1.15, .85, 1);
+		transform: scale3d(1.15, .85, 1)
+	}
+
+	16.25% {
+		-webkit-transform: scale3d(.95, 1.05, 1);
+		-ms-transform: scale3d(.95, 1.05, 1);
+		transform: scale3d(.95, 1.05, 1)
+	}
+
+	18.75% {
+		-webkit-transform: scale3d(1.05, .95, 1);
+		-ms-transform: scale3d(1.05, .95, 1);
+		transform: scale3d(1.05, .95, 1)
+	}
+
+	25% {
+		-webkit-transform: scale3d(1, 1, 1);
+		-ms-transform: scale3d(1, 1, 1);
+		transform: scale3d(1, 1, 1)
+	}
+}
+
+
+.claim {
+	animation-name: rubberBand;
+	animation-duration: 4s;
+	animation-iteration-count: infinite;
+	/* animation-duration: 2s; */
+	/* animation: shake 1500ms ease-in-out infinite; */
+	min-width: 1.5rem;
+}

@@ -44,6 +44,9 @@ button.filter-active {
 	box-shadow: var(--box-shadow-inner);
 }
 
+
+
+/* 
 @keyframes shake {
 	0% {
 		transform: rotate(0deg);
@@ -73,56 +76,4 @@ button.filter-active {
 	}
 }
 
-@keyframes rubberBand {
-	0% {
-		-webkit-transform: scale3d(1, 1, 1);
-		-ms-transform: scale3d(1, 1, 1);
-		transform: scale3d(1, 1, 1)
-	}
-
-	7.5% {
-		-webkit-transform: scale3d(1.25, .75, 1);
-		-ms-transform: scale3d(1.25, .75, 1);
-		transform: scale3d(1.25, .75, 1)
-	}
-
-	10% {
-		-webkit-transform: scale3d(0.75, 1.25, 1);
-		-ms-transform: scale3d(0.75, 1.25, 1);
-		transform: scale3d(0.75, 1.25, 1)
-	}
-
-	12.5% {
-		-webkit-transform: scale3d(1.15, .85, 1);
-		-ms-transform: scale3d(1.15, .85, 1);
-		transform: scale3d(1.15, .85, 1)
-	}
-
-	16.25% {
-		-webkit-transform: scale3d(.95, 1.05, 1);
-		-ms-transform: scale3d(.95, 1.05, 1);
-		transform: scale3d(.95, 1.05, 1)
-	}
-
-	18.75% {
-		-webkit-transform: scale3d(1.05, .95, 1);
-		-ms-transform: scale3d(1.05, .95, 1);
-		transform: scale3d(1.05, .95, 1)
-	}
-
-	25% {
-		-webkit-transform: scale3d(1, 1, 1);
-		-ms-transform: scale3d(1, 1, 1);
-		transform: scale3d(1, 1, 1)
-	}
-}
-
-
-.claim {
-	animation-name: rubberBand;
-	animation-duration: 4s;
-	animation-iteration-count: infinite;
-	/* animation-duration: 2s; */
-	/* animation: shake 1500ms ease-in-out infinite; */
-	min-width: 1.5rem;
-}
+ */

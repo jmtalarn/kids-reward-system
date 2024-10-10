@@ -12,7 +12,8 @@ import style from './RewardList.module.css';
 import { FormattedMessage, useIntl } from 'react-intl';
 import type { Reward } from '../../../core/domain/Reward';
 import { RewardMessages } from '../../../core/domain/utils/reward-messages';
-import { getNewRecurring, getRewardDueDate } from '../../../core/domain/utils/reward-utils';
+import { getRewardDueDate } from '../../../core/domain/utils/reward-utils';
+import { ParticipantsRewardClaim } from './ParticipantsRewardClaim';
 
 type RewardFilterType = "Active" | "Overdue";
 
@@ -121,17 +122,11 @@ const RewardList = () => {
 									<Trash2 />
 								</Button>
 							</>}
-							{isFilterRewardOverdue && <Button
-								onClick={() => {
-									if (reward?.recurring?.kind === "OnlyOnce") {
-										dispatch(removeReward(reward.id));
-									} else {
-										dispatch(addReward({ ...reward, recurring: getNewRecurring(reward) }));
-									}
-								}
-							>
-								<Award className={style['claim']} />
-							</Button>}
+							{isFilterRewardOverdue &&
+								<ParticipantsRewardClaim reward={reward} />}
+
+
+
 						</div>
 					</div>
 				);

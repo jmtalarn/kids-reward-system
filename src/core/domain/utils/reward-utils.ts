@@ -53,7 +53,34 @@ export const getDiffDays = (reward?: Reward) => {
 	return diffDays;
 };
 
-export const getNewRecurring = (reward: Reward): RecurringEvent => {
+export const getRewardDates = (reward?: Reward) => {
+
+	let rewardDates: string[] = [];
+	if (reward) {
+		const { recurring } = reward;
+		if (recurring) {
+			switch (recurring.kind) {
+				case "OnlyOnce":
+				case "Monthly":
+				case "WholeMonth": {
+					const date = new Date(recurring.startingDate);
+					const dueDate = new Date(recurring.dueDate);
+					while (date.getTime() <= dueDate.getTime()) {
+						rewardDates.push(dateToShortISOString(date));
+						date.setDate(date.getDate() + 1);
+					}
+					break;
+				}
+				case "Weekly":
+					rewardDates = [...recurring.dates];
+					break;
+			}
+		}
+	}
+	return rewardDates;
+};
+
+export const getNewRecurring = (reward: Reward): (RecurringEvent | null) => {
 
 	const { recurring } = reward;
 	if (recurring) {
@@ -86,7 +113,7 @@ export const getNewRecurring = (reward: Reward): RecurringEvent => {
 
 		} else if (recurring.kind === "Weekly") {
 			//add 7 days to each date
-			const dates = (recurring as RecurringEventExtractWeekly)?.dates
+			const dates = recurring?.dates
 				.map((dateString: string) => parseShortIsoString(dateString))
 				.map((date: Date) => {
 					date.setDate(date.getDate() + 7);
@@ -104,4 +131,5 @@ export const getNewRecurring = (reward: Reward): RecurringEvent => {
 
 		return null;
 	}
+	return null;
 };
