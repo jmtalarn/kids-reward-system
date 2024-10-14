@@ -5,6 +5,7 @@ import tasksReducer from './tasksSlice';
 import assessmentsReducer from "./assessmentsSlice";
 import dateReducer from "./dateSlice";
 import settingsReducer from "./settingsSlice";
+import claimedRewardsReducer from "./claimedRewardsSlice";
 
 const store = configureStore({
 	reducer: {
@@ -13,7 +14,8 @@ const store = configureStore({
 		tasks: tasksReducer,
 		assessments: assessmentsReducer,
 		date: dateReducer,
-		settings: settingsReducer
+		settings: settingsReducer,
+		claimedRewards: claimedRewardsReducer,
 	},
 });
 
