@@ -13,7 +13,9 @@ const meta = {
   tags: ['autodocs'],
   argTypes: {},
   args: {
-    participant: { name: "Miquel", color: "#054a91", id: "698c8cab-6b4d-4048-b9fa-ff7701d28476" }
+    participant: {
+      name: "Miquel", color: "#054a91", id: "cdaa511e-79de-4b0a-ab6b-03d7216307ad"
+    }
   },
 } satisfies Meta<typeof ParticipantClaimedRewards>;
 

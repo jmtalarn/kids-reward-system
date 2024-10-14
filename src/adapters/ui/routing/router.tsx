@@ -8,6 +8,7 @@ import RewardsPage from '../pages/Rewards';
 import ParticipantsPage from '../pages/Participants';
 import DailyTasksPage from '../pages/DailyTasks';
 import WhyToUseIt from '../pages/WhyToUseIt';
+import ParticipantClaimedRewardsPage from '../pages/ParticipantClaimedRewards';
 
 
 export const router = createBrowserRouter([
@@ -38,7 +39,11 @@ export const router = createBrowserRouter([
       {
         path: '/why-to-use-it',
         element: <WhyToUseIt />,
-      }
+      },
+      {
+        path: '/participant/:id',
+        element: <ParticipantClaimedRewardsPage />,
+      },
     ],
   },
 ]);

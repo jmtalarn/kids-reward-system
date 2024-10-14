@@ -9,11 +9,13 @@ import { Participant, ParticipantId } from '../../../core/domain/Participant';
 import Input from './Input';
 import style from './Common.module.css';
 import { FormattedMessage, useIntl } from 'react-intl';
+import { useNavigate } from 'react-router-dom';
 
 const ParticipantInput = ({ participant }: { participant: Participant }) => {
 	const [inputParticipant, setInputParticipant] = useState(participant);
 	const dispatch = useDispatch<AppDispatch>();
 	const intl = useIntl();
+	const navigate = useNavigate();
 	return (
 		<div className={style.field}>
 			<Input
@@ -31,7 +33,9 @@ const ParticipantInput = ({ participant }: { participant: Participant }) => {
 			<Button className={style.button} onClick={() => dispatch(removeParticipant(participant.id || ''))}>
 				<Trash2 />
 			</Button>
-			<Button className={style.button} onClick={() => alert("Should open the page for claimed rewards")} >
+			<Button className={style.button} onClick={() =>
+				navigate(`/participant/${participant.id}`)
+			} >
 				<Award />
 			</Button>
 		</div >
