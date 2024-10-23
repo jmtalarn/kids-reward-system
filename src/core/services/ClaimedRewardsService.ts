@@ -4,8 +4,8 @@ import type { ParticipantId } from '../domain/Participant';
 import type { Reward } from '../domain/Reward';
 
 
-const addClaimedReward = async ({ participantId, reward, score }: { participantId: ParticipantId, reward: Reward, score: RewardScore }): Promise<ClaimedRewards> => {
-  return claimedRewardsRepository.addClaimedReward({ participantId, reward, score });
+const addClaimedReward = async ({ participantId, reward, score, tasksDone }: { participantId: ParticipantId, reward: Reward, score: RewardScore, tasksDone: string[] }): Promise<ClaimedRewards> => {
+  return claimedRewardsRepository.addClaimedReward({ participantId, reward, score, tasksDone });
 };
 
 const getAllClaimedRewards = async (): Promise<ClaimedRewards> => {

@@ -22,8 +22,8 @@ export const fetchClaimedRewards = createAsyncThunk('claimedRewards/fetch', asyn
 	return claimedRewards;
 });
 
-export const addClaimedReward = createAsyncThunk('claimedRewards/add', async ({ participantId, reward, score }: { participantId: ParticipantId, reward: Reward, score: RewardScore }) => {
-	const claimedRewards = await claimedRewardsService.addClaimedReward({ participantId, reward, score });
+export const addClaimedReward = createAsyncThunk('claimedRewards/add', async ({ participantId, reward, score, tasksDone }: { participantId: ParticipantId, reward: Reward, score: RewardScore, tasksDone: string[] }) => {
+	const claimedRewards = await claimedRewardsService.addClaimedReward({ participantId, reward, score, tasksDone });
 	return claimedRewards;
 });
 

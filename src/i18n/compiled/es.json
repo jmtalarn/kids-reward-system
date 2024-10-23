@@ -479,6 +479,12 @@
       "value": "Haz clic para volver a la selección de fecha."
     }
   ],
+  "W/rnHa": [
+    {
+      "type": 0,
+      "value": "No hay registro de tareas para esta recompensa."
+    }
+  ],
   "WMNHPh": [
     {
       "type": 0,

@@ -11,7 +11,7 @@ const getAllClaimedRewards = async (): Promise<ClaimedRewards> => {
 	return claimedRewards ? JSON.parse(claimedRewards) : {};
 };
 
-const addClaimedReward = async ({ participantId, reward, score }: { participantId: ParticipantId, reward: Reward, score: RewardScore }): Promise<ClaimedRewards> => {
+const addClaimedReward = async ({ participantId, reward, score, tasksDone }: { participantId: ParticipantId, reward: Reward, score: RewardScore, tasksDone: string[] }): Promise<ClaimedRewards> => {
 	const dateKey = dateToShortISOString(getRewardDueDate(reward));
 	const claimedRewards = await getAllClaimedRewards();
 
@@ -21,7 +21,7 @@ const addClaimedReward = async ({ participantId, reward, score }: { participantI
 	if (!claimedRewards[participantId][dateKey]) {
 		claimedRewards[participantId][dateKey] = {};
 	}
-	claimedRewards[participantId][dateKey][reward.id] = { reward, score };
+	claimedRewards[participantId][dateKey][reward.id] = { reward, score, tasksDone };
 
 	localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(claimedRewards));
 	return claimedRewards;

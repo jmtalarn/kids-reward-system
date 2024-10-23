@@ -1,12 +1,47 @@
+.date:not(:first-child) {
+	margin-top: 1rem;
+}
+
+.rewards-list details summary {
+	cursor: pointer;
+	margin-left: .5rem;
+}
+
 .rewards-list li {
 	list-style-type: none;
-	display: flex;
+}
+
+.rewards-list li {
+	transition: background-color 100ms ease-in;
+	border-radius: 4px;
+	padding-bottom: .8rem;
+}
+
+.rewards-list li:hover {
+	background-color: var(--color-primary-700);
+}
+
+.rewards-list li header {
+	display: inline-flex;
 	align-items: center;
-	margin: 0.5rem auto 1rem auto;
+	top: 5px;
+	position: relative;
+	margin: 0.5rem 0 0.5rem 0rem;
 	gap: 1rem;
 
 }
 
 .score {
 	color: var(--color-surface-600);
+}
+
+.reward-tasks {
+	margin: 1rem 0rem 0rem 3rem;
+	color: var(--color-surface-600);
+}
+
+
+
+.reward-tasks ul li {
+	list-style-type: circle;
 }

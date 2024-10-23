@@ -105,7 +105,7 @@ const Modal: React.FC<ModalProps> = ({ openModal, closeModal, reward }) => {
     const participantIds = Object.entries(participantsClaim ?? []).filter((item: [ParticipantId, boolean]) => item[1]).map((item: [ParticipantId, boolean]) => item[0]);
     //Sequentially add the claimed reward, if not it is overriding the data from one to other on local storage
     for (const participantId of participantIds) {
-      await dispatch(addClaimedReward({ participantId, reward, score: [scores?.participantsScore[participantId] ?? 0, scores?.maxScore ?? 0] }));
+      await dispatch(addClaimedReward({ participantId, reward, score: [scores?.participantsScore[participantId] ?? 0, scores?.maxScore ?? 0], tasksDone: tasks.byRewardId[reward.id]?.map(taskId => tasks.byId[taskId].description) ?? [] }));
     }
 
     //Update reward

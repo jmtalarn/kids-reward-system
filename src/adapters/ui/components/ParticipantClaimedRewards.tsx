@@ -28,26 +28,45 @@ export const ParticipantClaimedRewards = ({ participant }: { participant?: Parti
 
 	return participant && <section className={commonStyle.section}>
 		<header className={commonStyle['section-header']}>
-			<h3><FormattedMessage defaultMessage={`{name} claimed rewards`} values={{ name: participant.name }} /></h3>
+			<h3><FormattedMessage defaultMessage={`{name} claimed rewards`} values={{ name: <span style={{ color: participant.color ?? 'inherit' }}>{participant.name}</span> }} /></h3>
 		</header>
 
 		{participant?.id
 			&& participantClaimedRewards?.map(([date, data]) => {
 				return (
-					<div key={dateToShortISOString(date as Date)} >
+					<div className={style.date} key={dateToShortISOString(date as Date)} >
 						<h4><FormattedDate value={date as Date} dateStyle="full" /></h4>
 						<ul className={style['rewards-list']}>
-							{Object.values(data).map(({ reward, score }: { reward: Reward, score: RewardScore }) => (
+							{Object.values(data).map(({ reward, score, tasksDone }: { reward: Reward, score: RewardScore, tasksDone: string[] }) => (
 								<li
 									key={reward.id}
 								>
-									<Award color="gold" />
-									<div>
-										{reward.description}
-									</div>
-									<div className={style.score}><FormattedMessage
-										defaultMessage={'Score: {score} out of {scoreMax}'}
-										values={{ score: score[0], scoreMax: score[1] }} /></div>
+									<details>
+										<summary>
+											<header>
+												<Award color="gold" />
+												<div>
+													{reward.description}
+												</div>
+												<div className={style.score}><FormattedMessage
+													defaultMessage={'Score: {score} out of {scoreMax}'}
+													values={{ score: score[0], scoreMax: score[1] }} /></div>
+											</header>
+										</summary>
+										<div className={style['reward-tasks']}>
+
+											<ul>
+												{tasksDone?.map(task => (<li
+													key={task.split(" ").join("_")}
+												>
+													{task}
+												</li>)
+												) ?? <FormattedMessage defaultMessage={'There are no records for tasks for this reward.'} />}
+											</ul>
+										</div>
+									</details>
+
+
 								</li>
 							)
 							)
