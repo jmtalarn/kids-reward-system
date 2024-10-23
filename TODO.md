@@ -44,10 +44,11 @@
 -   [ ] Claims [WIP https://github.com/jmtalarn/kids-reward-system/tree/claiming]
     -   [x] Claim newdates calculation
     -   [x] Claim for participant
-    -   [ ] Ask for confirmation
+    -   [x] Ask for confirmation
     -   [x] Add claiming data to new slice
-    -   [ ] Add Participant Rewards component
-        -   [ ] Add Page
+    -   [x] Add Participant Rewards component
+        -   [x] Add Page
+    -   [ ] Keep the tasks on the reward
 -   [x] Recurring reward
     -   [x] Weekly. Autodetected if difference of days are less than a week and all in the same week
     -   [x] Monthly with specific range of dates. Autodetected if difference of days is more than a week and in same month

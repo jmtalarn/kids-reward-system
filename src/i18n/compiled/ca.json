@@ -181,6 +181,12 @@
       "value": "Actives"
     }
   ],
+  "47FYwb": [
+    {
+      "type": 0,
+      "value": "Cancel·lar"
+    }
+  ],
   "5k/Ujl": [
     {
       "type": 0,
@@ -219,6 +225,12 @@
       "pluralType": "cardinal",
       "type": 6,
       "value": "count"
+    }
+  ],
+  "6Sj2lN": [
+    {
+      "type": 0,
+      "value": "Reclamar"
     }
   ],
   "7eHRWk": [
@@ -601,6 +613,20 @@
       "value": "Aquestes són les avaluacions més recents per als participants."
     }
   ],
+  "eeNBxe": [
+    {
+      "type": 0,
+      "value": "Recompenses reclamades per "
+    },
+    {
+      "type": 1,
+      "value": "name"
+    },
+    {
+      "type": 0,
+      "value": " "
+    }
+  ],
   "egMfjt": [
     {
       "type": 0,
@@ -682,6 +708,12 @@
     {
       "type": 0,
       "value": "Participant"
+    }
+  ],
+  "gWB392": [
+    {
+      "type": 0,
+      "value": "Si us plau, marqui amb el polze amunt o polze avall per confirmar i després faci click sobre el botó per Reclamar."
     }
   ],
   "h1H4z/": [
@@ -808,6 +840,30 @@
     {
       "type": 0,
       "value": "Descripció de la recompensa"
+    }
+  ],
+  "u80dfe": [
+    {
+      "type": 0,
+      "value": "És l'hora de decidir qui es mereix reclamar la recompensa."
+    }
+  ],
+  "vbiKaB": [
+    {
+      "type": 0,
+      "value": "Avaluació: "
+    },
+    {
+      "type": 1,
+      "value": "score"
+    },
+    {
+      "type": 0,
+      "value": " sobre "
+    },
+    {
+      "type": 1,
+      "value": "scoreMax"
     }
   ],
   "vuOpya": [

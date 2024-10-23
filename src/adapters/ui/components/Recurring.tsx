@@ -21,7 +21,6 @@ export const Recurring = ({ recurring, setRecurring }: { recurring?: RecurringEv
 
 	const [firstMonthDay, lastMonthDay] = useMemo(getFirstAndLastDayOfCurrentMonth, []);
 	const handleOnChange = (evt: React.ChangeEvent<HTMLInputElement>) => {
-		console.log(evt.target.value);
 		setSelectedRecurringType(evt.target.value as RecurringType);
 	};
 	const setAdditionalInfoMessage = (recurring: RecurringEvent) => {

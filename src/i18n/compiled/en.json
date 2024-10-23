@@ -185,6 +185,12 @@
       "value": "Active"
     }
   ],
+  "47FYwb": [
+    {
+      "type": 0,
+      "value": "Cancel"
+    }
+  ],
   "5k/Ujl": [
     {
       "type": 0,
@@ -223,6 +229,12 @@
       "pluralType": "cardinal",
       "type": 6,
       "value": "count"
+    }
+  ],
+  "6Sj2lN": [
+    {
+      "type": 0,
+      "value": "Claim"
     }
   ],
   "7eHRWk": [
@@ -605,6 +617,16 @@
       "value": "These are the more recent assessments for the participants."
     }
   ],
+  "eeNBxe": [
+    {
+      "type": 1,
+      "value": "name"
+    },
+    {
+      "type": 0,
+      "value": " claimed rewards"
+    }
+  ],
   "egMfjt": [
     {
       "type": 0,
@@ -686,6 +708,12 @@
     {
       "type": 0,
       "value": "Participant"
+    }
+  ],
+  "gWB392": [
+    {
+      "type": 0,
+      "value": "Please, select thumbs up or thumbs down to confirm and then press claim."
     }
   ],
   "h1H4z/": [
@@ -812,6 +840,30 @@
     {
       "type": 0,
       "value": "Reward description"
+    }
+  ],
+  "u80dfe": [
+    {
+      "type": 0,
+      "value": "Time to decide who deserves to claim the reward."
+    }
+  ],
+  "vbiKaB": [
+    {
+      "type": 0,
+      "value": "Score: "
+    },
+    {
+      "type": 1,
+      "value": "score"
+    },
+    {
+      "type": 0,
+      "value": " out of "
+    },
+    {
+      "type": 1,
+      "value": "scoreMax"
     }
   ],
   "vuOpya": [

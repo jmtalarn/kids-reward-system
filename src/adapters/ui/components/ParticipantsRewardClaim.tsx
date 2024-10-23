@@ -52,7 +52,7 @@ const Modal: React.FC<ModalProps> = ({ openModal, closeModal, reward }) => {
   const { tasks } = useSelector((state: RootState) => state.tasks);
   const [scores, setScores] = useState<{ maxScore: number, participantsScore: Record<ParticipantId, number> } | null>(null);
   const [participantsClaim, setParticipantsClaim] = useState<Record<ParticipantId, boolean>>();
-
+  const { claimingConfirmationThreshold } = useSelector((state: RootState) => state.settings);
   const ref = useRef<HTMLDialogElement>(null);
   // const intl = useIntl();
   const dispatch = useDispatch<AppDispatch>();
@@ -85,15 +85,29 @@ const Modal: React.FC<ModalProps> = ({ openModal, closeModal, reward }) => {
         }
       }
       setScores({ maxScore: maxValue, participantsScore });
-    }
-  }, [participants, assessments, tasks, reward]);
+      setParticipantsClaim(Object.entries(participantsScore)
+        .map(([participantId, score]) => {
+          return [participantId, (score / maxValue * 100) >= claimingConfirmationThreshold] as [ParticipantId, boolean];
+        })
+        .reduce((acc, [participantId, claimed]) => {
+          acc[participantId] = claimed;
+          return acc;
+        }, {} as Record<ParticipantId, boolean>
+        ));
 
-  const handleClaim = () => {
+    }
+
+  }, [participants, assessments, tasks, reward, claimingConfirmationThreshold]);
+
+  const handleClaim = async () => {
 
     //Store Claims
-    Object.entries(participantsClaim ?? []).filter((item: [ParticipantId, boolean]) => item[1]).map((item: [ParticipantId, boolean]) => item[0]).forEach(participantId => {
-      dispatch(addClaimedReward({ participantId, reward, score: [scores?.participantsScore[participantId] ?? 0, scores?.maxScore ?? 0] }));
-    });
+    const participantIds = Object.entries(participantsClaim ?? []).filter((item: [ParticipantId, boolean]) => item[1]).map((item: [ParticipantId, boolean]) => item[0]);
+    //Sequentially add the claimed reward, if not it is overriding the data from one to other on local storage
+    for (const participantId of participantIds) {
+      await dispatch(addClaimedReward({ participantId, reward, score: [scores?.participantsScore[participantId] ?? 0, scores?.maxScore ?? 0] }));
+    }
+
     //Update reward
     if (reward?.recurring?.kind === "OnlyOnce") {
       dispatch(removeReward(reward.id));
@@ -105,11 +119,13 @@ const Modal: React.FC<ModalProps> = ({ openModal, closeModal, reward }) => {
   return (
     <dialog ref={ref} className={style.dialog} onCancel={closeModal}>
       <header className={style.header}>
+        <h3><FormattedMessage defaultMessage={'Time to decide who deserves to claim the reward.'} /></h3>
         <button className={style['close-button']} onClick={closeModal}>
           <XCircle />
         </button>
       </header>
       <div className={style.content}>
+        <FormattedMessage defaultMessage={'Please, select thumbs up or thumbs down to confirm and then press claim.'} />
         {participants.allIds.length > 0 && reward.participants?.map((id: ParticipantId) => participants.byId[id])
           .map((participant: Participant) => (
             <ParticipantClaim
@@ -140,6 +156,10 @@ const Modal: React.FC<ModalProps> = ({ openModal, closeModal, reward }) => {
 const ParticipantClaim = ({ participant, maxScore, participantScore, setParticipantClaim }: { participant: Participant, maxScore: number, participantScore: number, setParticipantClaim: (b: boolean) => void }) => {
   const { claimingConfirmationThreshold } = useSelector((state: RootState) => state.settings);
   const [buttonActive, setButtonActive] = useState<'up' | 'down'>((participantScore / maxScore * 100) > claimingConfirmationThreshold ? 'up' : 'down');
+
+  useEffect(() => {
+    setButtonActive((participantScore / maxScore * 100) >= claimingConfirmationThreshold ? 'up' : 'down');
+  }, [claimingConfirmationThreshold, maxScore, participantScore]);
 
   return (
     <div

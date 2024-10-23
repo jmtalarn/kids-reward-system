@@ -6,8 +6,11 @@ import { Participant } from '../../../core/domain/Participant';
 import { dateToShortISOString, parseShortIsoString } from '../../../core/domain/utils/date-utils';
 import { fetchClaimedRewards } from '../../state/claimedRewardsSlice';
 import { AppDispatch, RootState } from '../../state/store';
-import style from './Common.module.css';
-
+import commonStyle from './Common.module.css';
+import style from './ParticipantClaimedRewards.module.css';
+import { Award } from 'react-feather';
+import type { Reward } from '../../../core/domain/Reward';
+import type { RewardScore } from '../../../core/domain/ClaimedRewards';
 
 export const ParticipantClaimedRewards = ({ participant }: { participant?: Participant }) => {
 	const { claimedRewards } = useSelector((state: RootState) => state.claimedRewards);
@@ -23,24 +26,28 @@ export const ParticipantClaimedRewards = ({ participant }: { participant?: Parti
 		}
 	}, [participant, claimedRewards]);
 
-	return participant && <section className={style.section}>
-		<header className={style['section-header']}>
+	return participant && <section className={commonStyle.section}>
+		<header className={commonStyle['section-header']}>
 			<h3><FormattedMessage defaultMessage={`{name} claimed rewards`} values={{ name: participant.name }} /></h3>
 		</header>
 
 		{participant?.id
 			&& participantClaimedRewards?.map(([date, data]) => {
 				return (
-					<div key={dateToShortISOString(date as Date)} className={style['claimed-reward']}>
+					<div key={dateToShortISOString(date as Date)} >
 						<h4><FormattedDate value={date as Date} dateStyle="full" /></h4>
-						<ul>
-							{Object.values(data).map(({ reward }) => (
+						<ul className={style['rewards-list']}>
+							{Object.values(data).map(({ reward, score }: { reward: Reward, score: RewardScore }) => (
 								<li
 									key={reward.id}
 								>
+									<Award color="gold" />
 									<div>
 										{reward.description}
 									</div>
+									<div className={style.score}><FormattedMessage
+										defaultMessage={'Score: {score} out of {scoreMax}'}
+										values={{ score: score[0], scoreMax: score[1] }} /></div>
 								</li>
 							)
 							)

@@ -181,6 +181,12 @@
       "value": "Activas"
     }
   ],
+  "47FYwb": [
+    {
+      "type": 0,
+      "value": "Cancelar"
+    }
+  ],
   "5k/Ujl": [
     {
       "type": 0,
@@ -219,6 +225,12 @@
       "pluralType": "cardinal",
       "type": 6,
       "value": "count"
+    }
+  ],
+  "6Sj2lN": [
+    {
+      "type": 0,
+      "value": "Reclamar"
     }
   ],
   "7eHRWk": [
@@ -601,6 +613,16 @@
       "value": "Estas son las evaluaciones más recientes para los participantes."
     }
   ],
+  "eeNBxe": [
+    {
+      "type": 0,
+      "value": "Recompensas reclamadas por "
+    },
+    {
+      "type": 1,
+      "value": "name"
+    }
+  ],
   "egMfjt": [
     {
       "type": 0,
@@ -682,6 +704,12 @@
     {
       "type": 0,
       "value": "Participante"
+    }
+  ],
+  "gWB392": [
+    {
+      "type": 0,
+      "value": "Por favor, marque el pulgar arriba o el pulgar abajo para confirmar y pulse el botón para Reclamar."
     }
   ],
   "h1H4z/": [
@@ -808,6 +836,30 @@
     {
       "type": 0,
       "value": "Descripción de la recompensa"
+    }
+  ],
+  "u80dfe": [
+    {
+      "type": 0,
+      "value": "Es el momento de decidir quien se merece reclamar la recompensa."
+    }
+  ],
+  "vbiKaB": [
+    {
+      "type": 0,
+      "value": "Evaluación: "
+    },
+    {
+      "type": 1,
+      "value": "score"
+    },
+    {
+      "type": 0,
+      "value": " sobre "
+    },
+    {
+      "type": 1,
+      "value": "scoreMax"
     }
   ],
   "vuOpya": [
