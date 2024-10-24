@@ -1,11 +1,11 @@
 import { useEffect, useMemo, useState } from 'react';
-import { Check, Trash2, User } from 'react-feather';
+import { Trash2, User } from 'react-feather';
 import { FormattedMessage, useIntl } from 'react-intl';
 import { useDispatch, useSelector } from "react-redux";
 import { MultiValue } from 'react-select';
 import { Participant, ParticipantId } from '../../../core/domain/Participant';
 import type { RecurringEvent } from '../../../core/domain/Recurring';
-import { Reward } from '../../../core/domain/Reward';
+import { Reward, type RewardId } from '../../../core/domain/Reward';
 import { dateToShortISOString } from '../../../core/domain/utils/date-utils';
 import { fetchParticipants } from "../../state/participantsSlice";
 import { addReward, removeReward } from "../../state/rewardsSlice";
@@ -17,47 +17,50 @@ import rewardFormStyle from './RewardForm.module.css';
 import Select from './Select';
 import TasksList from './TasksList';
 import TextArea from './TextArea';
+import { useDebounce } from '../hooks/useDebounce';
 
 
 const ParticipantLabel = ({ participant }: { participant: Participant }) => <><User style={{ color: participant.color }} /> {participant.name}</>;
 
-// const getDiffDays = (startingDate: string, dueDate: string) => {
-// 	const oneDay = 24 * 60 * 60 * 1000; // hours*minutes*seconds*milliseconds
 
-// 	const startingDateDate = new Date(startingDate).getTime();
-// 	const dueDateDate = new Date(dueDate).getTime();
-
-// 	const diffDays = Math.round((dueDateDate - startingDateDate) / oneDay) + 1;
-// 	return diffDays;
-// };
 const RewardForm = ({ reward }: { reward: Reward }) => {
+	const intl = useIntl();
+	const dispatch = useDispatch<AppDispatch>();
 	const { participants } = useSelector((state: RootState) => state.participants);
 	const participantsOptions = useMemo(() => (participants.allIds.map((id: ParticipantId) => participants.byId[id])), [participants]);
-	const dispatch = useDispatch<AppDispatch>();
-
+	const [rewardId, setRewardId] = useState<RewardId>(reward?.id ?? '');
 	const [rewardDescription, setRewardDescription] = useState<string>(reward?.description ?? '');
 	const [rewardParticipants, setRewardParticipants] = useState<Participant[]>(reward?.participants ?? []);
 	const [recurring, setRecurring] = useState<RecurringEvent>({ kind: "OnlyOnce", startingDate: dateToShortISOString(), dueDate: dateToShortISOString() });
-	// const [dueDate, setDueDate] = useState<string>(reward?.dueDate ?? dateToShortISOString());
-	// const [startingDate, setStartingDate] = useState<string>(reward?.startingDate ?? dateToShortISOString());
-	// const [message, setMessage] = useState<{ type?: string, text?: ReactNode }>({ type: '', text: '' });
-	const intl = useIntl();
-	useEffect(() => { dispatch(fetchParticipants()); }, []);
 
-
-
+	useEffect(() => { dispatch(fetchParticipants()); }, [dispatch]);
 	useEffect(() => {
 		if (participants && rewardParticipants === undefined) {
 			setRewardParticipants(participants.allIds);
 		}
 	}, [participants, rewardParticipants]);
+
 	useEffect(() => {
 		setRewardDescription(reward?.description ?? '');
 		setRecurring(reward?.recurring ?? { kind: "OnlyOnce", startingDate: dateToShortISOString(), dueDate: dateToShortISOString() });
-		// setDueDate(reward?.dueDate ?? dateToShortISOString());
-		// setStartingDate(reward?.startingDate ?? dateToShortISOString());
 		setRewardParticipants(reward?.participants || []);
+		setRewardId(reward?.id);
 	}, [reward]);
+
+	const debouncedDescription = useDebounce<string>(rewardDescription, 500);
+	const debouncedParticipants = useDebounce<Participant[]>(rewardParticipants, 500);
+	const debouncedRecurring = useDebounce<RecurringEvent>(recurring, 500);
+	useEffect(() => {
+
+		dispatch(addReward(
+			{
+				id: rewardId,
+				description: debouncedDescription,
+				recurring: debouncedRecurring,
+				participants: debouncedParticipants
+			}
+		));
+	}, [debouncedDescription, debouncedParticipants, debouncedRecurring, dispatch, rewardId]);
 
 	return <>
 		<section className={commonStyle.section}>
@@ -73,27 +76,6 @@ const RewardForm = ({ reward }: { reward: Reward }) => {
 					className={rewardFormStyle.description}
 				/>
 				<Recurring recurring={recurring} setRecurring={setRecurring} />
-				{/* 
-				<div className={rewardFormStyle['dates-fields']}>
-					<Input
-						label={intl.formatMessage({ defaultMessage: "Starting Date" })}
-						type="date"
-						value={startingDate}
-						onChange={e => setStartingDate(e.target.value)}
-						placeholder={intl.formatMessage({ defaultMessage: "Starting Date" })}
-					/>
-					<Input
-						label={intl.formatMessage({ defaultMessage: "Due Date" })}
-						type="date"
-						value={dueDate}
-						onChange={e => setDueDate(e.target.value)}
-						placeholder={intl.formatMessage({ defaultMessage: "Due Date" })}
-					/>
-				</div> */}
-				{/* 
-				<p className={`${rewardFormStyle.message}${message.type === "ERROR" ? ` ${rewardFormStyle.error}` : ''}`}>
-					{message.text}
-				</p> */}
 
 				<Select<Participant, true>
 					isMulti
@@ -110,7 +92,7 @@ const RewardForm = ({ reward }: { reward: Reward }) => {
 				/>
 			</div>
 			<div className={rewardFormStyle.buttons}>
-				<Button
+				{/* <Button
 					className={commonStyle.button}
 					onClick={() => dispatch(addReward(
 						{
@@ -123,7 +105,7 @@ const RewardForm = ({ reward }: { reward: Reward }) => {
 					)}
 				>
 					<Check />
-				</Button>
+				</Button> */}
 				<Button
 					disabled={!reward?.id}
 					className={commonStyle.button}

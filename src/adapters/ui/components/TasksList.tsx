@@ -4,21 +4,38 @@ import { useDispatch, useSelector } from "react-redux";
 import { addTask, removeTask, reorderTask, fetchTasks } from "../../state/tasksSlice";
 import { RootState, AppDispatch } from '../../state/store';
 import Button from './Button';
-import { Move, AlignJustify, Check, Trash2, PlusSquare } from 'react-feather';
+import { Move, AlignJustify, Trash2, PlusSquare } from 'react-feather';
 import { Task, TaskId } from '../../../core/domain/Task';
 import Input from './Input';
 import style from './Common.module.css';
 import { FormattedMessage, useIntl } from 'react-intl';
+import { useDebounce } from '../hooks/useDebounce';
 
 
 
-const TaskInput = ({ task, dragged }: { task: Task, dragged: boolean }) => {
-	const [inputValue, setInputValue] = useState(task.description);
-	const dispatch = useDispatch<AppDispatch>();
+const TaskInput = ({ taskDescription, onInputChange, dragged, onDeleteTask }: { taskDescription: string, onInputChange: (inputValue: string) => void, dragged: boolean, onDeleteTask: () => void }) => {
+	const intl = useIntl();
+	const [inputValue, setInputValue] = useState<string>(taskDescription);
+	//const dispatch = useDispatch<AppDispatch>();
+
+	const debouncedInputValue = useDebounce<string>(inputValue, 500);
+	useEffect(() => {
+		if (taskDescription !== inputValue) {
+			setInputValue(taskDescription);  // Only sync if taskDescription is different
+		}
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [taskDescription]);
+	useEffect(() => {
+		if (debouncedInputValue !== taskDescription) {
+			console.log("DEBOUNCED ADD TASK");
+			onInputChange(debouncedInputValue);  // Only trigger update if debounced value is new
+		}
+	}, [debouncedInputValue, taskDescription, onInputChange]);
+
 	const classNames = [style.field, "field_task_input",
 	dragged && style.dragged
 	].filter(item => !!item).join(" ");
-	const intl = useIntl();
+
 	return (
 		<div className={classNames}>
 
@@ -32,12 +49,13 @@ const TaskInput = ({ task, dragged }: { task: Task, dragged: boolean }) => {
 				fieldStyle={{ flexGrow: "1" }}
 				style={{ width: "80%" }}
 				value={inputValue}
-				onChange={e => setInputValue(e.target.value)} placeholder={intl.formatMessage({ defaultMessage: "New task" })}
+				onChange={e => {
+
+					setInputValue(e.target.value);
+				}}
+				placeholder={intl.formatMessage({ defaultMessage: "New task" })}
 			/>
-			<Button className={style.button} onClick={() => dispatch(addTask({ rewardId: task.rewardId, task: { ...task, description: inputValue } }))}>
-				<Check />
-			</Button>
-			<Button className={style.button} onClick={() => dispatch(removeTask({ rewardId: task.rewardId, taskId: task.id }))}>
+			<Button className={style.button} onClick={onDeleteTask}>
 				<Trash2 style={{ minWidth: "1rem" }} />
 			</Button>
 
@@ -83,6 +101,12 @@ const TasksList = ({ rewardId }: { rewardId: string }) => {
 		dispatch(reorderTask({ rewardId: draggingItem.rewardId, taskId: draggingItem.id, order: targetItem.order || 0 }));
 	};
 
+	const handleInputChange = (task: Task, inputValue: string) => {
+		dispatch(addTask({ rewardId: task.rewardId, task: { ...task, description: inputValue } }));
+	};
+	const handleDelete = (task: Task) => {
+		dispatch(removeTask({ rewardId: task.rewardId, taskId: task.id }));
+	};
 	return <section className={style.section} ref={lastRewardRef}>
 		<header className={style['section-header']}>
 			<h3><FormattedMessage defaultMessage={'Tasks'} /></h3>
@@ -121,7 +145,13 @@ const TasksList = ({ rewardId }: { rewardId: string }) => {
 						onDragLeave={handleDragLeave}
 						onDrop={(e) => handleDrop(e, task)}
 					>
-						<TaskInput key={task.id || 'empty-key'} dragged={Boolean(draggingItem) && draggingItem?.id === task.id} task={task} />
+						<TaskInput
+							key={task.id || 'empty-key'}
+							dragged={Boolean(draggingItem) && draggingItem?.id === task.id}
+							taskDescription={task.description}
+							onInputChange={(inputValue) => handleInputChange(task, inputValue)}
+							onDeleteTask={() => handleDelete(task)}
+						/>
 					</div>
 				);
 			})}
