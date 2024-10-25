@@ -1,7 +1,7 @@
-import { useEffect, useState, ComponentProps } from 'react';
+import { useEffect, useState, ComponentProps, forwardRef } from 'react';
 import styles from './Button.module.css';
 
-const RippleButton = ({ children, className, onClick, title }: ComponentProps<'button'>) => {
+const RippleButton = forwardRef<HTMLButtonElement, ComponentProps<'button'>>(({ children, className, onClick, title, ...rest }, ref) => {
   const [coords, setCoords] = useState({ x: -1, y: -1 });
   const [isRippling, setIsRippling] = useState(false);
 
@@ -20,8 +20,10 @@ const RippleButton = ({ children, className, onClick, title }: ComponentProps<'b
 
   return (
     <button
+      ref={ref}
       title={title}
       className={classNames}
+      {...rest}
       onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
         const rect = (e.target as HTMLButtonElement).getBoundingClientRect();
         setCoords({ x: e.clientX - rect.left, y: e.clientY - rect.top });
@@ -42,6 +44,6 @@ const RippleButton = ({ children, className, onClick, title }: ComponentProps<'b
       <span className={styles.content}>{children}</span>
     </button>
   );
-};
+});
 
 export default RippleButton;

@@ -65,4 +65,6 @@
 -   [x] Input radio, click on label to click
 -   [x] On each page reload load the language from setting
 -   [x] On edit reward values not properly set.
--   [ ] Remove the Check button for updates
+-   [x] Remove the Check button for updates
+-   [ ] Confirmation on delete
+-   [ ] Issue: Icons disappear when shrinking window.

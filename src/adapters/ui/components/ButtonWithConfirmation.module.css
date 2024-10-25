@@ -1,0 +1,94 @@
+.close-button {
+	background: none;
+	font-size: 2rem;
+	padding: 0;
+	outline: none;
+	overflow: hidden;
+	border: none;
+	right: 10px;
+	position: absolute;
+}
+
+.close-button:focus,
+.close-button:focus-visible {
+	outline: none;
+}
+
+.close-button:hover {
+	border: none;
+	color: salmon;
+}
+
+.dialog {
+	border-radius: 4px;
+	border: none;
+	padding: 0.5rem;
+
+	box-shadow: var(--box-shadow-2xl);
+	display: flex;
+	align-items: center;
+
+	overflow: hidden;
+
+	animation: fadeOut 0.5s forwards;
+}
+
+.dialog[open] {
+	animation: fadeIn 0.5s forwards;
+}
+
+.dialog[open]::backdrop {
+	animation: backdropFadeIn 0.5s forwards;
+}
+
+.dialog:backdrop {
+	animation: backdropFadeOut 0.5s forwards;
+}
+
+.dialog-button {
+	font-size: .8rem;
+}
+
+@keyframes fadeIn {
+	from {
+		opacity: 0;
+		translate: 0.5em 0;
+	}
+
+	to {
+		opacity: 1;
+		translate: 0 0;
+	}
+}
+
+@keyframes fadeOut {
+	from {
+		opacity: 1;
+		translate: 0 0;
+	}
+
+	to {
+		opacity: 0;
+		translate: 0.5em 0;
+	}
+}
+
+@keyframes backdropFadeIn {
+	from {
+		background: hsl(0 0% 0% / 0%);
+	}
+
+	to {
+		background: hsl(0 0% 0% / 50%);
+	}
+}
+
+@keyframes backdropFadeOut {
+	from {
+		background: hsl(0 0% 0% / 50%);
+	}
+
+	to {
+		background: hsl(0 0% 0% / 0%);
+	}
+}

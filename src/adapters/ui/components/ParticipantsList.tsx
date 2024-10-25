@@ -11,6 +11,7 @@ import style from './Common.module.css';
 import { FormattedMessage, useIntl } from 'react-intl';
 import { useNavigate } from 'react-router-dom';
 import { useDebounce } from '../hooks/useDebounce';
+import ButtonWithConfirmation from './ButtonWithConfirmation';
 
 const ParticipantInput = ({ participant }: { participant: Participant }) => {
 	const [inputParticipant, setInputParticipant] = useState(participant);
@@ -38,9 +39,9 @@ const ParticipantInput = ({ participant }: { participant: Participant }) => {
 			{/* <Button className={style.button} onClick={() => dispatch(addParticipant(inputParticipant))}>
 				<Check />
 			</Button> */}
-			<Button className={style.button} onClick={() => dispatch(removeParticipant(participant.id || ''))}>
+			<ButtonWithConfirmation className={style.button} onClick={() => dispatch(removeParticipant(participant.id || ''))}>
 				<Trash2 />
-			</Button>
+			</ButtonWithConfirmation>
 			<Button className={style.button} onClick={() =>
 				navigate(`/participant/${participant.id}`)
 			} >
