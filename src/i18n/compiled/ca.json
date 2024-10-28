@@ -169,6 +169,12 @@
       "value": "Recurrència"
     }
   ],
+  "2oCaym": [
+    {
+      "type": 0,
+      "value": "N'està segur?"
+    }
+  ],
   "3Qf4yA": [
     {
       "type": 0,
@@ -561,6 +567,12 @@
       "value": "La data de venciment és avui."
     }
   ],
+  "a5msuh": [
+    {
+      "type": 0,
+      "value": "Si"
+    }
+  ],
   "azMsfM": [
     {
       "type": 0,
@@ -810,6 +822,12 @@
     {
       "type": 0,
       "value": "diumenge"
+    }
+  ],
+  "oUWADl": [
+    {
+      "type": 0,
+      "value": "No"
     }
   ],
   "qAhUUO": [

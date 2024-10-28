@@ -169,6 +169,12 @@
       "value": "Recurrencia"
     }
   ],
+  "2oCaym": [
+    {
+      "type": 0,
+      "value": "¿Está seguro?"
+    }
+  ],
   "3Qf4yA": [
     {
       "type": 0,
@@ -561,6 +567,12 @@
       "value": "La fecha de vencimiento es hoy."
     }
   ],
+  "a5msuh": [
+    {
+      "type": 0,
+      "value": "Si"
+    }
+  ],
   "azMsfM": [
     {
       "type": 0,
@@ -806,6 +818,12 @@
     {
       "type": 0,
       "value": "domingo"
+    }
+  ],
+  "oUWADl": [
+    {
+      "type": 0,
+      "value": "No"
     }
   ],
   "qAhUUO": [
