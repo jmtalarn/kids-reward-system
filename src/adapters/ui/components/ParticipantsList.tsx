@@ -36,9 +36,6 @@ const ParticipantInput = ({ participant }: { participant: Participant }) => {
 				placeholder={intl.formatMessage({ defaultMessage: 'New participant' })}
 			/>
 			<Input className={style['color-input']} value={inputParticipant.color} type="color" onChange={e => setInputParticipant({ ...inputParticipant, color: e.target.value })} />
-			{/* <Button className={style.button} onClick={() => dispatch(addParticipant(inputParticipant))}>
-				<Check />
-			</Button> */}
 			<ButtonWithConfirmation className={style.button} onClick={() => dispatch(removeParticipant(participant.id || ''))}>
 				<Trash2 />
 			</ButtonWithConfirmation>

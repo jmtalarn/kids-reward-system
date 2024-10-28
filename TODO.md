@@ -66,5 +66,5 @@
 -   [x] On each page reload load the language from setting
 -   [x] On edit reward values not properly set.
 -   [x] Remove the Check button for updates
--   [ ] Confirmation on delete
+-   [x] Confirmation on delete
 -   [ ] Issue: Icons disappear when shrinking window.
