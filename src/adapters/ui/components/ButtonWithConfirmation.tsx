@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef, useState, type ButtonHTMLAttributes, type DetailedHTMLProps, type ReactNode } from "react";
+import { useEffect, useMemo, useRef, useState, type ReactNode } from "react";
 import Button from "./Button";
 import style from "./ButtonWithConfirmation.module.css";
 import { FormattedMessage } from "react-intl";

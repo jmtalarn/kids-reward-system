@@ -1,4 +1,4 @@
-import type { RecurringEvent, RecurringEventExcludeWeekly, RecurringEventExtractWeekly } from "../Recurring";
+import type { RecurringEvent, RecurringEventExcludeWeekly } from "../Recurring";
 import type { Reward } from "../Reward";
 import { dateToShortISOString, parseShortIsoString } from "./date-utils";
 
