@@ -1,152 +1,8 @@
 {
-  "/cj9iZ": [
-    {
-      "offset": 0,
-      "options": {
-        "one": {
-          "value": [
-            {
-              "type": 1,
-              "value": "formattedCount"
-            },
-            {
-              "type": 0,
-              "value": " task"
-            }
-          ]
-        },
-        "other": {
-          "value": [
-            {
-              "type": 1,
-              "value": "formattedCount"
-            },
-            {
-              "type": 0,
-              "value": " tasks"
-            }
-          ]
-        },
-        "zero": {
-          "value": [
-            {
-              "type": 0,
-              "value": "None task"
-            }
-          ]
-        }
-      },
-      "pluralType": "cardinal",
-      "type": 6,
-      "value": "count"
-    },
-    {
-      "type": 0,
-      "value": " managed."
-    }
-  ],
   "/clOBU": [
     {
       "type": 0,
       "value": "Weekly"
-    }
-  ],
-  "0jANWM": [
-    {
-      "type": 0,
-      "value": "There "
-    },
-    {
-      "offset": 0,
-      "options": {
-        "one": {
-          "value": [
-            {
-              "type": 0,
-              "value": "is"
-            }
-          ]
-        },
-        "other": {
-          "value": [
-            {
-              "type": 0,
-              "value": "are"
-            }
-          ]
-        },
-        "zero": {
-          "value": [
-            {
-              "type": 0,
-              "value": "isn't any"
-            }
-          ]
-        }
-      },
-      "pluralType": "cardinal",
-      "type": 6,
-      "value": "count"
-    },
-    {
-      "type": 0,
-      "value": " "
-    },
-    {
-      "offset": 0,
-      "options": {
-        "other": {
-          "value": [
-            {
-              "type": 1,
-              "value": "formattedCount"
-            }
-          ]
-        },
-        "zero": {
-          "value": [
-          ]
-        }
-      },
-      "pluralType": "cardinal",
-      "type": 6,
-      "value": "count"
-    },
-    {
-      "type": 0,
-      "value": " "
-    },
-    {
-      "offset": 0,
-      "options": {
-        "one": {
-          "value": [
-            {
-              "type": 0,
-              "value": "participant"
-            }
-          ]
-        },
-        "other": {
-          "value": [
-            {
-              "type": 0,
-              "value": "participants"
-            }
-          ]
-        },
-        "zero": {
-          "value": [
-            {
-              "type": 0,
-              "value": "participant"
-            }
-          ]
-        }
-      },
-      "pluralType": "cardinal",
-      "type": 6,
-      "value": "count"
     }
   ],
   "0wJ7N+": [
@@ -195,6 +51,12 @@
     {
       "type": 0,
       "value": "Cancel"
+    }
+  ],
+  "5fLxvI": [
+    {
+      "type": 0,
+      "value": "Track your progress, claim your rewards, and turn good habits into great achievements. Ready to level up today?"
     }
   ],
   "5k/Ujl": [
@@ -269,44 +131,6 @@
     {
       "type": 0,
       "value": "Due Date"
-    }
-  ],
-  "B+52pc": [
-    {
-      "offset": 0,
-      "options": {
-        "one": {
-          "value": [
-            {
-              "type": 1,
-              "value": "count"
-            },
-            {
-              "type": 0,
-              "value": " day of tasks."
-            }
-          ]
-        },
-        "other": {
-          "value": [
-            {
-              "type": 1,
-              "value": "count"
-            },
-            {
-              "type": 0,
-              "value": " days of tasks."
-            }
-          ]
-        },
-        "zero": {
-          "value": [
-          ]
-        }
-      },
-      "pluralType": "cardinal",
-      "type": 6,
-      "value": "count"
     }
   ],
   "CaO+Py": [
@@ -403,6 +227,52 @@
       "value": "Reward tasks not yet started."
     }
   ],
+  "J+h1ef": [
+    {
+      "offset": 0,
+      "options": {
+        "=0": {
+          "value": [
+            {
+              "type": 0,
+              "value": "None task"
+            }
+          ]
+        },
+        "one": {
+          "value": [
+            {
+              "type": 1,
+              "value": "formattedCount"
+            },
+            {
+              "type": 0,
+              "value": " task"
+            }
+          ]
+        },
+        "other": {
+          "value": [
+            {
+              "type": 1,
+              "value": "formattedCount"
+            },
+            {
+              "type": 0,
+              "value": " tasks"
+            }
+          ]
+        }
+      },
+      "pluralType": "cardinal",
+      "type": 6,
+      "value": "count"
+    },
+    {
+      "type": 0,
+      "value": " managed."
+    }
+  ],
   "K4O03z": [
     {
       "type": 0,
@@ -457,6 +327,50 @@
     {
       "type": 0,
       "value": "."
+    }
+  ],
+  "ObjO5X": [
+    {
+      "offset": 0,
+      "options": {
+        "=0": {
+          "value": [
+          ]
+        },
+        "one": {
+          "value": [
+            {
+              "type": 1,
+              "value": "count"
+            },
+            {
+              "type": 0,
+              "value": " day of tasks."
+            }
+          ]
+        },
+        "other": {
+          "value": [
+            {
+              "type": 1,
+              "value": "count"
+            },
+            {
+              "type": 0,
+              "value": " days of tasks."
+            }
+          ]
+        }
+      },
+      "pluralType": "cardinal",
+      "type": 6,
+      "value": "count"
+    }
+  ],
+  "PKdpsU": [
+    {
+      "type": 0,
+      "value": "Welcome, Habit Heroes! 🎯"
     }
   ],
   "PuQb0P": [
@@ -623,10 +537,154 @@
       "value": "count"
     }
   ],
+  "d2ZPYa": [
+    {
+      "type": 0,
+      "value": "There "
+    },
+    {
+      "offset": 0,
+      "options": {
+        "=0": {
+          "value": [
+            {
+              "type": 0,
+              "value": "isn't any"
+            }
+          ]
+        },
+        "one": {
+          "value": [
+            {
+              "type": 0,
+              "value": "is"
+            }
+          ]
+        },
+        "other": {
+          "value": [
+            {
+              "type": 0,
+              "value": "are"
+            }
+          ]
+        }
+      },
+      "pluralType": "cardinal",
+      "type": 6,
+      "value": "count"
+    },
+    {
+      "type": 0,
+      "value": " "
+    },
+    {
+      "offset": 0,
+      "options": {
+        "=0": {
+          "value": [
+          ]
+        },
+        "other": {
+          "value": [
+            {
+              "type": 1,
+              "value": "formattedCount"
+            }
+          ]
+        }
+      },
+      "pluralType": "cardinal",
+      "type": 6,
+      "value": "count"
+    },
+    {
+      "type": 0,
+      "value": " "
+    },
+    {
+      "offset": 0,
+      "options": {
+        "=0": {
+          "value": [
+            {
+              "type": 0,
+              "value": "participant"
+            }
+          ]
+        },
+        "one": {
+          "value": [
+            {
+              "type": 0,
+              "value": "participant"
+            }
+          ]
+        },
+        "other": {
+          "value": [
+            {
+              "type": 0,
+              "value": "participants"
+            }
+          ]
+        }
+      },
+      "pluralType": "cardinal",
+      "type": 6,
+      "value": "count"
+    }
+  ],
   "dX8jTq": [
     {
       "type": 0,
       "value": "Español"
+    }
+  ],
+  "e05+43": [
+    {
+      "offset": 0,
+      "options": {
+        "=0": {
+          "value": [
+            {
+              "type": 0,
+              "value": "No"
+            }
+          ]
+        },
+        "one": {
+          "value": [
+            {
+              "type": 1,
+              "value": "formattedCount"
+            },
+            {
+              "type": 0,
+              "value": " reward"
+            }
+          ]
+        },
+        "other": {
+          "value": [
+            {
+              "type": 1,
+              "value": "formattedCount"
+            },
+            {
+              "type": 0,
+              "value": " rewards"
+            }
+          ]
+        }
+      },
+      "pluralType": "cardinal",
+      "type": 6,
+      "value": "count"
+    },
+    {
+      "type": 0,
+      "value": " set until now."
     }
   ],
   "e9Ki9H": [
@@ -752,52 +810,6 @@
     {
       "type": 0,
       "value": "Ooops! Some error happened!"
-    }
-  ],
-  "jCpDlJ": [
-    {
-      "offset": 0,
-      "options": {
-        "one": {
-          "value": [
-            {
-              "type": 1,
-              "value": "formattedCount"
-            },
-            {
-              "type": 0,
-              "value": " reward"
-            }
-          ]
-        },
-        "other": {
-          "value": [
-            {
-              "type": 1,
-              "value": "formattedCount"
-            },
-            {
-              "type": 0,
-              "value": " rewards"
-            }
-          ]
-        },
-        "zero": {
-          "value": [
-            {
-              "type": 0,
-              "value": "No"
-            }
-          ]
-        }
-      },
-      "pluralType": "cardinal",
-      "type": 6,
-      "value": "count"
-    },
-    {
-      "type": 0,
-      "value": " set until now."
     }
   ],
   "kC3GAv": [

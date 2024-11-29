@@ -11,7 +11,7 @@ export const RewardMessages = (intl: IntlShape) => {
 
 		const diffDays = getDiffDays(reward);
 
-		return (intl.formatMessage({ defaultMessage: `{count, plural, zero {} one {{count} day of tasks.} other {{count} days of tasks.}}` }, { count: diffDays }));
+		return (intl.formatMessage({ defaultMessage: `{count, plural, =0 {} one {{count} day of tasks.} other {{count} days of tasks.}}` }, { count: diffDays }));
 
 	};
 

@@ -1,148 +1,8 @@
 {
-  "/cj9iZ": [
-    {
-      "offset": 0,
-      "options": {
-        "one": {
-          "value": [
-            {
-              "type": 1,
-              "value": "formattedCount"
-            },
-            {
-              "type": 0,
-              "value": " tasca"
-            }
-          ]
-        },
-        "other": {
-          "value": [
-            {
-              "type": 1,
-              "value": "formattedCount"
-            },
-            {
-              "type": 0,
-              "value": " tasques"
-            }
-          ]
-        },
-        "zero": {
-          "value": [
-            {
-              "type": 0,
-              "value": "Cap tasca"
-            }
-          ]
-        }
-      },
-      "pluralType": "cardinal",
-      "type": 6,
-      "value": "count"
-    },
-    {
-      "type": 0,
-      "value": " gestionades."
-    }
-  ],
   "/clOBU": [
     {
       "type": 0,
       "value": "Setmanal"
-    }
-  ],
-  "0jANWM": [
-    {
-      "offset": 0,
-      "options": {
-        "one": {
-          "value": [
-            {
-              "type": 0,
-              "value": "Hi ha"
-            }
-          ]
-        },
-        "other": {
-          "value": [
-            {
-              "type": 0,
-              "value": "Hi ha"
-            }
-          ]
-        },
-        "zero": {
-          "value": [
-            {
-              "type": 0,
-              "value": "No hi ha cap"
-            }
-          ]
-        }
-      },
-      "pluralType": "cardinal",
-      "type": 6,
-      "value": "count"
-    },
-    {
-      "type": 0,
-      "value": " "
-    },
-    {
-      "offset": 0,
-      "options": {
-        "=0": {
-          "value": [
-          ]
-        },
-        "other": {
-          "value": [
-            {
-              "type": 1,
-              "value": "formattedCount"
-            }
-          ]
-        }
-      },
-      "pluralType": "cardinal",
-      "type": 6,
-      "value": "count"
-    },
-    {
-      "type": 0,
-      "value": " "
-    },
-    {
-      "offset": 0,
-      "options": {
-        "one": {
-          "value": [
-            {
-              "type": 0,
-              "value": "participant"
-            }
-          ]
-        },
-        "other": {
-          "value": [
-            {
-              "type": 0,
-              "value": "participants"
-            }
-          ]
-        },
-        "zero": {
-          "value": [
-            {
-              "type": 0,
-              "value": "participant"
-            }
-          ]
-        }
-      },
-      "pluralType": "cardinal",
-      "type": 6,
-      "value": "count"
     }
   ],
   "0wJ7N+": [
@@ -191,6 +51,12 @@
     {
       "type": 0,
       "value": "Cancel·lar"
+    }
+  ],
+  "5fLxvI": [
+    {
+      "type": 0,
+      "value": "Segueix el teu progrés, reclama les teves recompenses i transforma els bons hàbits en grans èxits. Preparat per superar-te avui?"
     }
   ],
   "5k/Ujl": [
@@ -265,44 +131,6 @@
     {
       "type": 0,
       "value": "Data de venciment"
-    }
-  ],
-  "B+52pc": [
-    {
-      "offset": 0,
-      "options": {
-        "one": {
-          "value": [
-            {
-              "type": 1,
-              "value": "count"
-            },
-            {
-              "type": 0,
-              "value": " dia de tasques."
-            }
-          ]
-        },
-        "other": {
-          "value": [
-            {
-              "type": 1,
-              "value": "count"
-            },
-            {
-              "type": 0,
-              "value": " dies de tasques."
-            }
-          ]
-        },
-        "zero": {
-          "value": [
-          ]
-        }
-      },
-      "pluralType": "cardinal",
-      "type": 6,
-      "value": "count"
     }
   ],
   "CaO+Py": [
@@ -399,6 +227,52 @@
       "value": "Les tasques de recompensa encara no han començat."
     }
   ],
+  "J+h1ef": [
+    {
+      "offset": 0,
+      "options": {
+        "=0": {
+          "value": [
+            {
+              "type": 0,
+              "value": "Cap tasca gestionada"
+            }
+          ]
+        },
+        "one": {
+          "value": [
+            {
+              "type": 1,
+              "value": "formattedCount"
+            },
+            {
+              "type": 0,
+              "value": " tasca gestionada"
+            }
+          ]
+        },
+        "other": {
+          "value": [
+            {
+              "type": 1,
+              "value": "formattedCount"
+            },
+            {
+              "type": 0,
+              "value": " tasques gestionades"
+            }
+          ]
+        }
+      },
+      "pluralType": "cardinal",
+      "type": 6,
+      "value": "count"
+    },
+    {
+      "type": 0,
+      "value": "."
+    }
+  ],
   "K4O03z": [
     {
       "type": 0,
@@ -453,6 +327,50 @@
     {
       "type": 0,
       "value": "."
+    }
+  ],
+  "ObjO5X": [
+    {
+      "offset": 0,
+      "options": {
+        "=0": {
+          "value": [
+          ]
+        },
+        "one": {
+          "value": [
+            {
+              "type": 1,
+              "value": "count"
+            },
+            {
+              "type": 0,
+              "value": " dia de tasques."
+            }
+          ]
+        },
+        "other": {
+          "value": [
+            {
+              "type": 1,
+              "value": "count"
+            },
+            {
+              "type": 0,
+              "value": " dies de tasques."
+            }
+          ]
+        }
+      },
+      "pluralType": "cardinal",
+      "type": 6,
+      "value": "count"
+    }
+  ],
+  "PKdpsU": [
+    {
+      "type": 0,
+      "value": "Benvinguts, herois dels hàbits! 🎯"
     }
   ],
   "PuQb0P": [
@@ -619,10 +537,150 @@
       "value": "count"
     }
   ],
+  "d2ZPYa": [
+    {
+      "offset": 0,
+      "options": {
+        "=0": {
+          "value": [
+            {
+              "type": 0,
+              "value": "No hi ha cap"
+            }
+          ]
+        },
+        "one": {
+          "value": [
+            {
+              "type": 0,
+              "value": "Hi ha"
+            }
+          ]
+        },
+        "other": {
+          "value": [
+            {
+              "type": 0,
+              "value": "Hi ha"
+            }
+          ]
+        }
+      },
+      "pluralType": "cardinal",
+      "type": 6,
+      "value": "count"
+    },
+    {
+      "type": 0,
+      "value": " "
+    },
+    {
+      "offset": 0,
+      "options": {
+        "=0": {
+          "value": [
+          ]
+        },
+        "other": {
+          "value": [
+            {
+              "type": 1,
+              "value": "formattedCount"
+            }
+          ]
+        }
+      },
+      "pluralType": "cardinal",
+      "type": 6,
+      "value": "count"
+    },
+    {
+      "type": 0,
+      "value": " "
+    },
+    {
+      "offset": 0,
+      "options": {
+        "=0": {
+          "value": [
+            {
+              "type": 0,
+              "value": "participant"
+            }
+          ]
+        },
+        "one": {
+          "value": [
+            {
+              "type": 0,
+              "value": "participant"
+            }
+          ]
+        },
+        "other": {
+          "value": [
+            {
+              "type": 0,
+              "value": "participants"
+            }
+          ]
+        }
+      },
+      "pluralType": "cardinal",
+      "type": 6,
+      "value": "count"
+    }
+  ],
   "dX8jTq": [
     {
       "type": 0,
       "value": "Español"
+    }
+  ],
+  "e05+43": [
+    {
+      "offset": 0,
+      "options": {
+        "=0": {
+          "value": [
+            {
+              "type": 0,
+              "value": "Cap recompensa assignada"
+            }
+          ]
+        },
+        "one": {
+          "value": [
+            {
+              "type": 1,
+              "value": "formattedCount"
+            },
+            {
+              "type": 0,
+              "value": " recompensa assignada"
+            }
+          ]
+        },
+        "other": {
+          "value": [
+            {
+              "type": 1,
+              "value": "formattedCount"
+            },
+            {
+              "type": 0,
+              "value": " recompenses assignades"
+            }
+          ]
+        }
+      },
+      "pluralType": "cardinal",
+      "type": 6,
+      "value": "count"
+    },
+    {
+      "type": 0,
+      "value": " fins ara."
     }
   ],
   "e9Ki9H": [
@@ -752,52 +810,6 @@
     {
       "type": 0,
       "value": "Ups! Hi ha hagut un error."
-    }
-  ],
-  "jCpDlJ": [
-    {
-      "offset": 0,
-      "options": {
-        "one": {
-          "value": [
-            {
-              "type": 1,
-              "value": "formattedCount"
-            },
-            {
-              "type": 0,
-              "value": " recompensa establerta"
-            }
-          ]
-        },
-        "other": {
-          "value": [
-            {
-              "type": 1,
-              "value": "formattedCount"
-            },
-            {
-              "type": 0,
-              "value": " recompenses establertes"
-            }
-          ]
-        },
-        "zero": {
-          "value": [
-            {
-              "type": 0,
-              "value": "Cap recompensa establerta"
-            }
-          ]
-        }
-      },
-      "pluralType": "cardinal",
-      "type": 6,
-      "value": "count"
-    },
-    {
-      "type": 0,
-      "value": " fins ara."
     }
   ],
   "kC3GAv": [

@@ -3,15 +3,14 @@ import { Link } from 'react-router-dom';
 import { Dashboard } from '../components/Dashboard';
 import style from './Home.module.css';
 
-const text = `Deserunt ad commodo pariatur consectetur minim adipisicing pariatur labore deserunt excepteur eiusmod eu aliquip consectetur. Nisi
-      voluptate esse dolor ad tempor nostrud velit. Pariatur nostrud eiusmod excepteur sint ut magna amet consequat velit. Ullamco cillum amet
-      culpa voluptate reprehenderit adipisicing Lorem ad proident exercitation magna sit amet. Voluptate quis sint duis deserunt sunt commodo
-      anim incididunt sunt deserunt labore nisi est aute. In ipsum quis nostrud do enim irure.`;
 
 export const Home = () => (
   <>
-    <p>
-      <FormattedMessage defaultMessage={text} />
+    <p className={style.motd}>
+      <h3><FormattedMessage defaultMessage={`Welcome, Habit Heroes! 🎯`} /></h3>
+      <FormattedMessage
+        defaultMessage={`Track your progress, claim your rewards, and turn good habits into great achievements. Ready to level up today?`}
+      />
     </p>
     <Dashboard />
     <div className={style["home-links-section"]}>

@@ -21,12 +21,11 @@ import { getRewardDueDate, getRewardStartingDate } from '../../../core/domain/ut
 
 export const Dashboard = () => (
   <div className={styles.dashboard}>
+
     <UpComingRewards />
-    <UpComingRewards className={styles['span-2']} />
-    <Figures className={styles['span-2']} />
-    <UpComingRewards />
-    <ParticipantsRecentAssessments className={styles['span-3']} />
-    <UpComingRewards />
+    <Figures />
+    <ParticipantsRecentAssessments className={styles['span-2']} />
+
   </div>
 );
 
@@ -45,7 +44,7 @@ const Figures = ({ className }: { className?: string }) => {
   return <article className={[styles.card, styles.figures, styles['card-content'], className].filter(Boolean).join(" ")}>
     <div>
       <FormattedMessage
-        defaultMessage={`{count, plural, zero {No} one {{formattedCount} reward} other {{formattedCount} rewards}} set until now.`}
+        defaultMessage={`{count, plural, =0 {No} one {{formattedCount} reward} other {{formattedCount} rewards}} set until now.`}
         values={{
           count: rewards?.allIds.length,
           formattedCount: <span className={styles.figure}>{rewards?.allIds.length}</span>
@@ -53,9 +52,10 @@ const Figures = ({ className }: { className?: string }) => {
       />
     </div>
     <div>
+
       <FormattedMessage
-        defaultMessage={`There {count, plural, zero {isn't any} one {is} other {are}} {count, plural, zero {} other {{formattedCount}}} {count, plural,
-                      zero {participant}
+        defaultMessage={`There {count, plural, =0 {isn't any} one {is} other {are}} {count, plural, =0 {} other {{formattedCount}}} {count, plural,
+                      =0 {participant}
                       one {participant}
                       other {participants}
                     }`}
@@ -66,7 +66,7 @@ const Figures = ({ className }: { className?: string }) => {
     </div>
     <div>
       <FormattedMessage
-        defaultMessage={`{count, plural, zero {None task} one {{formattedCount} task} other {{formattedCount} tasks} } managed.`}
+        defaultMessage={`{count, plural, =0 {None task} one {{formattedCount} task} other {{formattedCount} tasks} } managed.`}
         values={{
           count: tasks?.allIds.length,
           formattedCount: <span className={styles.figure}>{tasks?.allIds.length}</span>
