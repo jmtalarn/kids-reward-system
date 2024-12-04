@@ -23,8 +23,8 @@ export const Dashboard = () => (
   <div className={styles.dashboard}>
 
     <UpComingRewards />
-    <Figures />
-    <ParticipantsRecentAssessments className={styles['span-2']} />
+    <Figures className={styles['span-2']} />
+    <ParticipantsRecentAssessments className={styles['span-3']} />
 
   </div>
 );

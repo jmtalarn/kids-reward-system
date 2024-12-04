@@ -5,8 +5,8 @@
 	gap: 2rem;
 	/* grid-auto-rows: minmax(1fr, auto); */
 	grid-auto-flow: dense;
-	margin: 2rem 0;
-	padding: 0 2rem;
+	/* margin: 2rem 0; */
+	padding: 1rem;
 }
 
 
@@ -42,7 +42,7 @@
 	border-radius: 5px;
 	margin: 0 1rem 1rem 0;
 	display: inline-block;
-	width: 100%;
+	width: calc(100% - 2rem);
 }
 
 .card-header {

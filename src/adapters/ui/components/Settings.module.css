@@ -26,8 +26,9 @@ button.settings-button {
 }
 
 .dialog {
-	top: 1rem;
-	margin: 2rem auto;
+	/* top: 1rem; */
+	/* margin: 2rem auto; */
+	margin: auto;
 	border-radius: 1rem;
 	border: none;
 	padding: 1rem;

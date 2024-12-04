@@ -1,5 +1,5 @@
 .header {
-	padding: 1rem;
+	/* padding: 1rem; */
 	box-shadow: var(--box-shadow-sm);
 	display: flex;
 	align-items: center;
@@ -8,4 +8,7 @@
 
 .title {
 	font-size: 2rem;
+	padding: .5rem;
+	top: 5px;
+	position: relative;
 }
