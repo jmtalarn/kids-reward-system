@@ -19,6 +19,18 @@
   transition: all 100ms ease-in;
 }
 
+@media screen and (max-width: 450px) {
+  .link {
+    font-size: 12px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: start;
+    padding: 5px;
+  }
+}
+
 .link:hover {
   background-color: var(--color-primary-600);
 }

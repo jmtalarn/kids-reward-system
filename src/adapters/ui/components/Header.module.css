@@ -12,3 +12,9 @@
 	top: 5px;
 	position: relative;
 }
+
+@media screen and (max-width: 450px) {
+	.title {
+		font-size: 1.5rem;
+	}
+}
