@@ -70,26 +70,29 @@ export const Recurring = ({ recurring, setRecurring }: { recurring?: RecurringEv
 
 	}, [recurring]);
 	useEffect(() => {
-		let recurring;
-		if (selectedRecurringType === "Weekly") {
-			recurring = { kind: selectedRecurringType, dates: weekDays };
-		} else if (selectedRecurringType === "WholeMonth") {
-			recurring = {
-				kind: selectedRecurringType,
-				startingDate: dateToShortISOString(firstMonthDay),
-				dueDate: dateToShortISOString(lastMonthDay)
-			};
-		} else {
-			recurring = {
-				kind: selectedRecurringType,
-				startingDate: startingDate,
-				dueDate: dueDate
-			};
-		}
-		if (recurring) {
-			setAdditionalInfoMessage(recurring);
-			setRecurring(recurring);
-		}
+		const debounceUpdate = setTimeout(() => {
+			let recurring;
+			if (selectedRecurringType === "Weekly") {
+				recurring = { kind: selectedRecurringType, dates: weekDays };
+			} else if (selectedRecurringType === "WholeMonth") {
+				recurring = {
+					kind: selectedRecurringType,
+					startingDate: dateToShortISOString(firstMonthDay),
+					dueDate: dateToShortISOString(lastMonthDay)
+				};
+			} else {
+				recurring = {
+					kind: selectedRecurringType,
+					startingDate: startingDate,
+					dueDate: dueDate
+				};
+			}
+			if (recurring) {
+				setAdditionalInfoMessage(recurring);
+				setRecurring(recurring);
+			}
+		}, 300);
+		return () => clearTimeout(debounceUpdate);
 	}, [startingDate, dueDate, weekDays, selectedRecurringType, firstMonthDay, lastMonthDay, setRecurring]);
 
 	const OtherControlsMap: Record<RecurringType, JSX.Element> = {

@@ -1,12 +1,11 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useState, useCallback } from 'react';
 import { Trash2, User } from 'react-feather';
 import { FormattedMessage, useIntl } from 'react-intl';
 import { useDispatch, useSelector } from "react-redux";
 import { MultiValue } from 'react-select';
 import { Participant, ParticipantId } from '../../../core/domain/Participant';
 import type { RecurringEvent } from '../../../core/domain/Recurring';
-import { Reward, type RewardId } from '../../../core/domain/Reward';
-import { dateToShortISOString } from '../../../core/domain/utils/date-utils';
+import { Reward } from '../../../core/domain/Reward';
 import { fetchParticipants } from "../../state/participantsSlice";
 import { addReward, removeReward } from "../../state/rewardsSlice";
 import { AppDispatch, RootState } from '../../state/store';
@@ -24,44 +23,35 @@ const ParticipantLabel = ({ participant }: { participant: Participant }) => <><U
 
 
 const RewardForm = ({ reward }: { reward: Reward }) => {
+	console.log({ reward });
 	const intl = useIntl();
 	const dispatch = useDispatch<AppDispatch>();
 	const { participants } = useSelector((state: RootState) => state.participants);
 	const participantsOptions = useMemo(() => (participants.allIds.map((id: ParticipantId) => participants.byId[id])), [participants]);
-	const [rewardId, setRewardId] = useState<RewardId>(reward?.id ?? '');
-	const [rewardDescription, setRewardDescription] = useState<string>(reward?.description ?? '');
-	const [rewardParticipants, setRewardParticipants] = useState<Participant[]>(reward?.participants ?? []);
-	const [recurring, setRecurring] = useState<RecurringEvent>({ kind: "OnlyOnce", startingDate: dateToShortISOString(), dueDate: dateToShortISOString() });
+	const [updatedReward, setUpdatedReward] = useState<Reward | undefined>();
 
 	useEffect(() => { dispatch(fetchParticipants()); }, [dispatch]);
-	useEffect(() => {
-		if (participants && rewardParticipants === undefined) {
-			setRewardParticipants(participants.allIds);
-		}
-	}, [participants, rewardParticipants]);
 
 	useEffect(() => {
-		setRewardDescription(reward?.description ?? '');
-		setRecurring(reward?.recurring ?? { kind: "OnlyOnce", startingDate: dateToShortISOString(), dueDate: dateToShortISOString() });
-		setRewardParticipants(reward?.participants || []);
-		setRewardId(reward?.id);
+		if (reward) {
+			setUpdatedReward(reward);
+		}
 	}, [reward]);
 
-	const debouncedDescription = useDebounce<string>(rewardDescription, 500);
-	const debouncedParticipants = useDebounce<Participant[]>(rewardParticipants, 500);
-	const debouncedRecurring = useDebounce<RecurringEvent>(recurring, 500);
+	const debouncedUpdatedReward = useDebounce<Reward | undefined>(updatedReward, 500);
+
 	useEffect(() => {
+		console.log({ reward, debouncedUpdatedReward });
+		if (debouncedUpdatedReward && updatedReward !== reward) {
+			dispatch(addReward(
+				debouncedUpdatedReward
+			));
+		}
+	}, [debouncedUpdatedReward, dispatch]);
 
-		dispatch(addReward(
-			{
-				id: rewardId,
-				description: debouncedDescription,
-				recurring: debouncedRecurring,
-				participants: debouncedParticipants
-			}
-		));
-	}, [debouncedDescription, debouncedParticipants, debouncedRecurring, dispatch, rewardId]);
-
+	const handleSetRecurring = useCallback((recurring: RecurringEvent) => {
+		setUpdatedReward(prev => ({ ...prev, recurring }));
+	}, []);
 	return <>
 		<section className={commonStyle.section}>
 			<header className={commonStyle['section-header']}>
@@ -70,19 +60,23 @@ const RewardForm = ({ reward }: { reward: Reward }) => {
 			<div>
 				<TextArea
 					label={intl.formatMessage({ defaultMessage: "Description" })}
-					value={rewardDescription || ''}
-					onChange={e => setRewardDescription(e.target.value)}
+					value={updatedReward?.description || ''}
+					onChange={e => setUpdatedReward({ ...updatedReward, description: e.target.value })}
 					placeholder={intl.formatMessage({ defaultMessage: "Reward description" })}
 					className={rewardFormStyle.description}
 				/>
-				<Recurring recurring={recurring} setRecurring={setRecurring} />
+				<Recurring recurring={updatedReward?.recurring} setRecurring={handleSetRecurring} />
 
 				<Select<Participant, true>
 					isMulti
 					label={intl.formatMessage({ defaultMessage: "Participants" })}
-					value={(rewardParticipants?.map((id: ParticipantId) => participants.byId[id]) || participantsOptions) || []}
+					value={(updatedReward?.participants?.map((id: ParticipantId) => participants.byId[id]) || participantsOptions) || []}
 
-					onChange={(selectedParticipants: MultiValue<Participant>) => setRewardParticipants(selectedParticipants?.map((participant: Participant) => participant.id) ?? [])}
+					onChange={(selectedParticipants: MultiValue<Participant>) => {
+						// setRewardParticipants(selectedParticipants?.map((participant: Participant) => participant.id) ?? [])
+						setUpdatedReward({ ...reward, participants: selectedParticipants?.map((participant: Participant) => participant.id) ?? [] });
+					}
+					}
 
 					getOptionLabel={(participant: Participant) => participant.name}
 					formatOptionLabel={(participant: Participant) => <ParticipantLabel participant={participant} />}
