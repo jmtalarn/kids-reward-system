@@ -6,6 +6,7 @@ import { RewardId } from '../../../core/domain/Reward';
 import { Task, type TaskId } from '../../../core/domain/Task';
 import { RootState, AppDispatch } from '../store';
 import { getRewardDueDate, getRewardStartingDate } from '../../../core/domain/utils/reward-utils';
+import { parseShortIsoString } from '../../../core/domain/utils/date-utils';
 
 export const useTasksForDate = () => {
 	const { tasks } = useSelector((state: RootState) => state.tasks);
@@ -21,7 +22,7 @@ export const useTasksForDate = () => {
 	}, []);
 
 	useEffect(() => {
-		const date = new Date(dateString);
+		const date = parseShortIsoString();
 		if (date) {
 			const currentRewards = rewards
 				.allIds
@@ -36,6 +37,7 @@ export const useTasksForDate = () => {
 				});
 
 			const filteredTasks = currentRewards?.reduce((acc: Task[], rewardId: RewardId) => [...acc, ...(tasks.byRewardId[rewardId] || [])], []);
+
 			setFilteredTasks(filteredTasks.map((taskId: TaskId) => tasks.byId[taskId]));
 		}
 	}, [tasks, rewards, dateString]);

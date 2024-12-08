@@ -10,7 +10,7 @@ import Input from './Input';
 import LanguageSelector from './LanguageSelector';
 import Select from './Select';
 import style from './Settings.module.css';
-import { setClaimingConfirmationThreshold, setFirstDayOfWeek } from '../../state/settingsSlice';
+import { getClaimingConfirmationThreshold, getFirstDayOfWeek, getLang, setClaimingConfirmationThreshold, setFirstDayOfWeek } from '../../state/settingsSlice';
 
 interface ModalProps {
   openModal: boolean;
@@ -23,6 +23,13 @@ export const Settings = () => {
 
   const [modalOpen, setModalOpen] = useState<boolean>(false);
   const settings = useSelector((state: RootState) => state.settings);
+  const dispatch = useDispatch<AppDispatch>();
+
+  useEffect(() => {
+    dispatch(getFirstDayOfWeek());
+    dispatch(getLang());
+    dispatch(getClaimingConfirmationThreshold());
+  }, []);
 
   return <>
     <Button className={style['settings-button']}

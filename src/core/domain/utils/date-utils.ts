@@ -11,7 +11,7 @@ export const dateToLongLocaleString = (date?: Date) => (date ?? new Date()).toLo
 
 export const parseShortIsoString = (dateString?: string) => {
 	const date = dateString ? new Date(dateString) : new Date();
-	date.setHours(0, 0, 0);
+	date.setHours(0, 0, 0, 0);
 	return date;
 };
 

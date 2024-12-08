@@ -6,12 +6,12 @@ import style from './Home.module.css';
 
 export const Home = () => (
   <>
-    <p className={style.motd}>
+    <div className={style.motd}>
       <h3><FormattedMessage defaultMessage={`Welcome, Habit Heroes! 🎯`} /></h3>
       <FormattedMessage
         defaultMessage={`Track your progress, claim your rewards, and turn good habits into great achievements. Ready to level up today?`}
       />
-    </p>
+    </div>
     <Dashboard />
     <div className={style["home-links-section"]}>
       <ul>

@@ -20,6 +20,7 @@ import { options } from '../../../core/domain/Options';
 import type { Task } from '../../../core/domain/Task';
 import { useElementOnScreen } from '../hooks/useIntersectionObserver';
 import { getRewardDueDate } from '../../../core/domain/utils/reward-utils';
+import { getFirstDayOfWeek } from '../../state/settingsSlice';
 
 
 
@@ -36,7 +37,11 @@ export const Calendar = () => {
   const { containerRef, isVisible } = useElementOnScreen({ initiallyVisible: true, options: { root: null, rootMargin: "0px", threshold: 0.1 } });
   const topRef = useRef<HTMLDivElement>(null);
   const intl = useIntl();
-  useEffect(() => { dispatch(fetchRewards()); }, []);
+
+  useEffect(() => {
+    dispatch(fetchRewards());
+    dispatch(getFirstDayOfWeek());
+  }, []);
 
   const dateSelected = parseShortIsoString(date);
 

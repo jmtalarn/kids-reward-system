@@ -68,3 +68,4 @@
 -   [x] Remove the Check button for updates
 -   [x] Confirmation on delete
 -   [ ] Issue: Icons disappear when shrinking window.
+-   [ ] Feature Login to sync data.
