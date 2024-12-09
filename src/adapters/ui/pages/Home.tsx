@@ -5,12 +5,15 @@ import style from './Home.module.css';
 
 
 export const Home = () => (
-  <>
-    <div className={style.motd}>
-      <h3><FormattedMessage defaultMessage={`Welcome, Habit Heroes! 🎯`} /></h3>
-      <FormattedMessage
-        defaultMessage={`Track your progress, claim your rewards, and turn good habits into great achievements. Ready to level up today?`}
-      />
+  <div className={style.home}>
+    <div className={style.firstRow}>
+      <div className={style.motd}>
+        <h3><FormattedMessage defaultMessage={`Welcome, Habit Heroes! 🎯`} /></h3>
+        <FormattedMessage
+          defaultMessage={`Track your progress, claim your rewards, and turn good habits into great achievements. Ready to level up today?`}
+        />
+      </div>
+      <Link to="/daily-tasks"><img src="./krs-logo.png" alt="An avatar of a kid, with some task icons around it" /></Link>
     </div>
     <Dashboard />
     <div className={style["home-links-section"]}>
@@ -20,7 +23,7 @@ export const Home = () => (
         </li>
       </ul>
     </div>
-  </>
+  </div>
 );
 
 export default Home;
