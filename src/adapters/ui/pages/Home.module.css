@@ -28,6 +28,7 @@
 .logo {
 	flex: 0 1 200px;
 	width: 200px;
+	border-radius: 50%;
 }
 
 .home {
