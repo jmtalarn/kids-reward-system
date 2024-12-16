@@ -8,25 +8,44 @@
 	font-size: 1.5rem;
 }
 
-.motd {
-	max-width: 800px;
-	width: 100%;
-	margin: 0 auto;
-	padding: .5rem;
-	font-size: 1.5rem;
-	flex: 1 1 450px;
-}
-
 .firstRow {
 	display: flex;
 	align-items: center;
 	justify-content: space-evenly;
 	flex-wrap: wrap;
 	margin: 2rem 0;
+
+}
+
+.motd {
+	width: 100%;
+	padding: .5rem;
+	font-size: 1.5rem;
+	flex: 0 0 450px;
+	min-width: 450px;
+}
+
+.logo {
+	flex: 0 1 200px;
+	width: 200px;
 }
 
 .home {
 	max-width: 1024px;
 	margin: 0 auto;
 	padding: 0 2rem;
+}
+
+.pulse {
+	animation: pulse-animation 1.5s infinite;
+}
+
+@keyframes pulse-animation {
+	0% {
+		box-shadow: 0 0 0 0px rgba(246, 100, 100, 0.2);
+	}
+
+	100% {
+		box-shadow: 0 0 0 20px rgba(150, 0, 0, 0);
+	}
 }

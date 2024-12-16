@@ -13,7 +13,12 @@ export const Home = () => (
           defaultMessage={`Track your progress, claim your rewards, and turn good habits into great achievements. Ready to level up today?`}
         />
       </div>
-      <Link to="/daily-tasks"><img src="./krs-logo.png" alt="An avatar of a kid, with some task icons around it" /></Link>
+      <Link className={[style.logo].join(" ")} to="/daily-tasks">
+        <img
+          src="./krs-logo.png" alt="An avatar of a kid, with some task icons around it"
+          className={style.pulse}
+        />
+      </Link>
     </div>
     <Dashboard />
     <div className={style["home-links-section"]}>

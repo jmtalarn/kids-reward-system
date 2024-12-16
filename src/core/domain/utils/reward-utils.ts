@@ -8,7 +8,8 @@ export const getRewardDueDate = (reward?: Reward) => {
 	let dueDate;
 	if (reward) {
 		if (reward.recurring?.kind === "Weekly") {
-			dueDate = reward.recurring.dates.map(parseShortIsoString).toSorted((a, b) => a.getTime() - b.getTime())[-1];
+			dueDate = reward.recurring.dates.map(parseShortIsoString).toSorted((a, b) => a.getTime() - b.getTime()).at(-1);
+			console.log({ dueDate, dates: reward.recurring.dates.map(parseShortIsoString).toSorted((a, b) => a.getTime() - b.getTime()) });
 		} else {
 			dueDate = reward.recurring?.dueDate ? parseShortIsoString(reward.recurring?.dueDate) : undefined;
 		}
